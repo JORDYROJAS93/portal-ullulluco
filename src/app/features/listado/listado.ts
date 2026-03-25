@@ -35,7 +35,7 @@ export class ListadoComponent implements OnInit {
     const nombres: any = {
       'gastronomia': 'Gastronomía Ullulluco',
       'historia': 'Historia de Alfonso Ugarte',
-      'festividades': 'Festividades y Danzas',
+      'festividades': 'Festividades y Costumbres',
       'agricultura': 'Agricultura Local',
       'turismo': 'Turismo en Ullulluco'
     };
