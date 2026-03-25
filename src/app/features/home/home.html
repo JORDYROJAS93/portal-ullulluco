@@ -1,0 +1,64 @@
+<section class="hero">
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <h1>Bienvenidos a Alfonso Ugarte</h1>
+      <p>Tierra de historia, sabor y tradición en el corazón de Ullulluco.</p>
+      <div class="hero-btns">
+        <button routerLink="/historia" class="btn-primary">Explorar Tradiciones</button>
+        <button routerLink="/ubicacion" class="btn-secondary">¿Cómo llegar?</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features-grid">
+  <div class="feature-card" routerLink="/gastronomia">
+    <div class="icon-circle">🍲</div>
+    <h3>Gastronomía</h3>
+    <p>Conoce el Picante de Cuy y otros platos que nos dan identidad.</p>
+  </div>
+
+  <div class="feature-card" routerLink="/festividades">
+    <div class="icon-circle">🎭</div>
+    <h3>Festividades</h3>
+    <p>Nuestras danzas y celebraciones patronales que unen al pueblo.</p>
+  </div>
+
+  <div class="feature-card" routerLink="/historia">
+    <div class="icon-circle">📜</div>
+    <h3>Historia</h3>
+    <p>Un viaje por los orígenes y el legado de nuestro distrito.</p>
+  </div>
+
+  <div class="feature-card" routerLink="/agricultura">
+    <div class="icon-circle">🌽</div>
+    <h3>Agricultura</h3>
+    <p>El motor de nuestra tierra: productos frescos y naturales.</p>
+  </div>
+</section>
+
+<section class="featured-preview">
+  <div class="container">
+    <h2 class="section-title">Destacados de Ullulluco</h2>
+    <div class="cards-destacadas">
+      
+      <div class="destacada-item" routerLink="/gastronomia">
+        <div class="badge">Popular</div>
+        <img [src]="'https://lh3.googleusercontent.com/d/1wMlVjufuq5tty_FiF0Fyrrnjwn5_kJSJ'" alt="Plato Típico">
+        <div class="destacada-info">
+          <h4>Sabor Tradicional</h4>
+          <p>La esencia de nuestra cocina en cada bocado.</p>
+        </div>
+      </div>
+
+      <div class="destacada-item" routerLink="/historia">
+        <img [src]="'https://lh3.googleusercontent.com/d/1yysIiVMmR4wgeD-z24ZSfzc_1UlV4KZd'" alt="Paisaje">
+        <div class="destacada-info">
+          <h4>Paisajes Ancestrales</h4>
+          <p>Descubre la belleza natural de nuestras montañas.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

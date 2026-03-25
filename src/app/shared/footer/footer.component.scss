@@ -1,0 +1,129 @@
+$color-guinda-dark: #4a0000;
+$color-guinda-mid: #7a0d0d;
+$color-oro: #ffcc00;
+
+.footer {
+  background: linear-gradient(135deg, $color-guinda-mid 0%, $color-guinda-dark 100%);
+  color: #ffffff;
+  padding: 4rem 2rem 2rem;
+  margin-top: 4rem;
+  border-top: 4px solid $color-oro;
+  position: relative;
+  overflow: hidden; // IMPORTANTE: Para que el texto de fondo no cause scroll
+
+  // Texto de fondo corregido (más pequeño y elegante)
+  &::before {
+    content: 'ALFONSO UGARTE';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 4rem; // Bajamos el tamaño
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.04);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr; // Espaciado más equilibrado
+    gap: 3rem;
+    position: relative;
+    z-index: 5;
+
+    @media (max-width: 992px) { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 650px) { grid-template-columns: 1fr; text-align: center; }
+  }
+
+  .footer-section {
+    // LIMPIEZA TOTAL DE LISTAS
+    ul {
+      list-style: none; // QUITA LOS PUNTOS
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.8rem;
+        
+        a {
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none; // QUITA EL SUBRAYADO AZUL
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          display: inline-block;
+
+          &:hover {
+            color: $color-oro;
+            transform: translateX(5px);
+          }
+        }
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 1rem;
+      span { color: $color-oro; font-weight: 300; }
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: $color-oro;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    p { 
+      font-size: 0.95rem; 
+      line-height: 1.6; 
+      opacity: 0.9;
+    }
+
+    .contact-list {
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 1rem;
+        @media (max-width: 650px) { justify-content: center; }
+      }
+    }
+    
+    .social-block {
+      margin-top: 2rem;
+      .icons-container {
+        display: flex;
+        gap: 1rem;
+        @media (max-width: 650px) { justify-content: center; }
+        
+        .social-icon {
+          width: 40px;
+          height: 40px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: 0.3s;
+          svg { width: 20px; fill: white; }
+          &:hover {
+            background: $color-oro;
+            svg { fill: $color-guinda-dark; }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    p { font-size: 0.85rem; opacity: 0.6; }
+  }
+}

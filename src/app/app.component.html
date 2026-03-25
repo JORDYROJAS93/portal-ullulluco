@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+
+<div [class.main-layout]="mostrarSidebar" [class.full-layout]="!mostrarSidebar">
+  
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+
+  @if (mostrarSidebar) {
+    <aside class="sidebar-area">
+      <app-sidebar></app-sidebar>
+    </aside>
+  }
+
+</div>
+
+<app-footer></app-footer>

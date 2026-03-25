@@ -1,0 +1,46 @@
+<div>
+    
+    <p class="parrafo-contenido">
+       En cada época, el destino de un pueblo encuentra guía en las manos de quienes asumen la responsabilidad de conducirlo. En Alfonso Ugarte, las autoridades no solo representan una estructura de gobierno, sino también el compromiso vivo con su gente, su historia y su porvenir.
+    </p>
+    <p class="parrafo-contenido">
+        A lo largo de los años, alcaldes y representantes han ido dejando su huella en Ullulluco, enfrentando los desafíos propios de una tierra andina donde cada decisión dialoga con la tradición y las necesidades del presente.
+    </p>
+    <p class="parrafo-contenido">
+        Más allá de los nombres y los periodos, cada gestión forma parte de un mismo tejido: el esfuerzo colectivo por fortalecer la comunidad, preservar sus costumbres y abrir caminos hacia el desarrollo. Así, la historia de sus autoridades no se escribe únicamente en documentos oficiales, sino también en las obras, en la memoria del pueblo y en la continuidad de su identidad.
+    </p>
+</div>
+  @if (gruposAutoridades$ | async; as grupos) {
+    @for (periodo of getPeriodos(grupos); track periodo) {
+      <div class="periodo-section">
+        <div class="periodo-header">
+          <h3>📅 Gestión {{ periodo }}</h3>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="auth-table">
+            <thead>
+              <tr>
+                <th>Cargo</th>
+                <th>Nombre de la Autoridad</th>
+                <th>Organización Política</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (persona of grupos[periodo]; track persona.id) {
+                <tr [class.is-alcalde]="persona.cargo.includes('ALCALDE')">
+                  <td class="col-cargo">
+                    <span class="cargo-badge">{{ persona.cargo }}</span>
+                  </td>
+                  <td class="col-nombre">{{ persona.nombre_autoridad }}</td>
+                  <td class="col-partido">{{ persona.organizacion_politica }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  } @else {
+    <div class="loading-state">Cargando cronología histórica...</div>
+  }

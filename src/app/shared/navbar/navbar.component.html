@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="logo" (click)="closeMenu()">
+      Alfonso Ugarte <span>Ullulluco</span>
+    </a>
+
+    <button class="menu-toggle" (click)="toggleMenu()" [class.open]="isMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" [class.open]="isMenuOpen">
+      <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Inicio</a></li>
+      <li><a routerLink="/gastronomia" routerLinkActive="active-link" (click)="closeMenu()">Gastronomía</a></li>
+      <li><a routerLink="/festividades" routerLinkActive="active-link" (click)="closeMenu()">Festividades</a></li>
+      <li><a routerLink="/historia" routerLinkActive="active-link" (click)="closeMenu()">Historia</a></li>
+      <li><a routerLink="/agricultura" routerLinkActive="active-link" (click)="closeMenu()">Agricultura</a></li>
+      <li><a routerLink="/ubicacion" routerLinkActive="active-link" (click)="closeMenu()">Ubicación</a></li>
+    </ul>
+  </div>
+</nav>

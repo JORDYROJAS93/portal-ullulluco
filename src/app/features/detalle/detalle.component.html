@@ -1,0 +1,90 @@
+@if (entrada$ | async; as entrada) {
+  <article class="detalle-container">
+    <header class="detalle-header">
+      <a [routerLink]="volverRuta" class="btn-back">
+        ← Volver a {{ categoriaActual | titlecase }}
+      </a>
+
+      <h1>{{ entrada.titulo }}</h1>
+
+      <div class="meta-info">
+        <span>Publicado el: {{ entrada.fecha | date: 'dd/MM/yyyy' }}</span>
+        <span class="badge">{{ entrada.categoria }}</span>
+      </div>
+    </header>
+
+    <div class="main-image">
+      <img
+        [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen"
+        (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen)"
+        class="clickable-img"
+      />
+    </div>
+
+    @if (imagenMaximizada) {
+  <div class="lightbox-overlay" (click)="cerrarImagen()">
+    <button class="close-btn" (click)="cerrarImagen()">×</button>
+    
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+      <img 
+        [src]="imagenMaximizada" 
+        [class.zoomed]="isZoomed"
+        (click)="toggleZoom($event)"
+        alt="Vista ampliada" 
+      />
+    </div>
+
+    @if (!isZoomed) {
+      <p class="zoom-hint">Haz clic en la imagen para ampliar (Zoom)</p>
+    }
+  </div>
+}
+
+    <section class="content">
+      <p class="summary"><strong>Resumen:</strong> {{ entrada.resumen }}</p>
+      <hr />
+      @if (entrada.contenido === 'LISTA_DINAMICA') {
+        <app-autoridades></app-autoridades>
+      } @else {
+        <div class="cuerpo-articulo" [innerHTML]="entrada.contenido"></div>
+      }
+
+      @if (
+        (entrada.imagen2 && entrada.imagen2.trim() !== '') ||
+        (entrada.imagen3 && entrada.imagen3.trim() !== '')
+      ) {
+        <div class="galeria-extra">
+          <h3>📸 Galería de fotos</h3>
+          <div class="fotos-grid">
+            @if (entrada.imagen2 && entrada.imagen2.trim() !== '') {
+              <div class="foto-item">
+                <img
+                  [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen2"
+                  alt="Foto extra 1"
+                  (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen2)"
+                  class="clickable-img"
+                />
+              </div>
+            }
+
+            @if (entrada.imagen3 && entrada.imagen3.trim() !== '') {
+              <div class="foto-item">
+                <img
+                  [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen3"
+                  alt="Foto extra 2"
+                  (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen3)"
+                  class="clickable-img"
+                />
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </section>
+  </article>
+} @else {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Cargando información desde Alfonso Ugarte...</p>
+  </div>
+}

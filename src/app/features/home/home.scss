@@ -1,0 +1,177 @@
+$color-guinda: #b01a1a;
+$color-oro: #ffcc00;
+// REGLA DE ORO PARA EVITAR SCROLL HORIZONTAL
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: hidden; // Corta cualquier desborde lateral
+}
+
+.hero {
+  height: 85vh;
+  // Imagen de fondo local (puedes cambiarla por una de Drive si prefieres)
+  background: url('https://lh3.googleusercontent.com/u/0/d/1yysIiVMmR4wgeD-z24ZSfzc_1UlV4KZd') no-repeat center center/cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+
+  .hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+  }
+
+  .hero-content {
+    z-index: 2;
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    p { font-size: clamp(1.1rem, 3vw, 1.5rem); margin-bottom: 2rem; opacity: 0.95; }
+    
+    .hero-btns {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 1rem 2.5rem;
+      background: $color-oro;
+      color: $color-guinda;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      &:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4); }
+    }
+
+    .btn-secondary {
+      padding: 1rem 2.5rem;
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      &:hover { background: white; color: $color-guinda; }
+    }
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: -50px auto 0; // Efecto de solapamiento profesional
+  position: relative;
+  z-index: 10;
+
+  .feature-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 4px solid transparent;
+
+    &:hover {
+      transform: translateY(-10px);
+      border-bottom: 4px solid $color-guinda;
+    }
+
+    .icon-circle { 
+      font-size: 3rem; 
+      background: #fdf2f2;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+    }
+
+    h3 { color: #333; margin-bottom: 0.5rem; font-size: 1.4rem; }
+    p { color: #666; font-size: 0.95rem; line-height: 1.5; }
+  }
+}
+
+.featured-preview {
+  padding: 6rem 2rem;
+  background: #f8f9fa;
+  
+  .section-title {
+    text-align: center;
+    color: $color-guinda;
+    margin-bottom: 3.5rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 4px;
+      background: $color-oro;
+      margin: 15px auto 0;
+    }
+  }
+
+  .cards-destacadas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    .destacada-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 350px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+      cursor: pointer;
+
+      .badge {
+        position: absolute;
+        top: 20px; right: 20px;
+        background: $color-oro;
+        color: $color-guinda;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-weight: 800;
+        z-index: 2;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+
+      img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+      
+      .destacada-info {
+        position: absolute;
+        bottom: 0; width: 100%;
+        padding: 2.5rem 1.5rem 1.5rem;
+        background: linear-gradient(transparent, rgba(0,0,0,0.85));
+        color: white;
+        z-index: 2;
+
+        h4 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 700; }
+        p { font-size: 1rem; opacity: 0.9; }
+      }
+
+      &:hover img { transform: scale(1.1); }
+    }
+  }
+}

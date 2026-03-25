@@ -1,0 +1,132 @@
+$color-guinda: #b01a1a;
+$color-oro: #ffcc00;
+
+.main-container {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.parrafo-contenido { font-style: normal; color: #666; margin-bottom: 1.5rem; text-align: justify; }
+
+.table-wrapper {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow-x: auto; // Clave para móviles
+}
+
+.auth-table {
+  width: 100%;
+  border-collapse: collapse;
+  // Quitamos el min-width fijo para que no fuerce el scroll si no es necesario
+  // min-width: 700px; 
+
+  thead {
+    background: $color-guinda;
+    color: white;
+    th { 
+      padding: 1.2rem; 
+      text-align: left; 
+      font-weight: 600;
+      white-space: nowrap; // Evita que los títulos de la tabla se partan
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+
+    &:hover { background: #fffcf0; }
+
+    &.is-alcalde {
+      background: rgba($color-oro, 0.08);
+      .cargo-badge { 
+        background: $color-oro; 
+        color: $color-guinda; 
+        border: 1px solid darken($color-oro, 10%);
+      }
+      .col-nombre { font-weight: 700; color: #000; font-size: 1.1rem; }
+    }
+  }
+
+  td { 
+    padding: 1rem 1.2rem; 
+    vertical-align: middle;
+    color: #444;
+  }
+
+  // AJUSTE PARA LAS ETIQUETAS (Badges)
+  .col-cargo {
+    width: 140px; // Damos un ancho fijo suficiente para que no se corte
+  }
+
+  .cargo-badge {
+    display: inline-flex; // Cambiado a flex para controlar mejor el contenido
+    flex-direction: column; // Si el texto es muy largo, se pone uno bajo otro
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    background: #f0f0f0;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    min-width: 100px;
+    word-break: break-word; // Permite romper palabras si es necesario
+  }
+
+  .col-nombre {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .col-partido {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+  }
+}
+
+// MEDIA QUERY PARA CELULARES (Layout de tarjetas en lugar de tabla)
+@media (max-width: 600px) {
+  .auth-table {
+    display: block; // Convertimos la tabla en bloques
+    
+    thead { display: none; } // Escondemos el encabezado en móvil
+    
+    tbody, tr, td { display: block; width: 100%; box-sizing: border-box; }
+    
+    tr {
+      padding: 1.5rem;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 1rem;
+      background: #fff;
+      border-radius: 10px;
+    }
+
+    td {
+      padding: 0.5rem 0;
+      border: none;
+      text-align: left;
+      
+      // Añadimos una etiqueta antes del dato en móvil
+      &:before {
+        content: attr(data-label); // Necesitarás agregar este atributo en el HTML
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        color: #999;
+        display: block;
+        margin-bottom: 2px;
+      }
+    }
+    
+    .col-cargo { width: 100%; }
+    .cargo-badge { width: fit-content; min-width: auto; }
+  }
+
+  
+}

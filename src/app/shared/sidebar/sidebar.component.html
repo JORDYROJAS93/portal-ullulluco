@@ -1,0 +1,20 @@
+<div class="sidebar-box">
+  <h3>{{ tituloSidebar }}</h3>
+
+  <ul class="recent-list">
+    @for (item of recientes$ | async; track item.id) {
+      <li>
+        <a [routerLink]="['/detalle', item.categoria || 'gastronomia', item.id]">
+          <span class="dot">•</span> {{ item.titulo }}
+        </a>
+      </li>
+    } @empty {
+      <li class="empty-msg">Explora nuestras secciones para ver más...</li>
+    }
+  </ul>
+
+  <div class="sidebar-banner">
+    <h4>¿Sabías que?</h4>
+    <p>Ullulluco es famoso por la calidad de su tierra para el cultivo de papas nativas.</p>
+  </div>
+</div>

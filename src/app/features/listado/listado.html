@@ -1,0 +1,49 @@
+<div class="pagina-contenedor">
+  <main class="contenido-principal">
+    
+    <header class="listado-header">
+      <span class="decoracion-superior">DESCUBRE</span>
+      <h2>{{ tituloCategoria }}</h2>
+      <p>Explora la riqueza y tradición de nuestro distrito</p>
+      <div class="linea-decorativa"></div>
+    </header>
+
+    <div class="cards-grid">
+      @for (entrada of entradas$ | async; track entrada.id) {
+        <div class="card" [routerLink]="['/detalle', entrada.categoria || 'gastronomia', entrada.id]">
+          
+          <div class="card-image">
+            @if (!img.complete) {
+              <div class="spinner"></div>
+            }
+            <img 
+              #img
+              [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen" 
+              [alt]="entrada.titulo" 
+              [class.img-cargada]="img.complete"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-date">{{ entrada.fecha | date: 'dd/MM/yyyy' }}</span>
+            </div>
+            
+            <h3 class="card-title">{{ entrada.titulo }}</h3>
+            <p class="card-resumen">{{ entrada.resumen }}</p>
+            
+            <div class="card-actions">
+              <span class="link-falso">Leer historia completa →</span>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="cargando-estado">
+          <div class="spinner"></div>
+          <p>Conectando con la base de datos de Alfonso Ugarte...</p>
+        </div>
+      }
+    </div>
+  </main>
+</div>

@@ -1,0 +1,124 @@
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    span { color: #b01a1a; }
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0; // Aseguramos que no tenga padding por defecto
+
+    li {
+      display: flex;
+      align-items: center;
+    }
+
+    a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent; // Espacio reservado
+      padding-bottom: 4px;
+
+      &:hover {
+        color: #b01a1a;
+      }
+
+      // IMPORTANTE: Sincronizado con routerLinkActive del HTML
+      &.active-link {
+        color: #b01a1a;
+        border-bottom: 2px solid #b01a1a;
+        font-weight: 700;
+      }
+    }
+  }
+
+.menu-toggle {
+    display: none; // Oculto por defecto en PC
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+
+    span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      transition: all 0.3s ease;
+    }
+
+    &.open {
+      span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle { display: flex; } // Mostramos el botón en móvil
+
+    .nav-links {
+      position: absolute;
+      top: 100%; // Justo debajo del navbar
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      flex-direction: column; // Lista vertical
+      gap: 0;
+      max-height: 0; // Oculto por defecto
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+
+      &.open {
+        max-height: 400px; // Altura suficiente para mostrar los enlaces
+      }
+
+      li {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        
+        a {
+          padding: 15px 2rem;
+          width: 100%;
+          display: block;
+          border-bottom: none; // Quitamos el subrayado horizontal
+          
+          &.active-link {
+            background-color: #fdf2f2;
+            border-left: 5px solid #b01a1a; // Subrayado vertical en móvil
+          }
+        }
+      }
+    }
+  }
+
+
+
+}
