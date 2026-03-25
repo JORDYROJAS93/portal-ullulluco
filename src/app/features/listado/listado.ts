@@ -36,7 +36,8 @@ export class ListadoComponent implements OnInit {
       'gastronomia': 'Gastronomía Ullulluco',
       'historia': 'Historia de Alfonso Ugarte',
       'festividades': 'Festividades y Danzas',
-      'agricultura': 'Agricultura Local'
+      'agricultura': 'Agricultura Local',
+      'turismo': 'Turismo en Ullulluco'
     };
     return nombres[cat] || 'Información';
   }

@@ -12,6 +12,7 @@ export const routes: Routes = [
   { path: 'festividades', component: ListadoComponent },
   { path: 'historia', component: ListadoComponent },
   { path: 'agricultura', component: ListadoComponent },
+  { path: 'turismo', component: ListadoComponent },
   { path: 'detalle/historia/historia-autoridades', component: AutoridadesComponent },
   { path: 'detalle/:category/:id', component: DetalleComponent },
   { path: 'ubicacion', component: UbicacionComponent },
