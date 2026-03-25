@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:alfonso-ugarte-ullulluco": "node dist/alfonso-ugarte-ullulluco/server/server.mjs"
+    "serve:ssr:alfonso-ugarte-ullulluco": "node dist/alfonso-ugarte-ullulluco/server/server.mjs",
+    "deploy": "ng build --configuration production --base-href \"https://JORDYROJAS93.github.io/portal-ullulluco/\" && npx ngh --dir dist/alfonso-ugarte-ullulluco/browser"
   },
   "prettier": {
     "printWidth": 100,
