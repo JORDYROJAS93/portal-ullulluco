@@ -1,0 +1,20 @@
+[
+  {
+    "id": "origenes-ullulluco",
+    "titulo": "Los Orígenes de Ullulluco",
+    "categoria": "historia",
+    "resumen": "Descubre cómo nació nuestra comunidad y el significado de su nombre a través de los siglos.",
+    "contenido": "La historia de Ullulluco se remonta a épocas prehispánicas, siendo un punto de encuentro para el comercio de productos agrícolas. Con la llegada de la era republicana, el distrito de Alfonso Ugarte consolidó su identidad... (puedes ampliar aquí con datos reales).",
+    "imagen": "assets/images/historia/plaza-antigua.jpg",
+    "fecha": "2026-01-01"
+  },
+  {
+    "id": "personajes-ilustres",
+    "titulo": "Héroes y Personajes Ilustres",
+    "categoria": "historia",
+    "resumen": "Un homenaje a quienes forjaron el destino de Alfonso Ugarte con su valor y trabajo.",
+    "contenido": "Llevamos con orgullo el nombre del héroe del Morro de Arica, Alfonso Ugarte. Pero además, nuestra tierra ha dado hijos ilustres que han destacado en la educación y el progreso local...",
+    "imagen": "assets/images/historia/alfonso-ugarte.jpg",
+    "fecha": "2026-02-15"
+  }
+]
