@@ -1,20 +1,38 @@
-<div>
-    
-    <p class="parrafo-contenido">
-       En cada época, el destino de un pueblo encuentra guía en las manos de quienes asumen la responsabilidad de conducirlo. En Alfonso Ugarte, las autoridades no solo representan una estructura de gobierno, sino también el compromiso vivo con su gente, su historia y su porvenir.
+<nav class="top-nav">
+  <div class="nav-wrapper">
+    <a routerLink="/" class="btn-back">
+      <span class="icon">←</span> Volver al Inicio
+    </a>
+  </div>
+</nav>
+
+<header class="header-autoridades">
+    <div class="header-content">
+    <span class="subtitulo">Memoria Municipal</span>
+    <h1>Nuestras Autoridades</h1>
+    <div class="linea-decorativa"></div>
+  </div>
+</header>
+
+<div class="main-container">
+  <div class="main-container">
+  <section class="reading-container">
+    <p class="parrafo-contenido intro-primera">
+      En cada época, el destino de un pueblo encuentra guía en las manos de quienes asumen la responsabilidad de conducirlo. En <strong>Alfonso Ugarte</strong>, las autoridades representan el compromiso vivo con su gente y su porvenir.
     </p>
+    <div class="divider-sutil"></div>
     <p class="parrafo-contenido">
         A lo largo de los años, alcaldes y representantes han ido dejando su huella en Ullulluco, enfrentando los desafíos propios de una tierra andina donde cada decisión dialoga con la tradición y las necesidades del presente.
     </p>
-    <p class="parrafo-contenido">
-        Más allá de los nombres y los periodos, cada gestión forma parte de un mismo tejido: el esfuerzo colectivo por fortalecer la comunidad, preservar sus costumbres y abrir caminos hacia el desarrollo. Así, la historia de sus autoridades no se escribe únicamente en documentos oficiales, sino también en las obras, en la memoria del pueblo y en la continuidad de su identidad.
-    </p>
-</div>
+  </section>
+  
+  </div>
+
   @if (gruposAutoridades$ | async; as grupos) {
     @for (periodo of getPeriodos(grupos); track periodo) {
       <div class="periodo-section">
         <div class="periodo-header">
-          <h3>📅 Gestión {{ periodo }}</h3>
+          <h3>Gestión {{ periodo }}</h3>
         </div>
 
         <div class="table-wrapper">
@@ -28,12 +46,12 @@
             </thead>
             <tbody>
               @for (persona of grupos[periodo]; track persona.id) {
-                <tr [class.is-alcalde]="persona.cargo.includes('ALCALDE')">
-                  <td class="col-cargo">
+                <tr [class.is-alcalde]="persona.cargo.toUpperCase().includes('ALCALDE')">
+                  <td data-label="Cargo" class="col-cargo">
                     <span class="cargo-badge">{{ persona.cargo }}</span>
                   </td>
-                  <td class="col-nombre">{{ persona.nombre_autoridad }}</td>
-                  <td class="col-partido">{{ persona.organizacion_politica }}</td>
+                  <td data-label="Nombre" class="col-nombre">{{ persona.nombre_autoridad }}</td>
+                  <td data-label="Partido" class="col-partido">{{ persona.organizacion_politica }}</td>
                 </tr>
               }
             </tbody>
@@ -42,5 +60,8 @@
       </div>
     }
   } @else {
-    <div class="loading-state">Cargando cronología histórica...</div>
+    <div class="loading-state">
+      <p>Cargando cronología histórica...</p>
+    </div>
   }
+</div>

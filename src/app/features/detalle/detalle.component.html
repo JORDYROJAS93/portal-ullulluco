@@ -1,8 +1,8 @@
 @if (entrada$ | async; as entrada) {
   <article class="detalle-container">
     <header class="detalle-header">
-      <a [routerLink]="volverRuta" class="btn-back">
-        ← Volver a {{ categoriaActual | titlecase }}
+      <a [routerLink]="['/' + categoriaActual]" class="btn-back">
+        ← Volver a {{ nombreSubcategoria | titlecase }}
       </a>
 
       <h1>{{ entrada.titulo }}</h1>
@@ -13,68 +13,51 @@
       </div>
     </header>
 
-    <div class="main-image">
+    <div class="main-image-container">
       <img
         [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen"
         (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen)"
-        class="clickable-img"
+        class="clickable-img main-img"
+        [alt]="entrada.titulo"
       />
     </div>
 
     @if (imagenMaximizada) {
-  <div class="lightbox-overlay" (click)="cerrarImagen()">
-    <button class="close-btn" (click)="cerrarImagen()">×</button>
-    
-    <div class="lightbox-content" (click)="$event.stopPropagation()">
-      <img 
-        [src]="imagenMaximizada" 
-        [class.zoomed]="isZoomed"
-        (click)="toggleZoom($event)"
-        alt="Vista ampliada" 
-      />
-    </div>
-
-    @if (!isZoomed) {
-      <p class="zoom-hint">Haz clic en la imagen para ampliar (Zoom)</p>
+      <div class="lightbox-overlay" (click)="cerrarImagen()">
+        <button class="close-btn" (click)="cerrarImagen()">×</button>
+        <div class="lightbox-content" (click)="$event.stopPropagation()">
+          <img [src]="imagenMaximizada" [class.zoomed]="isZoomed" (click)="toggleZoom($event)" />
+        </div>
+        @if (!isZoomed) { <p class="zoom-hint">Clic para ampliar</p> }
+      </div>
     }
-  </div>
-}
 
     <section class="content">
       <p class="summary"><strong>Resumen:</strong> {{ entrada.resumen }}</p>
       <hr />
+
       @if (entrada.contenido === 'LISTA_DINAMICA') {
         <app-autoridades></app-autoridades>
       } @else {
         <div class="cuerpo-articulo" [innerHTML]="entrada.contenido"></div>
       }
 
-      @if (
-        (entrada.imagen2 && entrada.imagen2.trim() !== '') ||
-        (entrada.imagen3 && entrada.imagen3.trim() !== '')
-      ) {
+      @if (entrada.imagen2 || entrada.imagen3) {
         <div class="galeria-extra">
           <h3>📸 Galería de fotos</h3>
           <div class="fotos-grid">
-            @if (entrada.imagen2 && entrada.imagen2.trim() !== '') {
+            @if (entrada.imagen2) {
               <div class="foto-item">
-                <img
-                  [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen2"
-                  alt="Foto extra 1"
-                  (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen2)"
-                  class="clickable-img"
-                />
+                <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen2"
+                     (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen2)"
+                     class="clickable-img" />
               </div>
             }
-
-            @if (entrada.imagen3 && entrada.imagen3.trim() !== '') {
+            @if (entrada.imagen3) {
               <div class="foto-item">
-                <img
-                  [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen3"
-                  alt="Foto extra 2"
-                  (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen3)"
-                  class="clickable-img"
-                />
+                <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen3"
+                     (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen3)"
+                     class="clickable-img" />
               </div>
             }
           </div>
@@ -83,8 +66,7 @@
     </section>
   </article>
 } @else {
-  <div class="loading">
-    <div class="spinner"></div>
-    <p>Cargando información desde Alfonso Ugarte...</p>
+  <div class="loading-state">
+    <p>Cargando información...</p>
   </div>
 }

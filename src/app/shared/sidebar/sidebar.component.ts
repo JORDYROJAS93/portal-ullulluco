@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit {
         this.actualizarTitulo(categoria);
         
         // Ahora pide siempre la categoría correcta al servicio
-        return this.dataService.getLatest(categoria);
+        return this.dataService.getEntriesBySubcategory(categoria);
       }),
     );
   }

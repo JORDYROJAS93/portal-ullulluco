@@ -1,4 +1,4 @@
-// Diseño con Sidebar (Listado y Detalles)
+// Diseño con Sidebar
 .main-layout {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -9,22 +9,26 @@
   min-height: 70vh;
 }
 
-// Diseño sin Sidebar (Para el Home)
+// Diseño sin Sidebar (Home, Autoridades, Ubicación)
 .full-layout {
-  display: block; // No hay columnas
+  display: block;
   width: 100%;
-  margin: 0;
-  padding: 0;
+  max-width: 1200px; // Opcional: para que no se vea tan ancho en monitores grandes
+  margin: 0 auto;
+  padding: 0 1rem;
   min-height: 70vh;
 
   .content-area {
-    width: 100%; // Ocupa todo el ancho
+    width: 100%;
   }
 }
 
-// Responsivo para el diseño con sidebar
 @media (max-width: 900px) {
   .main-layout {
     grid-template-columns: 1fr;
+    
+    .sidebar-area {
+      display: none; // Opcional: ocultar sidebar en móvil si estorba mucho
+    }
   }
 }

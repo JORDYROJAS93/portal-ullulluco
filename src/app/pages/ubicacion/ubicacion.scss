@@ -1,80 +1,140 @@
-$color-guinda: #a32a4e;
+@use "sass:color";
 
-.foto-plaza {
-  margin: 2rem 0;
+$color-guinda: #b01a1a;
+$color-oro: #ffcc00;
+
+// Reutilizamos el estilo Hero de Autoridades para dar consistencia
+.header-geo {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+              url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
+  background-color: $color-guinda;
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 1rem;
   text-align: center;
-  img {
-    width: 100%;
+  color: white;
+
+  .header-content {
     max-width: 800px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    .subtitulo { color: $color-oro; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
+    h1 { font-size: 3.5rem; margin: 0.5rem 0; font-weight: 800; }
+    .linea-decorativa { height: 4px; width: 60px; background: $color-oro; margin: 1rem auto; }
   }
-  .caption {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 10px;
-    font-weight: bold;
-  }
+}
+
+.main-container {
+  max-width: 1100px;
+  margin: -3rem auto 4rem; // "Muerde" el header
+  position: relative;
+  z-index: 10;
+}
+
+.reading-container {
+  background: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+}
+
+.intro-geo {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 2rem;
+  strong { color: $color-guinda; }
 }
 
 .datos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
-  margin: 1.5rem 0;
-  
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   .dato-item {
     background: #fdf2f2;
-    padding: 15px;
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
-    border-radius: 8px;
-    border-bottom: 3px solid $color-guinda;
-
-    .label { display: block; font-size: 0.75rem; color: #888; text-transform: uppercase; }
-    .valor { display: block; font-size: 1rem; font-weight: bold; color: $color-guinda; }
+    border-bottom: 4px solid $color-guinda;
+    .label { font-size: 0.7rem; text-transform: uppercase; color: #888; display: block; }
+    .valor { font-size: 1.1rem; font-weight: bold; color: $color-guinda; }
   }
 }
 
-.limites-list {
-  list-style: none;
-  padding: 0;
+.grid-visual {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  
-  @media (max-width: 600px) { grid-template-columns: 1fr; }
+  gap: 2rem;
+  margin: 3rem 0;
+  align-items: center;
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
+}
 
-  li {
-    background: #f9f9f9;
-    padding: 12px;
-    border-radius: 6px;
-    border-left: 4px solid #ccc;
-    font-size: 0.95rem;
-    
-    strong { color: $color-guinda; }
+.limites-box {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  h3 { color: $color-guinda; margin-top: 0; }
+  .limites-list {
+    list-style: none; padding: 0;
+    li {
+      padding: 10px 0; border-bottom: 1px solid #eee;
+      strong { color: $color-guinda; width: 70px; display: inline-block; }
+    }
   }
 }
 
-.dato-curioso {
-  background: $color-guinda;
-  color: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 15px rgba(163, 42, 78, 0.2);
+.foto-destacada {
+  img { width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+  .caption { text-align: center; color: #777; font-size: 0.9rem; margin-top: 10px; }
+}
 
-  h4 { margin-top: 0; color: #ffcc00; }
-  p { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0; }
+.map-wrapper {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  margin: 1.5rem 0 3rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  .dot { width: 12px; height: 12px; background: $color-oro; border-radius: 50%; }
+  h3 { margin: 0; color: $color-guinda; font-size: 1.6rem; }
+}
+
+.rutas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
 }
 
 .ruta-card {
   background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  border-left: 5px solid $color-guinda;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  border-top: 5px solid $color-guinda;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  .ruta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    h4 { margin: 0; color: #222; }
+    .tiempo { background: #eee; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+  }
+  p { color: #666; font-size: 0.95rem; line-height: 1.6; }
+}
 
-  h4 { color: $color-guinda; margin: 0 0 10px 0; }
-  .tiempo { font-size: 0.85rem; font-weight: bold; color: #666; }
+.dato-curioso-full {
+  background: $color-guinda;
+  color: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  margin-top: 4rem;
+  h4 { color: $color-oro; margin-top: 0; font-size: 1.4rem; }
+  p { margin-bottom: 0; opacity: 0.9; font-size: 1.1rem; }
 }

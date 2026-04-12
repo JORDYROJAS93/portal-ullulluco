@@ -5,19 +5,40 @@
     </a>
 
     <button class="menu-toggle" (click)="toggleMenu()" [class.open]="isMenuOpen">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
 
     <ul class="nav-links" [class.open]="isMenuOpen">
-      <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Inicio</a></li>
-      <li><a routerLink="/gastronomia" routerLinkActive="active-link" (click)="closeMenu()">Gastronomía</a></li>
-      <li><a routerLink="/festividades" routerLinkActive="active-link" (click)="closeMenu()">Festividades</a></li>
-      <li><a routerLink="/historia" routerLinkActive="active-link" (click)="closeMenu()">Historia</a></li>
-      <li><a routerLink="/agricultura" routerLinkActive="active-link" (click)="closeMenu()">Agricultura</a></li>
-      <li><a routerLink="/turismo" routerLinkActive="active-link" (click)="closeMenu()">Turismo</a></li>
-      <li><a routerLink="/ubicacion" routerLinkActive="active-link" (click)="closeMenu()">Ubicación</a></li>
+      <li>
+        <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Inicio</a>
+      </li>
+      
+      <li class="dropdown" [class.active]="activeDropdown === 'identidad'">
+        <a class="drop-trigger" (click)="toggleDropdown('identidad', $event)">Identidad</a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/historia" routerLinkActive="active-link" (click)="closeMenu()">Historia</a></li>
+          <li><a routerLink="/autoridades" routerLinkActive="active-link" (click)="closeMenu()">Autoridades</a></li>
+          <li><a routerLink="/leyendas" routerLinkActive="active-link" (click)="closeMenu()">Mitos y Leyendas</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown" [class.active]="activeDropdown === 'sabores'">
+        <a class="drop-trigger" (click)="toggleDropdown('sabores', $event)">Sabores y Tradición</a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/gastronomia" routerLinkActive="active-link" (click)="closeMenu()">Gastronomía</a></li>
+          <li><a routerLink="/festividades" routerLinkActive="active-link" (click)="closeMenu()">Festividades</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown" [class.active]="activeDropdown === 'tierra'">
+        <a class="drop-trigger" (click)="toggleDropdown('tierra', $event)">Nuestra Tierra</a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/agricultura" routerLinkActive="active-link" (click)="closeMenu()">Agricultura</a></li>
+          <li><a routerLink="/plantas-nativas" routerLinkActive="active-link" (click)="closeMenu()">Plantas Nativas</a></li>
+          <li><a routerLink="/turismo" routerLinkActive="active-link" (click)="closeMenu()">Turismo</a></li>
+          <li><a routerLink="/ubicacion" routerLinkActive="active-link" (click)="closeMenu()">Ubicación</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 </nav>

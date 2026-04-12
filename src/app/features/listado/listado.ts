@@ -1,15 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router'; // Importante para detectar el cambio
-
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
-import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
-import { DataService } from '../../core/services/data.service';
+import { DataService, Entrada } from '../../core/services/data.service';
 
 @Component({
   selector: 'app-listado',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './listado.html',
   styleUrl: './listado.scss',
 })
@@ -17,28 +15,36 @@ export class ListadoComponent implements OnInit {
   private dataService = inject(DataService);
   private route = inject(ActivatedRoute);
 
-  entradas$!: Observable<any[]>;
+  entradas$!: Observable<Entrada[]>;
   tituloCategoria: string = '';
 
   ngOnInit(): void {
-    // Esto detecta el cambio de /gastronomia a /historia automáticamente
+    // Escucha cambios en la URL (ej: de /gastronomia a /leyendas)
     this.entradas$ = this.route.url.pipe(
       switchMap(url => {
-        const categoria = url[0]?.path || 'gastronomia';
-        this.tituloCategoria = this.formatearTitulo(categoria);
-        return this.dataService.getEntriesByCategory(categoria);
+        // Obtenemos la última parte de la ruta
+        const subcat = url[url.length - 1]?.path || 'gastronomia';
+        
+        // Ponemos el título bonito arriba
+        this.tituloCategoria = this.formatearTitulo(subcat);
+        
+        // Llamamos a la función que acabamos de crear en el servicio
+        return this.dataService.getEntriesBySubcategory(subcat);
       })
     );
   }
 
-  formatearTitulo(cat: string): string {
+  formatearTitulo(subcat: string): string {
     const nombres: any = {
-      'gastronomia': 'Gastronomía Ullulluco',
+      'gastronomia': 'Gastronomía de Ullulluco',
       'historia': 'Historia de Alfonso Ugarte',
       'festividades': 'Festividades y Costumbres',
       'agricultura': 'Agricultura Local',
-      'turismo': 'Turismo en Ullulluco'
+      'turismo': 'Turismo en el Pueblo',
+      'leyendas': 'Mitos y Leyendas',
+      'plantas-nativas': 'Flora Nativa',
+      'autoridades': 'Nuestras Autoridades'
     };
-    return nombres[cat] || 'Información';
+    return nombres[subcat] || 'Información';
   }
 }

@@ -7,9 +7,9 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,NavbarComponent,SidebarComponent,FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, SidebarComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   protected readonly title = signal('alfonso-ugarte-ullulluco');
@@ -17,12 +17,17 @@ export class AppComponent {
   mostrarSidebar = true;
 
   constructor() {
-    // Escuchamos los cambios de ruta
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      // Si la URL es la raíz '/' o está vacía, ocultamos el sidebar
-      this.mostrarSidebar = event.url !== '/' && event.url !== '/home';
-    });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        // CAMBIO: Usar urlAfterRedirects para evitar errores de navegación
+        const urlFinal = event.urlAfterRedirects;
+
+        // Lista de páginas que ocupan TODO el ancho (sin sidebar)
+        const rutasFullWidth = ['/', '/home', '/autoridades', '/ubicacion'];
+
+        // Si la ruta final está en la lista, ocultamos sidebar
+        this.mostrarSidebar = !rutasFullWidth.includes(urlFinal);
+      });
   }
 }
