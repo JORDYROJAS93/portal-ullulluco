@@ -4,11 +4,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DataService, Entrada } from '../../core/services/data.service';
 import { Observable, tap } from 'rxjs';
 import { AutoridadesComponent } from '../../pages/autoridades/autoridades';
+import { SafeHtmlPipe } from '../../core/pipes/safe-html-pipe';
 
 @Component({
   selector: 'app-detalle',
   standalone: true,
-  imports: [CommonModule, RouterLink, AutoridadesComponent],
+  imports: [CommonModule, RouterLink, AutoridadesComponent,SafeHtmlPipe],
   templateUrl: './detalle.component.html',
   styleUrl: './detalle.component.scss',
 })

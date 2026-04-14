@@ -39,7 +39,7 @@
       @if (entrada.contenido === 'LISTA_DINAMICA') {
         <app-autoridades></app-autoridades>
       } @else {
-        <div class="cuerpo-articulo" [innerHTML]="entrada.contenido"></div>
+        <div class="cuerpo-articulo" [innerHTML]="entrada.contenido | safeHtml"></div>
       }
 
       @if (entrada.imagen2 || entrada.imagen3) {
