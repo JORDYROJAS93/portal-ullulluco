@@ -1,34 +1,52 @@
-// Diseño con Sidebar
+// Variables para consistencia
+$ancho-sidebar: 320px;
+$gap-layout: 2rem;
+$max-width-web: 1250px;
+
+// Diseño con Sidebar (Se activa en Listados y Detalle)
 .main-layout {
   display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 2rem;
-  max-width: 1200px;
+  grid-template-columns: 1fr $ancho-sidebar; // El contenido ocupa el resto, sidebar fijo
+  gap: $gap-layout;
+  max-width: $max-width-web;
   margin: 2rem auto;
-  padding: 0 1rem;
-  min-height: 70vh;
+  padding: 0 1.5rem;
+  min-height: 75vh;
+  align-items: flex-start; // Evita que las columnas se estiren verticalmente
+
+  .content-area {
+    min-width: 0; // Evita que contenidos anchos (como tablas o pre) rompan el grid
+  }
+
+  .sidebar-area {
+    position: sticky;
+    top: 20px; // Se queda pegado al hacer scroll
+  }
 }
 
-// Diseño sin Sidebar (Home, Autoridades, Ubicación)
+// Diseño sin Sidebar (Home, Autoridades, etc.)
 .full-layout {
   display: block;
   width: 100%;
-  max-width: 1200px; // Opcional: para que no se vea tan ancho en monitores grandes
-  margin: 0 auto;
-  padding: 0 1rem;
-  min-height: 70vh;
+  max-width: $max-width-web;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  min-height: 75vh;
 
   .content-area {
     width: 100%;
   }
 }
 
-@media (max-width: 900px) {
+// RESPONSIVE: En tablets y celulares
+@media (max-width: 992px) {
   .main-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; // Una sola columna
     
     .sidebar-area {
-      display: none; // Opcional: ocultar sidebar en móvil si estorba mucho
+      display: block; // Lo mostramos debajo del contenido
+      position: static; // Quitamos el sticky en móvil
+      margin-top: 3rem;
     }
   }
 }

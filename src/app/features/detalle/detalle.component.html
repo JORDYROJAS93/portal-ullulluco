@@ -1,70 +1,76 @@
 @if (entrada$ | async; as entrada) {
-  <article class="detalle-container">
-    <header class="detalle-header">
-      <a [routerLink]="['/' + categoriaActual]" class="btn-back">
-        ← Volver a {{ nombreSubcategoria | titlecase }}
-      </a>
-
-      <h1>{{ entrada.titulo }}</h1>
-
-      <div class="meta-info">
-        <span>Publicado el: {{ entrada.fecha | date: 'dd/MM/yyyy' }}</span>
-        <span class="badge">{{ entrada.categoria }}</span>
-      </div>
-    </header>
-
-    <div class="main-image-container">
-      <img
-        [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen"
-        (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen)"
-        class="clickable-img main-img"
-        [alt]="entrada.titulo"
-      />
-    </div>
-
-    @if (imagenMaximizada) {
-      <div class="lightbox-overlay" (click)="cerrarImagen()">
-        <button class="close-btn" (click)="cerrarImagen()">×</button>
-        <div class="lightbox-content" (click)="$event.stopPropagation()">
-          <img [src]="imagenMaximizada" [class.zoomed]="isZoomed" (click)="toggleZoom($event)" />
+  <div class="layout-detalle">
+    
+    <article class="detalle-container">
+      <header class="detalle-header">
+        <a [routerLink]="['/' + categoriaActual]" class="btn-back">
+          ← Volver a {{ nombreSubcategoria | titlecase }}
+        </a>
+        <h1>{{ entrada.titulo }}</h1>
+        <div class="meta-info">
+          <span>Publicado el: {{ entrada.fecha | date: 'dd/MM/yyyy' }}</span>
+          <span class="badge">{{ entrada.categoria }}</span>
         </div>
-        @if (!isZoomed) { <p class="zoom-hint">Clic para ampliar</p> }
+      </header>
+
+      <div class="main-image-container">
+        <img
+          [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen"
+          (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen)"
+          class="clickable-img main-img"
+          [alt]="entrada.titulo"
+        />
       </div>
-    }
 
-    <section class="content">
-      <p class="summary"><strong>Resumen:</strong> {{ entrada.resumen }}</p>
-      <hr />
+      <section class="content">
+        <p class="summary"><strong>Resumen:</strong> {{ entrada.resumen }}</p>
+        <hr />
+        @if (entrada.contenido === 'LISTA_DINAMICA') {
+          <app-autoridades></app-autoridades>
+        } @else {
+          <div class="cuerpo-articulo" [innerHTML]="entrada.contenido | safeHtml"></div>
+        }
 
-      @if (entrada.contenido === 'LISTA_DINAMICA') {
-        <app-autoridades></app-autoridades>
-      } @else {
-        <div class="cuerpo-articulo" [innerHTML]="entrada.contenido | safeHtml"></div>
-      }
-
-      @if (entrada.imagen2 || entrada.imagen3) {
-        <div class="galeria-extra">
-          <h3>📸 Galería de fotos</h3>
-          <div class="fotos-grid">
-            @if (entrada.imagen2) {
-              <div class="foto-item">
-                <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen2"
-                     (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen2)"
-                     class="clickable-img" />
-              </div>
-            }
-            @if (entrada.imagen3) {
-              <div class="foto-item">
-                <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen3"
-                     (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen3)"
-                     class="clickable-img" />
-              </div>
-            }
+        @if (entrada.imagen2 || entrada.imagen3) {
+          <div class="galeria-extra">
+            <h3>📸 Galería de fotos</h3>
+            <div class="fotos-grid">
+              @if (entrada.imagen2) {
+                <div class="foto-item">
+                  <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen2"
+                       (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen2)"
+                       class="clickable-img" />
+                </div>
+              }
+              @if (entrada.imagen3) {
+                <div class="foto-item">
+                  <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen3"
+                       (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen3)"
+                       class="clickable-img" />
+                </div>
+              }
+            </div>
           </div>
-        </div>
+        }
+      </section>
+    </article>
+
+    
+
+  </div>
+
+  @if (imagenMaximizada) {
+    <div class="lightbox-overlay" (click)="cerrarImagen()">
+      <button class="close-btn" (click)="cerrarImagen()">×</button>
+      <div class="lightbox-content" (click)="$event.stopPropagation()">
+        <img [src]="imagenMaximizada" [class.zoomed]="isZoomed" (click)="toggleZoom($event)" />
+      </div>
+      @if (!isZoomed) {
+        <p class="zoom-hint">Clic para ampliar</p>
       }
-    </section>
-  </article>
+    </div>
+  }
+
 } @else {
   <div class="loading-state">
     <p>Cargando información...</p>

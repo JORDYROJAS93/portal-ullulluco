@@ -5,11 +5,14 @@ import { DataService, Entrada } from '../../core/services/data.service';
 import { Observable, tap } from 'rxjs';
 import { AutoridadesComponent } from '../../pages/autoridades/autoridades';
 import { SafeHtmlPipe } from '../../core/pipes/safe-html-pipe';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
+ 
 
 @Component({
   selector: 'app-detalle',
   standalone: true,
-  imports: [CommonModule, RouterLink, AutoridadesComponent,SafeHtmlPipe],
+  // Agregamos SidebarComponent a los imports
+  imports: [CommonModule, RouterLink, AutoridadesComponent, SafeHtmlPipe],
   templateUrl: './detalle.component.html',
   styleUrl: './detalle.component.scss',
 })
@@ -18,8 +21,8 @@ export class DetalleComponent implements OnInit {
   private dataService = inject(DataService);
 
   entrada$!: Observable<Entrada | undefined>;
-  categoriaActual: string = ''; 
-  nombreSubcategoria: string = ''; // Para mostrar en el texto del botón
+  categoriaActual: string = '';
+  nombreSubcategoria: string = '';
 
   imagenMaximizada: string | null = null;
   isZoomed: boolean = false;
@@ -29,14 +32,12 @@ export class DetalleComponent implements OnInit {
 
     if (id) {
       this.entrada$ = this.dataService.getEntryById(id).pipe(
-        tap(entrada => {
+        tap((entrada) => {
           if (entrada) {
-            // Usamos la subcategoría real del objeto (ej: Agricultura)
             this.nombreSubcategoria = entrada.subcategoria || 'atrás';
-            // Normalizamos para la ruta (ej: "Plantas Nativas" -> "plantas-nativas")
             this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
           }
-        })
+        }),
       );
     }
   }

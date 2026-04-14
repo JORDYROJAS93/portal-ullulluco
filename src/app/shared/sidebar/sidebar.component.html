@@ -1,20 +1,24 @@
 <div class="sidebar-box">
   <h3>{{ tituloSidebar }}</h3>
+  <div class="linea-oro"></div>
 
-  <ul class="recent-list">
+  <div class="recent-list">
     @for (item of recientes$ | async; track item.id) {
-      <li>
-        <a [routerLink]="['/detalle', item.categoria || 'gastronomia', item.id]">
-          <span class="dot">•</span> {{ item.titulo }}
-        </a>
-      </li>
+      <div class="recent-item" [routerLink]="['/detalle', item.categoria || 'gastronomia', item.id]">
+        <div class="mini-img">
+          <img [src]="'https://lh3.googleusercontent.com/d/' + item.imagen" [alt]="item.titulo">
+        </div>
+        <div class="recent-info">
+          <h4>{{ item.titulo }}</h4>
+          <span>{{ item.fecha | date: 'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
     } @empty {
-      <li class="empty-msg">Explora nuestras secciones para ver más...</li>
+      <p class="empty-msg">Cargando novedades...</p>
     }
-  </ul>
+  </div>
 
   <div class="sidebar-banner">
-    <h4>¿Sabías que?</h4>
-    <p>Ullulluco es famoso por la calidad de su tierra para el cultivo de papas nativas.</p>
-  </div>
+  <h4>Orgullo de nuestra Tierra</h4>
+  <p>Ullulluco destaca por su gran producción de <strong>trigo y maíz</strong>, frutos de una tierra fértil trabajada con sabiduría en cada campaña agrícola.</p>
 </div>

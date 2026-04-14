@@ -9,17 +9,16 @@ $color-oro: #ffcc00;
   margin-top: 4rem;
   border-top: 4px solid $color-oro;
   position: relative;
-  overflow: hidden; // IMPORTANTE: Para que el texto de fondo no cause scroll
+  overflow: hidden;
 
-  // Texto de fondo corregido (más pequeño y elegante)
   &::before {
     content: 'ALFONSO UGARTE';
     position: absolute;
-    bottom: 20px;
+    bottom: 10px;
     right: 20px;
-    font-size: 4rem; // Bajamos el tamaño
+    font-size: 3.5rem;
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.03);
     z-index: 1;
     pointer-events: none;
   }
@@ -28,29 +27,29 @@ $color-oro: #ffcc00;
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr; // Espaciado más equilibrado
-    gap: 3rem;
+    // Ajustado a 4 columnas para incluir las nuevas secciones
+    grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr; 
+    gap: 2.5rem;
     position: relative;
     z-index: 5;
 
-    @media (max-width: 992px) { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 1100px) { grid-template-columns: 1fr 1fr; }
     @media (max-width: 650px) { grid-template-columns: 1fr; text-align: center; }
   }
 
   .footer-section {
-    // LIMPIEZA TOTAL DE LISTAS
     ul {
-      list-style: none; // QUITA LOS PUNTOS
+      list-style: none;
       padding: 0;
       margin: 0;
 
       li {
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.7rem;
         
         a {
           color: rgba(255, 255, 255, 0.8);
-          text-decoration: none; // QUITA EL SUBRAYADO AZUL
-          font-size: 1rem;
+          text-decoration: none;
+          font-size: 0.95rem;
           transition: all 0.3s ease;
           display: inline-block;
 
@@ -63,56 +62,58 @@ $color-oro: #ffcc00;
     }
 
     h2 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: white;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       span { color: $color-oro; font-weight: 300; }
     }
 
+    .logo-underline {
+      width: 50px;
+      height: 3px;
+      background: $color-oro;
+      margin-bottom: 1.2rem;
+      @media (max-width: 650px) { margin: 0 auto 1.2rem; }
+    }
+
     h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: $color-oro;
       margin-bottom: 1.5rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      border-bottom: 1px solid rgba($color-oro, 0.2);
+      padding-bottom: 5px;
+      display: inline-block;
     }
 
     p { 
-      font-size: 0.95rem; 
+      font-size: 0.9rem; 
       line-height: 1.6; 
-      opacity: 0.9;
-    }
-
-    .contact-list {
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        margin-bottom: 1rem;
-        @media (max-width: 650px) { justify-content: center; }
-      }
+      opacity: 0.85;
     }
     
     .social-block {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       .icons-container {
         display: flex;
-        gap: 1rem;
+        gap: 0.8rem;
         @media (max-width: 650px) { justify-content: center; }
         
         .social-icon {
-          width: 40px;
-          height: 40px;
+          width: 38px;
+          height: 38px;
           background: rgba(255, 255, 255, 0.1);
           border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
           transition: 0.3s;
-          svg { width: 20px; fill: white; }
+          svg { width: 18px; fill: white; }
           &:hover {
             background: $color-oro;
             svg { fill: $color-guinda-dark; }
+            transform: translateY(-3px);
           }
         }
       }
@@ -121,9 +122,14 @@ $color-oro: #ffcc00;
 
   .footer-bottom {
     margin-top: 4rem;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
-    p { font-size: 0.85rem; opacity: 0.6; }
+    p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 1rem; }
+    .footer-bottom-line {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba($color-oro, 0.3), transparent);
+    }
   }
 }

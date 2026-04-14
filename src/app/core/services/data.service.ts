@@ -24,20 +24,41 @@ export interface Entrada {
 export class DataService {
   private http = inject(HttpClient);
   
-  // Tu URL de SheetBest
   private apiUrl = 'https://api.sheetbest.com/sheets/cf504577-7f4e-4e07-a0f2-dbeb0b1b8f68/tabs/Hoja 1';
 
-  // NUEVA FUNCIÓN: Filtra por la columna 'subcategoria'
-  getEntriesBySubcategory(subcategory: string): Observable<Entrada[]> {
+  // Función privada interna para no repetir código de ordenamiento
+  private ordenarPorFecha(entradas: Entrada[]): Entrada[] {
+    return entradas.sort((a, b) => {
+      const dateA = new Date(a.fecha.split('/').reverse().join('-')).getTime();
+      const dateB = new Date(b.fecha.split('/').reverse().join('-')).getTime();
+      return dateB - dateA;
+    });
+  }
+
+  // Obtiene TODO ordenado
+  getAllEntriesSorted(): Observable<Entrada[]> {
     return this.http.get<Entrada[]>(this.apiUrl).pipe(
-      map((data: Entrada[]) => data.filter(item => item.subcategoria === subcategory))
+      map((data: Entrada[]) => this.ordenarPorFecha(data))
     );
   }
 
-  // Mantenemos esta por si la usas en otros lados
+  // Obtiene por subcategoría Y ORDENA (Esto arreglará el Sidebar)
+  getEntriesBySubcategory(subcategory: string): Observable<Entrada[]> {
+    return this.http.get<Entrada[]>(this.apiUrl).pipe(
+      map((data: Entrada[]) => {
+        const filtrados = data.filter(item => item.subcategoria === subcategory);
+        return this.ordenarPorFecha(filtrados);
+      })
+    );
+  }
+
+  // Obtiene por categoría Y ORDENA
   getEntriesByCategory(category: string): Observable<Entrada[]> {
     return this.http.get<Entrada[]>(this.apiUrl).pipe(
-      map((data: Entrada[]) => data.filter(item => item.categoria === category))
+      map((data: Entrada[]) => {
+        const filtrados = data.filter(item => item.categoria === category);
+        return this.ordenarPorFecha(filtrados);
+      })
     );
   }
 

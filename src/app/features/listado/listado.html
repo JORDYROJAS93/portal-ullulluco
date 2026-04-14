@@ -10,7 +10,7 @@
 
     <div class="cards-grid">
       @for (entrada of entradas$ | async; track entrada.id) {
-        <div class="card" [routerLink]="['/detalle', entrada.categoria || 'gastronomia', entrada.id]">
+        <div class="card" [routerLink]="['/detalle', entrada.subcategoria, entrada.id]">
           
           <div class="card-image">
             @if (!img.complete) {
