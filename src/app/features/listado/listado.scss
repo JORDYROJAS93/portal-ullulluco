@@ -9,11 +9,10 @@ $gris-suave: #666;
   padding: 40px 20px;
 }
 
-// ESTILO DE LOS TÍTULOS (Header de la categoría)
+// HEADER
 .listado-header {
   text-align: center;
   margin-bottom: 50px;
-
   .decoracion-superior {
     color: $color-oro;
     font-weight: 800;
@@ -22,23 +21,13 @@ $gris-suave: #666;
     display: block;
     margin-bottom: 5px;
   }
-
   h2 {
     color: $color-guinda;
-    font-size: clamp(2.5rem, 5vw, 3.5rem); // Letra grande y responsiva
-    font-family: 'Playfair Display', serif; // O una fuente similar elegante
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-family: 'Playfair Display', serif;
     font-weight: 900;
     margin: 0;
-    line-height: 1.1;
   }
-
-  p {
-    color: $gris-suave;
-    font-style: italic;
-    margin-top: 10px;
-    font-size: 1.1rem;
-  }
-
   .linea-decorativa {
     width: 80px;
     height: 4px;
@@ -48,13 +37,15 @@ $gris-suave: #666;
   }
 }
 
-// GRID DE TARJETAS
+// GRID
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
+  min-height: 400px; // Espacio mínimo para que no salte al cargar
 }
 
+// CARDS (Manteniendo tu estilo pero mejorando detalles)
 .card {
   background: $blanco;
   border-radius: 15px;
@@ -64,77 +55,83 @@ $gris-suave: #666;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 35px rgba($color-guinda, 0.15);
   }
-
   .card-image {
     height: 220px;
-    background: #f0f0f0;
+    background: #f8f8f8;
     position: relative;
-    overflow: hidden;
-
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-      opacity: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      transition: 0.5s opacity; opacity: 0;
       &.img-cargada { opacity: 1; }
     }
   }
-
-  &:hover .card-image img { transform: scale(1.1); }
-
   .card-content {
     padding: 25px;
-    flex-grow: 1;
+    .card-title { color: $color-guinda; font-weight: 800; margin-bottom: 12px; }
+    .card-resumen { color: #555; line-height: 1.6; }
+  }
+}
 
-    .card-meta {
-      font-size: 0.8rem;
-      color: $color-oro;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+// ESTADOS (Cargando y Vacío)
+.estado-contenedor {
+  grid-column: 1 / -1; // Ocupa todo el ancho del grid
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 0;
+  text-align: center;
+}
 
-    .card-title {
-      color: $color-guinda;
-      font-size: 1.4rem; // Letra más grande para el título de la tarjeta
-      margin-bottom: 12px;
-      font-weight: 800;
-    }
+.estado-vacio {
+  background: #fdfdfd;
+  border: 2px dashed #eee;
+  padding: 50px;
+  border-radius: 20px;
+  max-width: 500px;
 
-    .card-resumen {
-      font-size: 0.95rem;
-      color: #555;
-      line-height: 1.6;
-      display: -webkit-box;
-      -webkit-line-clamp: 3; // Corta el texto a 3 líneas
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+  .icono-vacio {
+    font-size: 4rem;
+    margin-bottom: 20px;
   }
 
-  .card-actions {
-    padding: 0 25px 25px;
-    .link-falso {
-      color: $color-guinda;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
+  h3 {
+    color: $color-guinda;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  p {
+    color: $gris-suave;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  .btn-regresar {
+    background: $color-guinda;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    &:hover { background: darken($color-guinda, 10%); }
   }
 }
 
 // SPINNER
 .spinner {
-  width: 40px; height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid $color-guinda;
+  width: 50px; height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid $color-guinda;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: auto;
+  margin: 0 auto 20px;
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }

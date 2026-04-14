@@ -14,7 +14,7 @@
           
           <div class="card-image">
             @if (!img.complete) {
-              <div class="spinner"></div>
+              <div class="spinner-image"></div>
             }
             <img 
               #img
@@ -39,9 +39,20 @@
           </div>
         </div>
       } @empty {
-        <div class="cargando-estado">
-          <div class="spinner"></div>
-          <p>Conectando con la base de datos de Alfonso Ugarte...</p>
+        <div class="estado-contenedor">
+          @if (cargando) {
+            <div class="estado-cargando">
+              <div class="spinner"></div>
+              <p>Conectando con la base de datos de Alfonso Ugarte...</p>
+            </div>
+          } @else {
+            <div class="estado-vacio">
+              <div class="icono-vacio">📖</div>
+              <h3>Próximamente más historias</h3>
+              <p>Estamos recopilando las mejores memorias de <strong>{{ tituloCategoria }}</strong> para compartirlas contigo.</p>
+              <button class="btn-regresar" [routerLink]="['/']">Explorar otras secciones</button>
+            </div>
+          }
         </div>
       }
     </div>

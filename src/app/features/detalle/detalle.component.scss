@@ -74,18 +74,28 @@ $color-oro: #ffcc00;
     padding-top: 2rem;
 
     .fotos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      display: flex;      // Cambiamos grid por flex para mejor control de una sola imagen
+      flex-wrap: wrap;    // Permite que bajen si no caben
       gap: 20px;
+      justify-content: flex-start; // Alinea a la izquierda (o 'center' si prefieres)
 
       .foto-item {
-        height: 250px; // Altura fija para la galería
+        flex: 1 1 300px;   // Crece, pero intenta mantener 300px de base
+        max-width: 45%;    // Si hay dos, ocupan casi la mitad cada una
+        height: 300px;     // Altura fija para que no se deformen
         border-radius: 12px;
         overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+        // Si solo hay un elemento, no permitimos que ocupe el 100%
+        &:only-child {
+          max-width: 500px; 
+        }
+
         img {
           width: 100%;
           height: 100%;
-          object-fit: cover; // Recorta la imagen para llenar el cuadro sin deformarse
+          object-fit: cover; 
           transition: transform 0.3s;
           &:hover { transform: scale(1.05); }
         }
