@@ -65,14 +65,14 @@ $font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 .parrafo-contenido {
-  color: #444;
-  line-height: 1.9;
+  color: #222;
+  line-height: 1.6;
   font-size: 1.15rem;
   margin-bottom: 1.5rem;
   text-align: justify;
 
   &.intro-primera {
-    font-size: 1.35rem;
+    font-size: 1.15rem;
     color: #222;
     &:first-letter {
       float: left;
