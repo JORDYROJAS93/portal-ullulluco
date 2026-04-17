@@ -1,15 +1,27 @@
 $color-guinda: #b01a1a;
 $color-oro: #ffcc00;
-// REGLA DE ORO PARA EVITAR SCROLL HORIZONTAL
+
+// Aplicar esto al inicio de tu home.scss
 :host {
   display: block;
   width: 100%;
-  overflow-x: hidden; // Corta cualquier desborde lateral
+  max-width: 100vw; // Limita el ancho al tamaño de la ventana
+  overflow-x: hidden; // Corta cualquier desborde
+  position: relative;
 }
 
+// Forzar que el cuerpo de la página no tenga scroll lateral
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+// --- SECCIÓN HERO ---
 .hero {
-  height: 85vh;
-  // Imagen de fondo local (puedes cambiarla por una de Drive si prefieres)
+  min-height: 85vh; // min-height para que no se corte el texto en móvil
   background: url('https://lh3.googleusercontent.com/u/0/d/1yysIiVMmR4wgeD-z24ZSfzc_1UlV4KZd') no-repeat center center/cover;
   position: relative;
   display: flex;
@@ -25,19 +37,27 @@ $color-oro: #ffcc00;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1rem;
+    padding: 2rem 1rem;
   }
 
   .hero-content {
     z-index: 2;
-    h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-    p { font-size: clamp(1.1rem, 3vw, 1.5rem); margin-bottom: 2rem; opacity: 0.95; }
+    h1 { 
+      font-size: clamp(1.8rem, 5vw, 3.5rem); 
+      margin-bottom: 1rem; 
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+    }
+    p { 
+      font-size: clamp(1rem, 3vw, 1.5rem); 
+      margin-bottom: 2rem; 
+      opacity: 0.95; 
+    }
     
     .hero-btns {
       display: flex;
       gap: 1.2rem;
       justify-content: center;
-      flex-wrap: wrap;
+      flex-wrap: wrap; // Permite que los botones bajen si no caben
     }
 
     .btn-primary {
@@ -66,13 +86,14 @@ $color-oro: #ffcc00;
   }
 }
 
+// --- GRID DE CATEGORÍAS ---
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2rem;
   padding: 4rem 2rem;
   max-width: 1200px;
-  margin: -50px auto 0; // Efecto de solapamiento profesional
+  margin: -50px auto 0;
   position: relative;
   z-index: 10;
 
@@ -108,6 +129,7 @@ $color-oro: #ffcc00;
   }
 }
 
+// --- SECCIÓN DESTACADOS ---
 .featured-preview {
   padding: 6rem 2rem;
   background: #f8f9fa;
@@ -173,5 +195,52 @@ $color-oro: #ffcc00;
 
       &:hover img { transform: scale(1.1); }
     }
+  }
+}
+
+// --- AJUSTES ESPECÍFICOS PARA CELULARES (RESPONSIVE) ---
+@media (max-width: 768px) {
+  .hero {
+    .hero-content {
+    z-index: 2;
+    width: 100%;
+    max-width: 90%; // Evita que el contenido toque los bordes del celular
+    margin: 0 auto;
+
+    h1 { 
+      // Ajustamos el tamaño mínimo a 1.5rem para que "Alfonso Ugarte" quepa siempre
+      font-size: clamp(1.5rem, 7vw, 3.5rem); 
+      margin-bottom: 1rem; 
+      line-height: 1.2;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      word-wrap: break-word; // Fuerza el salto de línea si la palabra es muy larga
+    }
+    
+    p { 
+      // El texto descriptivo también baja un poco de tamaño en móvil
+      font-size: clamp(0.95rem, 3.5vw, 1.3rem); 
+      margin-bottom: 2rem; 
+      opacity: 0.95;
+      padding: 0 15px; // Espaciado interno para que el texto no toque los bordes
+    }
+    
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap; // Importante: permite que los botones bajen si no caben
+    }
+  }
+  }
+
+  .features-grid {
+    margin-top: 0; // Quitamos el solapamiento en móvil para que el texto del hero respire
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .featured-preview {
+    padding: 3rem 1rem;
+    .section-title { font-size: 1.8rem; margin-bottom: 2rem; }
   }
 }

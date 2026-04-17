@@ -58,4 +58,33 @@ export class DetalleComponent implements OnInit {
     event.stopPropagation();
     this.isZoomed = !this.isZoomed;
   }
+
+ngAfterViewChecked() {
+    const imagenes = document.querySelectorAll('.img-ampliable');
+    imagenes.forEach((img: any) => {
+      // Evitamos duplicar el evento
+      if (!img.onclick) {
+        img.style.cursor = 'zoom-in';
+        img.onclick = () => this.abrirModal(img.src);
+      }
+    });
+  }
+
+  abrirModal(url: string) {
+    const modal = document.createElement('div');
+    modal.id = 'modal-foto';
+    modal.innerHTML = `
+      <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); 
+                  display:flex; align-items:center; justify-content:center; z-index:10000; cursor:pointer;">
+        <img src="${url}" style="max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px black;">
+        <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px;">&times;</span>
+      </div>
+    `;
+    modal.onclick = () => document.body.removeChild(modal);
+    document.body.appendChild(modal);
+  }
+
+
+
+
 }

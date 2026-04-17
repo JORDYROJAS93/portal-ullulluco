@@ -218,3 +218,15 @@ $color-oro: #ffcc00;
   padding: 5rem;
   color: $color-guinda;
 }
+
+.img-ampliable {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
