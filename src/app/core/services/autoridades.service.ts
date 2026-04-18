@@ -15,7 +15,10 @@ export interface Autoridad {
 export class AutoridadesService {
   private http = inject(HttpClient);
   // Usa el ID de la nueva hoja de Google Sheets
-  private apiUrl = 'https://api.sheetbest.com/sheets/cf504577-7f4e-4e07-a0f2-dbeb0b1b8f68/tabs/Hoja 2';
+  private scriptUrl = 'https://script.google.com/macros/s/AKfycbxN_b06ldesdPGYxkpB6DHgzLEMzEd00-xhQ0-0F5qqw1Fr0JaLDCtANJ5ve_K7PRct/exec';
+  
+  // URL específica para la Hoja 2
+   private apiUrl = this.scriptUrl + '?sheet=Hoja2';
 
   getAutoridades(): Observable<Autoridad[]> {
     return this.http.get<Autoridad[]>(this.apiUrl).pipe(

@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core'; //
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Observable, switchMap, tap } from 'rxjs'; // Añadimos tap
+import { Observable, switchMap, tap } from 'rxjs';
 import { DataService, Entrada } from '../../core/services/data.service';
 
 @Component({
@@ -14,20 +14,27 @@ import { DataService, Entrada } from '../../core/services/data.service';
 export class ListadoComponent implements OnInit {
   private dataService = inject(DataService);
   private route = inject(ActivatedRoute);
+  private cd = inject(ChangeDetectorRef); //
 
   entradas$!: Observable<Entrada[]>;
   tituloCategoria: string = '';
-  cargando: boolean = true; // Nueva variable para controlar el estado
+  cargando: boolean = true;
 
   ngOnInit(): void {
     this.entradas$ = this.route.url.pipe(
-      tap(() => this.cargando = true), // Al empezar a buscar, activamos cargando
+      tap(() => {
+        this.cargando = true;
+        setTimeout(()=> this.cd.detectChanges()); //
+      }),
       switchMap(url => {
         const subcat = url[url.length - 1]?.path || 'gastronomia';
         this.tituloCategoria = this.formatearTitulo(subcat);
         return this.dataService.getEntriesBySubcategory(subcat);
       }),
-      tap(() => this.cargando = false) // Al terminar (con o sin datos), quitamos cargando
+      tap(() => {
+        this.cargando = false;
+        setTimeout(() => this.cd.detectChanges()); // Notifica que la carga terminó y los datos llegaron
+      })
     );
   }
 
