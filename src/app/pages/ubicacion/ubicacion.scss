@@ -48,16 +48,40 @@ $color-oro: #ffcc00;
 
 .datos-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); // 3 columnas en PC
   gap: 20px;
+  margin: 0 auto; // Asegura centrado
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; // 1 sola columna en celular
+    gap: 15px;
+  }
+
   .dato-item {
     background: #fdf2f2;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     border-bottom: 4px solid $color-guinda;
-    .label { font-size: 0.7rem; text-transform: uppercase; color: #888; display: block; }
-    .valor { font-size: 1.1rem; font-weight: bold; color: $color-guinda; }
+    
+    // Centrado interno para móviles
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .label { 
+      font-size: 0.75rem; 
+      text-transform: uppercase; 
+      color: #888; 
+      display: block; 
+      margin-bottom: 5px;
+    }
+    .valor { 
+      font-size: 1.1rem; 
+      font-weight: bold; 
+      color: $color-guinda; 
+    }
   }
 }
 
