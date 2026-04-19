@@ -2,8 +2,6 @@ name: Deploy Alfonso Ugarte Web
 
 on:
   push:
-    paths:
-      - 'public/assets/data/db.json' # Se activa solo si cambia el JSON
     branches:
       - main # Asegúrate que sea el nombre de tu rama principal
 
