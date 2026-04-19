@@ -1,0 +1,35 @@
+name: Deploy Alfonso Ugarte Web
+
+on:
+  push:
+    paths:
+      - 'public/assets/data/db.json' # Se activa solo si cambia el JSON
+    branches:
+      - main # Asegúrate que sea el nombre de tu rama principal
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies 🔧
+        run: npm ci
+
+      - name: Build Project 🏗️
+        run: npm run build -- --base-href /portal-ullulluco/ 
+        # Importante: Reemplaza NOMBRE_DE_TU_REPO por el nombre real de tu proyecto en GitHub
+
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/alfonso-ugarte-ullulluco/browser # Reemplaza NOMBRE_DE_PROYECTO por el que sale en tu carpeta dist
+          branch: gh-pages # Rama donde se guardará la web publicada

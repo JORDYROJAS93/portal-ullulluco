@@ -23,14 +23,8 @@ export interface Entrada {
 })
 export class DataService {
   private http = inject(HttpClient);
-
-
-  private scriptUrl = 'https://script.google.com/macros/s/AKfycbxN_b06ldesdPGYxkpB6DHgzLEMzEd00-xhQ0-0F5qqw1Fr0JaLDCtANJ5ve_K7PRct/exec';
+  private apiUrl = 'assets/data/db.json';
   
- // URL específica para la Hoja 1
-  private apiUrl = this.scriptUrl + '?sheet=Hoja1';
-  
-  // Función privada interna para no repetir código de ordenamiento
   private ordenarPorFecha(entradas: Entrada[]): Entrada[] {
     return entradas.sort((a, b) => {
       const dateA = new Date(a.fecha.split('/').reverse().join('-')).getTime();
@@ -39,39 +33,37 @@ export class DataService {
     });
   }
 
-  // Obtiene TODO ordenado
+  // Obtiene TODO ordenado accediendo a la propiedad .entradas
   getAllEntriesSorted(): Observable<Entrada[]> {
-    return this.http.get<Entrada[]>(this.apiUrl).pipe(
-      map((data: Entrada[]) => this.ordenarPorFecha(data))
+    return this.http.get<any>(this.apiUrl).pipe(
+      map((res) => this.ordenarPorFecha(res.entradas))
     );
   }
 
-  // Obtiene por subcategoría Y ORDENA (Esto arreglará el Sidebar)
+  // Filtra por subcategoría accediendo a la propiedad .entradas
   getEntriesBySubcategory(subcategory: string): Observable<Entrada[]> {
-    return this.http.get<Entrada[]>(this.apiUrl).pipe(
-      map((data: Entrada[]) => {
-        const filtrados = data.filter(item => item.subcategoria === subcategory);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map((res) => {
+        const filtrados = res.entradas.filter((item: Entrada) => item.subcategoria === subcategory);
         return this.ordenarPorFecha(filtrados);
       })
     );
   }
 
-  // Obtiene por categoría Y ORDENA
+  // Filtra por categoría accediendo a la propiedad .entradas
   getEntriesByCategory(category: string): Observable<Entrada[]> {
-    return this.http.get<Entrada[]>(this.apiUrl).pipe(
-      map((data: Entrada[]) => {
-        const filtrados = data.filter(item => item.categoria === category);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map((res) => {
+        const filtrados = res.entradas.filter((item: Entrada) => item.categoria === category);
         return this.ordenarPorFecha(filtrados);
       })
     );
   }
 
+  // Busca por ID accediendo a la propiedad .entradas
   getEntryById(id: string): Observable<Entrada | undefined> {
-    return this.http.get<Entrada[]>(this.apiUrl).pipe(
-      map((data: Entrada[]) => data.find(item => item.id === id))
+    return this.http.get<any>(this.apiUrl).pipe(
+      map((res) => res.entradas.find((item: Entrada) => item.id === id))
     );
   }
-
-
-  
 }

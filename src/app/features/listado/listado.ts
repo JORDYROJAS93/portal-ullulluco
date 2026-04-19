@@ -21,33 +21,44 @@ export class ListadoComponent implements OnInit {
   cargando: boolean = true;
 
   ngOnInit(): void {
-    this.entradas$ = this.route.url.pipe(
-      tap(() => {
-        this.cargando = true;
-        setTimeout(()=> this.cd.detectChanges()); //
-      }),
-      switchMap(url => {
-        const subcat = url[url.length - 1]?.path || 'gastronomia';
+  this.entradas$ = this.route.url.pipe(
+    tap(() => {
+      this.cargando = true;
+      // No es estrictamente necesario llamar a detectChanges aquí 
+      // si el cambio de 'cargando' se gestiona en el tap final
+    }),
+    switchMap(url => {
+      const subcat = url[url.length - 1]?.path || 'gastronomia';
+
+      // ✅ CAMBIO CLAVE: Envolvemos la asignación del dato.
+      // Esto saca la actualización del ciclo de vida actual de Angular.
+      setTimeout(() => {
         this.tituloCategoria = this.formatearTitulo(subcat);
-        return this.dataService.getEntriesBySubcategory(subcat);
-      }),
-      tap(() => {
+        this.cd.detectChanges(); // Opcional pero recomendado para asegurar la vista
+      }, 0);
+
+      return this.dataService.getEntriesBySubcategory(subcat);
+    }),
+    tap(() => {
+      // ✅ También envolvemos el estado de carga para evitar el mismo error
+      setTimeout(() => {
         this.cargando = false;
-        setTimeout(() => this.cd.detectChanges()); // Notifica que la carga terminó y los datos llegaron
-      })
-    );
-  }
+        this.cd.detectChanges();
+      }, 0);
+    })
+  );
+}
 
   formatearTitulo(subcat: string): string {
     const nombres: any = {
-      'gastronomia': 'Gastronomía de Ullulluco',
-      'historia': 'Historia de Alfonso Ugarte',
-      'festividades': 'Festividades y Costumbres',
-      'agricultura': 'Nuestra Agricultura',
-      'turismo': 'Turismo en el Pueblo',
-      'leyendas': 'Mitos y Leyendas',
+      gastronomia: 'Gastronomía de Ullulluco',
+      historia: 'Historia de Alfonso Ugarte',
+      festividades: 'Festividades y Costumbres',
+      agricultura: 'Nuestra Agricultura',
+      turismo: 'Turismo en el Pueblo',
+      leyendas: 'Mitos y Leyendas',
       'plantas-nativas': 'Flora Nativa',
-      'autoridades': 'Nuestras Autoridades'
+      autoridades: 'Nuestras Autoridades',
     };
     return nombres[subcat] || 'Información';
   }

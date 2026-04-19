@@ -65,7 +65,7 @@ $gris-suave: #666;
     position: relative;
     img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: 0.5s opacity; opacity: 0;
+      transition: 0.5s ease-in opacity; opacity: 0;
       &.img-cargada { opacity: 1; }
     }
   }
