@@ -27,43 +27,45 @@ export class DataService {
   
   private ordenarPorFecha(entradas: Entrada[]): Entrada[] {
     return entradas.sort((a, b) => {
+      if (!a.fecha || !b.fecha) return 0;
       const dateA = new Date(a.fecha.split('/').reverse().join('-')).getTime();
       const dateB = new Date(b.fecha.split('/').reverse().join('-')).getTime();
       return dateB - dateA;
     });
   }
 
-  // Obtiene TODO ordenado accediendo a la propiedad .entradas
   getAllEntriesSorted(): Observable<Entrada[]> {
     return this.http.get<any>(this.apiUrl).pipe(
-      map((res) => this.ordenarPorFecha(res.entradas))
+      map((res) => this.ordenarPorFecha(res.entradas || []))
     );
   }
 
-  // Filtra por subcategoría accediendo a la propiedad .entradas
   getEntriesBySubcategory(subcategory: string): Observable<Entrada[]> {
     return this.http.get<any>(this.apiUrl).pipe(
       map((res) => {
-        const filtrados = res.entradas.filter((item: Entrada) => item.subcategoria === subcategory);
+        const lista = res.entradas || [];
+        const filtrados = lista.filter((item: Entrada) => item.subcategoria === subcategory);
         return this.ordenarPorFecha(filtrados);
       })
     );
   }
 
-  // Filtra por categoría accediendo a la propiedad .entradas
   getEntriesByCategory(category: string): Observable<Entrada[]> {
     return this.http.get<any>(this.apiUrl).pipe(
       map((res) => {
-        const filtrados = res.entradas.filter((item: Entrada) => item.categoria === category);
+        const lista = res.entradas || [];
+        const filtrados = lista.filter((item: Entrada) => item.categoria === category);
         return this.ordenarPorFecha(filtrados);
       })
     );
   }
 
-  // Busca por ID accediendo a la propiedad .entradas
   getEntryById(id: string): Observable<Entrada | undefined> {
     return this.http.get<any>(this.apiUrl).pipe(
-      map((res) => res.entradas.find((item: Entrada) => item.id === id))
+      map((res) => {
+        const lista = res.entradas || [];
+        return lista.find((item: Entrada) => item.id === id);
+      })
     );
   }
 }

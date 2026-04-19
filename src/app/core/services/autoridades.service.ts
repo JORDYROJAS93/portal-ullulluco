@@ -10,16 +10,15 @@ export interface Autoridad {
   nombre_autoridad: string;
   organizacion_politica: string;
 }
-
 @Injectable({ providedIn: 'root' })
 export class AutoridadesService {
   private http = inject(HttpClient);
   private apiUrl = './assets/data/db.json';
 
   getAutoridades(): Observable<Autoridad[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
+    return this.http.get<any>(this.apiUrl).pipe( // Cambiado a <any> para acceder a la propiedad
       map(res => {
-        // Invertimos el array de la propiedad autoridades para mostrar los más recientes
+        // Accedemos directamente al cajón de autoridades
         const lista = res.autoridades || [];
         return [...lista].reverse();
       })
