@@ -23,7 +23,7 @@ export interface Entrada {
 })
 export class DataService {
   private http = inject(HttpClient);
-  private apiUrl = 'assets/data/db.json';
+  private apiUrl = './assets/data/db.json';
   
   private ordenarPorFecha(entradas: Entrada[]): Entrada[] {
     return entradas.sort((a, b) => {

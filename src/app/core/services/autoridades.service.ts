@@ -14,7 +14,7 @@ export interface Autoridad {
 @Injectable({ providedIn: 'root' })
 export class AutoridadesService {
   private http = inject(HttpClient);
-  private apiUrl = 'assets/data/db.json';
+  private apiUrl = './assets/data/db.json';
 
   getAutoridades(): Observable<Autoridad[]> {
     return this.http.get<any>(this.apiUrl).pipe(

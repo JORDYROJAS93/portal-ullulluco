@@ -21,33 +21,30 @@ export class ListadoComponent implements OnInit {
   cargando: boolean = true;
 
   ngOnInit(): void {
-  this.entradas$ = this.route.url.pipe(
-    tap(() => {
-      this.cargando = true;
-      // No es estrictamente necesario llamar a detectChanges aquí 
-      // si el cambio de 'cargando' se gestiona en el tap final
-    }),
-    switchMap(url => {
-      const subcat = url[url.length - 1]?.path || 'gastronomia';
+    this.entradas$ = this.route.url.pipe(
+      tap(() => {
+        this.cargando = true;
+        this.cd.detectChanges(); // En Zoneless hay que avisar del inicio
+      }),
+      switchMap(url => {
+        const subcat = url[url.length - 1]?.path || 'gastronomia';
+        
+        // Usamos una promesa en lugar de setTimeout para que sea más rápido 
+        // y se ejecute justo después del microtask actual
+        Promise.resolve().then(() => {
+          this.tituloCategoria = this.formatearTitulo(subcat);
+          this.cd.detectChanges();
+        });
 
-      // ✅ CAMBIO CLAVE: Envolvemos la asignación del dato.
-      // Esto saca la actualización del ciclo de vida actual de Angular.
-      setTimeout(() => {
-        this.tituloCategoria = this.formatearTitulo(subcat);
-        this.cd.detectChanges(); // Opcional pero recomendado para asegurar la vista
-      }, 0);
-
-      return this.dataService.getEntriesBySubcategory(subcat);
-    }),
-    tap(() => {
-      // ✅ También envolvemos el estado de carga para evitar el mismo error
-      setTimeout(() => {
+        return this.dataService.getEntriesBySubcategory(subcat);
+      }),
+      tap(() => {
         this.cargando = false;
-        this.cd.detectChanges();
-      }, 0);
-    })
-  );
-}
+        // Pequeño delay para asegurar que el DOM de las cards ya existe
+        setTimeout(() => this.cd.detectChanges(), 0);
+      })
+    );
+  }
 
   formatearTitulo(subcat: string): string {
     const nombres: any = {
