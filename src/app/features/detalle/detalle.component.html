@@ -15,8 +15,8 @@
 
       <div class="main-image-container">
         <img
-          [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen"
-          (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen)"
+          [src]="entrada.imagen"
+          (click)="abrirImagen(entrada.imagen)"
           class="clickable-img main-img"
           [alt]="entrada.titulo"
         />
@@ -37,15 +37,15 @@
             <div class="fotos-grid">
               @if (entrada.imagen2) {
                 <div class="foto-item">
-                  <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen2"
-                       (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen2)"
+                  <img [src]="entrada.imagen2"
+                       (click)="abrirImagen(entrada.imagen2)"
                        class="clickable-img" />
                 </div>
               }
               @if (entrada.imagen3) {
                 <div class="foto-item">
-                  <img [src]="'https://lh3.googleusercontent.com/d/' + entrada.imagen3"
-                       (click)="abrirImagen('https://lh3.googleusercontent.com/d/' + entrada.imagen3)"
+                  <img [src]="entrada.imagen3"
+                       (click)="abrirImagen(entrada.imagen3)"
                        class="clickable-img" />
                 </div>
               }
