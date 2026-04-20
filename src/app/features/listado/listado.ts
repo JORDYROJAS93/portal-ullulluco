@@ -22,27 +22,20 @@ export class ListadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.entradas$ = this.route.url.pipe(
-      tap(() => {
+      tap((url) => {
         this.cargando = true;
-        this.cd.detectChanges(); // En Zoneless hay que avisar del inicio
-      }),
-      switchMap(url => {
         const subcat = url[url.length - 1]?.path || 'gastronomia';
-        
-        // Usamos una promesa en lugar de setTimeout para que sea más rápido 
-        // y se ejecute justo después del microtask actual
-        Promise.resolve().then(() => {
-          this.tituloCategoria = this.formatearTitulo(subcat);
-          this.cd.detectChanges();
-        });
-
+        this.tituloCategoria = this.formatearTitulo(subcat);
+        this.cd.detectChanges(); // Actualiza el título de inmediato
+      }),
+      switchMap((url) => {
+        const subcat = url[url.length - 1]?.path || 'gastronomia';
         return this.dataService.getEntriesBySubcategory(subcat);
       }),
       tap(() => {
         this.cargando = false;
-        // Pequeño delay para asegurar que el DOM de las cards ya existe
-        setTimeout(() => this.cd.detectChanges(), 0);
-      })
+        this.cd.detectChanges(); // Muestra las cards apenas lleguen los datos
+      }),
     );
   }
 

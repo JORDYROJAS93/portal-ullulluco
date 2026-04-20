@@ -13,9 +13,6 @@
         <div class="card" [routerLink]="['/detalle', entrada.subcategoria, entrada.id]">
           
           <div class="card-image">
-            @if (!img.complete) {
-              <div class="spinner-image"></div>
-            }
             <img 
               #img
               [src]="entrada.imagen"
