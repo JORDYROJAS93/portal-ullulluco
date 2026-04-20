@@ -6,7 +6,7 @@
     @for (item of recientes$ | async; track item.id) {
       <div class="recent-item" [routerLink]="['/detalle', item.categoria || 'gastronomia', item.id]">
         <div class="mini-img">
-          <img [src]="'https://lh3.googleusercontent.com/d/' + item.imagen" [alt]="item.titulo">
+          <img [src]="item.imagen" [alt]="item.titulo">
         </div>
         <div class="recent-info">
           <h4>{{ item.titulo }}</h4>
