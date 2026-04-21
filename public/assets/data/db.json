@@ -79,8 +79,8 @@
       "subcategoria": "agricultura",
       "resumen": "La siembra de maíz en Ullulluco se realiza con yunta, guiada por el gañán y acompañada por el sembrador, quien coloca cada semilla con precisión. Un trabajo de paciencia y experiencia que se comparte junto a la tradicional caliada y la chicha de jora.",
       "contenido": "<p>Hay trabajos que ense&ntilde;an a medir el tiempo con los pasos y la paciencia. En Ullulluco, la siembra de ma&iacute;z es uno de ellos: una labor donde la precisi&oacute;n y la experiencia van de la mano.</p>\n<p>Todo comienza con la yunta, formada por bueyes o toros que avanzan sobre la chacra jalando el arado. El ga&ntilde;&aacute;n, desde atr&aacute;s, gu&iacute;a cada movimiento, asegurando que los surcos se abran rectos y bien marcados sobre la tierra.</p>\n<p>Detr&aacute;s de &eacute;l va el sembrador, atento al ritmo del paso. Con la mano firme, va dejando caer las semillas una por una, calculando la distancia con cuidado: ni muy cerca ni muy lejos. Es un trabajo que no se mide con reglas, sino con la experiencia aprendida en el campo.</p>\n<p>A medida que la yunta contin&uacute;a su recorrido, regresando para abrir nuevos surcos, tambi&eacute;n va cubriendo los anteriores, dejando la semilla protegida bajo la tierra. As&iacute;, poco a poco, la chacra queda sembrada, en un movimiento constante y ordenado.</p>\n<p>Como en toda jornada, el trabajo se detiene por momentos. Llega entonces la caliada, ese descanso compartido donde la chicha de jora, preparada por el due&ntilde;o de la chacra, calma la sed y devuelve las fuerzas.</p>\n<p>Al final del d&iacute;a, el terreno queda listo, sembrado con cuidado y esperanza. Cada grano depositado es una apuesta al tiempo, a la lluvia y al trabajo bien hecho.</p>\n<p>Porque en Ullulluco, la siembra de ma&iacute;z no es solo una labor, sino una forma de mantener viva la relaci&oacute;n con la tierra y con las costumbres que la acompa&ntilde;an.</p>",
-      "imagen": "https://i.ibb.co/7JKVXJqN/siembra-Maiz1.jpg",
-      "imagen2": "",
+      "imagen": "https://i.ibb.co/tdXvPks/IMG-20201122-WA0007.jpg",
+      "imagen2": "https://i.ibb.co/7JKVXJqN/siembra-Maiz1.jpg",
       "imagen3": "",
       "fecha": "2026-03-26T05:00:00.000Z"
     },
@@ -251,6 +251,54 @@
       "imagen2": "https://i.ibb.co/jvHWSrpn/poroto2.png",
       "imagen3": "https://i.ibb.co/6cqPYTWC/poroto3.png",
       "fecha": "2026-04-09T05:00:00.000Z"
+    },
+    {
+      "id": "humitas",
+      "titulo": "",
+      "categoria": "",
+      "subcategoria": "",
+      "resumen": "",
+      "contenido": "",
+      "imagen": "",
+      "imagen2": "",
+      "imagen3": "",
+      "fecha": ""
+    },
+    {
+      "id": "amapola",
+      "titulo": "",
+      "categoria": "",
+      "subcategoria": "",
+      "resumen": "",
+      "contenido": "",
+      "imagen": "",
+      "imagen2": "",
+      "imagen3": "",
+      "fecha": ""
+    },
+    {
+      "id": " huallgakincha",
+      "titulo": "",
+      "categoria": "",
+      "subcategoria": "",
+      "resumen": "",
+      "contenido": "",
+      "imagen": "",
+      "imagen2": "",
+      "imagen3": "",
+      "fecha": ""
+    },
+    {
+      "id": "tunas",
+      "titulo": "",
+      "categoria": "",
+      "subcategoria": "",
+      "resumen": "",
+      "contenido": "",
+      "imagen": "",
+      "imagen2": "",
+      "imagen3": "",
+      "fecha": ""
     }
   ],
   "autoridades": [
