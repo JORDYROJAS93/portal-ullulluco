@@ -218,7 +218,7 @@
     },
     {
       "id": "pan",
-      "titulo": "El pan",
+      "titulo": "Pan ullulluquino",
       "categoria": "sabores",
       "subcategoria": "gastronomia",
       "resumen": "",
@@ -235,7 +235,7 @@
       "subcategoria": "turismo",
       "resumen": "",
       "contenido": "",
-      "imagen": "",
+      "imagen": "https://i.ibb.co/ycqpcGgx/marca-Marca1.jpg",
       "imagen2": "",
       "imagen3": "",
       "fecha": "2026-04-08T05:00:00.000Z"
@@ -254,7 +254,7 @@
     },
     {
       "id": "humitas",
-      "titulo": "",
+      "titulo": "Las humitas",
       "categoria": "",
       "subcategoria": "",
       "resumen": "",
@@ -266,7 +266,7 @@
     },
     {
       "id": "amapola",
-      "titulo": "",
+      "titulo": "La amapola",
       "categoria": "",
       "subcategoria": "",
       "resumen": "",
@@ -290,12 +290,36 @@
     },
     {
       "id": "tunas",
-      "titulo": "",
-      "categoria": "",
-      "subcategoria": "",
+      "titulo": "Las tunas",
+      "categoria": "tierra",
+      "subcategoria": "plantas-nativas",
       "resumen": "",
       "contenido": "",
-      "imagen": "",
+      "imagen": "https://i.ibb.co/NdF2G2DH/tunas1.jpg",
+      "imagen2": "https://i.ibb.co/TxNJS1kL/tunas2.jpg",
+      "imagen3": "",
+      "fecha": ""
+    },
+    {
+      "id": "garamatish",
+      "titulo": "El garamatish",
+      "categoria": "tierra",
+      "subcategoria": "plantas-nativas",
+      "resumen": "",
+      "contenido": "",
+      "imagen": "https://i.ibb.co/46xXm7s/Garanatish.jpg",
+      "imagen2": "",
+      "imagen3": "",
+      "fecha": ""
+    },
+    {
+      "id": "cosecha-ocas",
+      "titulo": "La cosecha de ocas",
+      "categoria": "tierra",
+      "subcategoria": "agricultura",
+      "resumen": "",
+      "contenido": "",
+      "imagen": "https://i.ibb.co/PvYBTHHT/cosecha-De-Ocas1.jpg",
       "imagen2": "",
       "imagen3": "",
       "fecha": ""
