@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DataService, Entrada } from '../../core/services/data.service';
-import { Observable, tap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { AutoridadesComponent } from '../../pages/autoridades/autoridades';
 import { SafeHtmlPipe } from '../../core/pipes/safe-html-pipe';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
@@ -28,18 +28,26 @@ export class DetalleComponent implements OnInit {
   isZoomed: boolean = false;
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-
-    if (id) {
-      this.entrada$ = this.dataService.getEntryById(id).pipe(
-        tap((entrada) => {
-          if (entrada) {
-            this.nombreSubcategoria = entrada.subcategoria || 'atrás';
-            this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
-          }
-        }),
-      );
-    }
+    // CAMBIO CLAVE: Usamos paramMap (observable) en lugar de snapshot
+    this.entrada$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        const id = params.get('id');
+        if (id) {
+          // Cada vez que el ID cambie, buscamos la nueva entrada
+          return this.dataService.getEntryById(id).pipe(
+            tap((entrada) => {
+              if (entrada) {
+                this.nombreSubcategoria = entrada.subcategoria || 'atrás';
+                this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
+                // Opcional: Subir al inicio de la página al cambiar de historia
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            })
+          );
+        }
+        return new Observable<undefined>(); // Si no hay ID, retornamos vacío
+      })
+    );
   }
 
   abrirImagen(url: string) {
