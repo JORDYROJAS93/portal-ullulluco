@@ -202,7 +202,7 @@
       "imagen": "https://i.ibb.co/nMBPT5ty/file-00000000d96c71f58ea63787e9075a83.png",
       "imagen2": "",
       "imagen3": "",
-      "fecha": ""
+      "fecha": "2026-04-05T05:00:00.000Z"
     },
     {
       "id": "chicha-de-jora",
@@ -211,10 +211,10 @@
       "subcategoria": "gastronomia",
       "resumen": "",
       "contenido": "",
-      "imagen": "",
+      "imagen": "https://i.ibb.co/qMDGwDHL/chicha-De-Jora1.png",
       "imagen2": "",
       "imagen3": "",
-      "fecha": ""
+      "fecha": "2026-04-06T05:00:00.000Z"
     },
     {
       "id": "pan",
@@ -223,10 +223,10 @@
       "subcategoria": "gastronomia",
       "resumen": "",
       "contenido": "",
-      "imagen": "",
-      "imagen2": "",
-      "imagen3": "",
-      "fecha": ""
+      "imagen": "https://i.ibb.co/vyQvqXL/pan1.png",
+      "imagen2": "https://i.ibb.co/0jwDXWbM/pan2.png",
+      "imagen3": "https://i.ibb.co/x8hmbNf0/pan3.png",
+      "fecha": "2026-04-07T05:00:00.000Z"
     },
     {
       "id": "marca-marca",
@@ -238,7 +238,7 @@
       "imagen": "",
       "imagen2": "",
       "imagen3": "",
-      "fecha": ""
+      "fecha": "2026-04-08T05:00:00.000Z"
     },
     {
       "id": "poroto",
@@ -249,8 +249,8 @@
       "contenido": "",
       "imagen": "https://i.ibb.co/Pvr8BMLF/poroto1.png",
       "imagen2": "https://i.ibb.co/jvHWSrpn/poroto2.png",
-      "imagen3": "",
-      "fecha": ""
+      "imagen3": "https://i.ibb.co/6cqPYTWC/poroto3.png",
+      "fecha": "2026-04-09T05:00:00.000Z"
     }
   ],
   "autoridades": [
