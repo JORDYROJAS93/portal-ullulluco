@@ -3,7 +3,7 @@ name: Deploy Alfonso Ugarte Web
 on:
   push:
     branches:
-      - main # Asegúrate que sea el nombre de tu rama principal
+      - main 
 
 jobs:
   build-and-deploy:
@@ -24,10 +24,10 @@ jobs:
 
       - name: Build Project 🏗️
         run: npm run build -- --base-href /portal-ullulluco/ 
-        # Importante: Reemplaza NOMBRE_DE_TU_REPO por el nombre real de tu proyecto en GitHub
 
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/alfonso-ugarte-ullulluco/browser # Reemplaza NOMBRE_DE_PROYECTO por el que sale en tu carpeta dist
-          branch: gh-pages # Rama donde se guardará la web publicada
+          # CAMBIO AQUÍ: Se eliminó /browser al final
+          folder: dist/alfonso-ugarte-ullulluco 
+          branch: gh-pages
