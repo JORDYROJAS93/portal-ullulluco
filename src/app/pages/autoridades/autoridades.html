@@ -27,31 +27,36 @@
 
       <form (ngSubmit)="guardar()" class="modern-grid-form">
         <div class="input-box full-width">
-          <label>Nombre Completo de la Autoridad</label>
-          <input type="text" [(ngModel)]="autoridad.nombre_autoridad" name="nombre" placeholder="Ej: JUAN PEREZ..." required>
+          <label for="nombre">Nombre Completo</label>
+          <input type="text" id="nombre" [(ngModel)]="autoridad.nombre_autoridad" name="nombre" placeholder="Ej: JUAN PEREZ..." required>
         </div>
 
         <div class="input-box">
-          <label>Cargo</label>
-          <select [(ngModel)]="autoridad.cargo" name="cargo">
+          <label for="cargo">Cargo</label>
+          <select id="cargo" [(ngModel)]="autoridad.cargo" name="cargo">
             <option value="ALCALDE DISTRITAL">ALCALDE DISTRITAL</option>
             <option value="REGIDOR DISTRITAL">REGIDOR DISTRITAL</option>
           </select>
         </div>
 
         <div class="input-box">
-          <label>Periodo de Gestión</label>
-          <input type="text" [(ngModel)]="autoridad.periodo" name="periodo" placeholder="Ej: 2023-2026">
+          <label for="orden_id">ID de Orden (1, 2, 3...)</label>
+          <input type="number" id="orden_id" [(ngModel)]="autoridad.id" name="orden_id" placeholder="Posición en la lista">
         </div>
 
         <div class="input-box">
-          <label>Año de Elección</label>
-          <input type="number" [(ngModel)]="autoridad.ano_eleccion" name="ano">
+          <label for="periodo">Periodo</label>
+          <input type="text" id="periodo" [(ngModel)]="autoridad.periodo" name="periodo" placeholder="Ej: 2023-2026">
         </div>
 
         <div class="input-box">
-          <label>Organización Política</label>
-          <input type="text" [(ngModel)]="autoridad.organizacion_politica" name="partido" placeholder="Nombre del partido">
+          <label for="ano">Año de Elección</label>
+          <input type="number" id="ano" [(ngModel)]="autoridad.ano_eleccion" name="ano">
+        </div>
+
+        <div class="input-box">
+          <label for="partido">Organización Política</label>
+          <input type="text" id="partido" [(ngModel)]="autoridad.organizacion_politica" name="partido" placeholder="Partido político">
         </div>
 
         <div class="form-actions">
@@ -66,48 +71,91 @@
     <p class="parrafo-contenido intro-primera">
       En cada época, el destino de un pueblo encuentra guía en las manos de quienes asumen la responsabilidad de conducirlo...
     </p>
-    <p class="parrafo-contenido">
-      A lo largo de los años, alcaldes y representantes han ido dejando su huella en Ullulluco enfrentando los desafíos propios de una tierra andina.
-    </p>
   </section>
 
-  @if (gruposAutoridades$ | async; as grupos) {
-    @for (periodo of getPeriodos(grupos); track periodo) {
-      <div class="periodo-section">
-        <div class="periodo-header-container">
-          <h2 class="periodo-title">Gestión {{ periodo }}</h2>
-          <div class="periodo-underline"></div>
+  <div class="acordeon-container">
+    <ng-container *ngIf="gruposAutoridades$ | async as grupos">
+      
+      <div class="acordeon-item" 
+           *ngFor="let periodo of getPeriodos(grupos)" 
+           [class.expandido]="isExpandido(periodo)">
+        
+        <div class="acordeon-header" (click)="togglePeriodo(periodo)">
+          <div class="acordeon-main-info">
+            <div class="periodo-badge">{{ periodo }}</div>
+            <div class="alcalde-info">
+              
+              <ng-container *ngIf="getAlcalde(grupos[periodo]) as alcalde">
+                <div class="alcalde-nombre">
+                  {{ alcalde.nombre_autoridad }}
+                  
+                  <div class="alcalde-admin-actions" *ngIf="isAdmin" (click)="$event.stopPropagation()">
+                    <button (click)="editar(alcalde)" class="btn-action-mini edit" title="Editar Alcalde">✏️</button>
+                    <button (click)="eliminar(alcalde.firebase_id!)" class="btn-action-mini delete" title="Eliminar Alcalde">🗑️</button>
+                  </div>
+                </div>
+                <div class="alcalde-cargo">
+                  <span class="cargo-icon">👔</span>
+                  {{ alcalde.cargo }}
+                  <ng-container *ngIf="alcalde.organizacion_politica">
+                    <span class="partido-separador">•</span>
+                    <span class="partido-nombre">{{ alcalde.organizacion_politica }}</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+              
+            </div>
+          </div>
+          
+          <div class="acordeon-controls">
+            <ng-container *ngIf="getRegidores(grupos[periodo]) as regidores">
+               <span class="total-regidores">
+                 {{ regidores.length }} regidor{{ regidores.length !== 1 ? 'es' : '' }}
+               </span>
+            </ng-container>
+            <button class="btn-toggle">
+              <span class="toggle-icon" [class.rotated]="isExpandido(periodo)">▼</span>
+            </button>
+          </div>
         </div>
 
-        <div class="table-wrapper">
-          <table class="auth-table">
-            <thead>
-              <tr>
-                <th class="col-header">Cargo</th>
-                <th class="col-header">Nombre de la Autoridad</th>
-                <th class="col-header">Organización Política</th>
-                <th *ngIf="isAdmin" class="col-header text-right">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (persona of grupos[periodo]; track persona.id) {
-                <tr [class.is-alcalde]="persona.cargo.toUpperCase().includes('ALCALDE')">
-                  <td data-label="Cargo" class="td-cargo">
-                    <span class="cargo-badge">{{ persona.cargo }}</span>
-                  </td>
-                  <td data-label="Nombre" class="td-nombre">{{ persona.nombre_autoridad }}</td>
-                  <td data-label="Organización" class="td-partido">{{ persona.organizacion_politica }}</td>
-                  
-                  <td *ngIf="isAdmin" data-label="Acciones" class="td-actions">
-                    <button (click)="editar(persona)" class="btn-action-mini edit">✏️</button>
-                    <button (click)="eliminar(persona.id!)" class="btn-action-mini delete">🗑️</button>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
+        <div class="acordeon-content" *ngIf="isExpandido(periodo)">
+          <div class="regidores-list">
+            <div class="section-title"><span class="icon">📋</span> Regidores Distritales</div>
+            
+            <ng-container *ngIf="getRegidores(grupos[periodo]) as listaRegidores">
+              <div class="table-responsive" *ngIf="listaRegidores.length > 0; else noRegidores">
+                <table class="auth-table">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Organización Política</th>
+                      <th *ngIf="isAdmin" class="text-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let regidor of listaRegidores">
+                      <td class="td-nombre">{{ regidor.nombre_autoridad }}</td>
+                      <td class="td-partido">{{ regidor.organizacion_politica || '-' }}</td>
+                      <td *ngIf="isAdmin" class="td-actions">
+                        <button (click)="editar(regidor)" class="btn-action-mini edit" title="Editar">✏️</button>
+                        <button (click)="eliminar(regidor.firebase_id!)" class="btn-action-mini delete" title="Eliminar">🗑️</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <ng-template #noRegidores>
+                <div class="no-regidores">
+                  <span class="icon">📭</span>
+                  <p>No hay regidores registrados para este período</p>
+                </div>
+              </ng-template>
+            </ng-container>
+          </div>
         </div>
       </div>
-    }
-  }
+    </ng-container>
+  </div>
 </div>

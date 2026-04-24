@@ -3,7 +3,8 @@ import { Firestore, collection, query, orderBy, collectionData } from '@angular/
 import { Observable } from 'rxjs';
 
 export interface Autoridad {
-  id?: string;
+  firebase_id?: string;       // El ID automático de Firebase
+  id?: number;                // El ID del 1 al 84 que viene del Excel
   ano_eleccion: number;
   periodo: string;
   cargo: string;
@@ -17,8 +18,21 @@ export class AutoridadesService {
 
   getAutoridades(): Observable<Autoridad[]> {
     const colRef = collection(this.firestore, 'autoridades');
-    // Ordenamos por año de elección para que los más recientes salgan primero
-    const q = query(colRef, orderBy('ano_eleccion', 'desc'));
-    return collectionData(q, { idField: 'id' }) as Observable<Autoridad[]>;
+
+    /**
+     * EXPLICACIÓN DEL ORDEN:
+     * 1. 'ano_eleccion', 'desc': Pone los periodos más recientes arriba (ej: 2023 antes que 1963).
+     * 2. 'id', 'asc': Dentro de cada periodo, respeta el orden del Excel (ID menor arriba).
+     * Como el Alcalde tiene un ID menor que sus regidores en el Excel, saldrá primero.
+     */
+    const q = query(
+      colRef, 
+      orderBy('ano_eleccion', 'desc'), 
+      orderBy('id', 'asc')
+    );
+
+    // Mapeamos los datos. 'idField' ahora se llama 'firebase_id' para no chocar 
+    // con tu campo 'id' numérico del Excel.
+    return collectionData(q, { idField: 'firebase_id' }) as Observable<Autoridad[]>;
   }
 }
