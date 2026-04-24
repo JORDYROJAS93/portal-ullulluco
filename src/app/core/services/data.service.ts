@@ -1,12 +1,25 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, from } from 'rxjs';
+import {
+  Firestore,
+  collection,
+  query,
+  where,
+  orderBy,
+  collectionData,
+  doc,
+  getDoc,
+  DocumentSnapshot,
+  updateDoc,
+  docData,
+} from '@angular/fire/firestore';
 
 export interface Entrada {
   id: string;
   titulo: string;
   categoria: string;
-  subcategoria: string; 
+  subcategoria: string;
   resumen: string;
   contenido: string;
   imagen: string;
@@ -19,53 +32,54 @@ export interface Entrada {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  private http = inject(HttpClient);
-  private apiUrl = './assets/data/db.json';
-  
-  private ordenarPorFecha(entradas: Entrada[]): Entrada[] {
-    return entradas.sort((a, b) => {
-      if (!a.fecha || !b.fecha) return 0;
-      const dateA = new Date(a.fecha.split('/').reverse().join('-')).getTime();
-      const dateB = new Date(b.fecha.split('/').reverse().join('-')).getTime();
-      return dateB - dateA;
-    });
-  }
+  private firestore = inject(Firestore);
+  private collectionName = 'entradas'; // Nombre de tu colección en Firebase
 
+  // Obtener todas las historias ordenadas por fecha
   getAllEntriesSorted(): Observable<Entrada[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map((res) => this.ordenarPorFecha(res.entradas || []))
-    );
+    const colRef = collection(this.firestore, this.collectionName);
+    const q = query(colRef, orderBy('fecha', 'desc'));
+    return collectionData(q, { idField: 'id' }) as Observable<Entrada[]>;
   }
 
+  // Filtrar por subcategoría (usado en tu componente de Listado)
   getEntriesBySubcategory(subcategory: string): Observable<Entrada[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map((res) => {
-        const lista = res.entradas || [];
-        const filtrados = lista.filter((item: Entrada) => item.subcategoria === subcategory);
-        return this.ordenarPorFecha(filtrados);
-      })
+    const colRef = collection(this.firestore, this.collectionName);
+    const q = query(
+      colRef,
+      where('subcategoria', '==', subcategory),
+      orderBy('fecha', 'desc'), // Firebase necesita un índice para esto, te avisará en consola
     );
+    return collectionData(q, { idField: 'id' }) as Observable<Entrada[]>;
   }
 
-  getEntriesByCategory(category: string): Observable<Entrada[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map((res) => {
-        const lista = res.entradas || [];
-        const filtrados = lista.filter((item: Entrada) => item.categoria === category);
-        return this.ordenarPorFecha(filtrados);
-      })
-    );
-  }
-
+  // Obtener una sola historia por ID (para la página de detalle)
   getEntryById(id: string): Observable<Entrada | undefined> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map((res) => {
-        const lista = res.entradas || [];
-        return lista.find((item: Entrada) => item.id === id);
-      })
+    const docRef = doc(this.firestore, `${this.collectionName}/${id}`);
+
+    // Convertimos la promesa de Firebase a un Observable de RxJS
+    return from(getDoc(docRef)).pipe(
+      map((snapshot: DocumentSnapshot) => {
+        // <--- Aquí le decimos el tipo a snapshot
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          return { id: snapshot.id, ...data } as Entrada;
+        }
+        return undefined;
+      }),
     );
+  }
+
+  getEntradaById(id: string) {
+  const docRef = doc(this.firestore, 'entradas', id);
+  return docData(docRef, { idField: 'id' });
+}
+
+  async updateEntrada(id: string, data: any) {
+    const docRef = doc(this.firestore, 'entradas', id); // 'entradas' es el nombre de tu colección
+    return await updateDoc(docRef, data);
   }
 }

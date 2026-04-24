@@ -1,8 +1,8 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core'; //
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
-import { DataService, Entrada } from '../../core/services/data.service';
-import { Observable, filter, startWith, switchMap, map, tap } from 'rxjs'; // Añadimos tap
+import { FirebaseService } from '../../core/services/firebase.service'; // Usamos FirebaseService
+import { Observable, filter, startWith, switchMap, map } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,47 +12,40 @@ import { Observable, filter, startWith, switchMap, map, tap } from 'rxjs'; // A�
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
-  private dataService = inject(DataService);
+  private firebaseService = inject(FirebaseService);
   private router = inject(Router);
-  private cd = inject(ChangeDetectorRef); //
+  private cd = inject(ChangeDetectorRef); // Inyectamos el detector de cambios
 
-  recientes$!: Observable<Entrada[]>;
+  recientes$!: Observable<any[]>;
   tituloSidebar: string = 'Lo más reciente';
 
   ngOnInit(): void {
     this.recientes$ = this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
-      startWith(null),
+      startWith(new NavigationEnd(0, this.router.url, this.router.url)),
       switchMap(() => {
         const url = this.router.url;
         const segments = url.split('/');
-
+        
+        // Determinamos la subcategoría según la URL
+        let subcat = 'gastronomia';
         if (url.includes('/detalle/')) {
-          const entryId = segments[segments.length - 1];
-
-          return this.dataService.getEntryById(entryId).pipe(
-            switchMap((entrada) => {
-              const subcatReal = entrada?.subcategoria || 'gastronomia';
-              this.actualizarTitulo(subcatReal);
-              return this.dataService
-                .getEntriesBySubcategory(subcatReal)
-                .pipe(
-                  map((entradas) => entradas.slice(0, 5)),
-                  tap(() => this.cd.detectChanges()) // Fuerza la detección tras recibir datos
-                );
-            }),
-          );
+          // Si es detalle, podrías necesitar una lógica para sacar la subcat del registro,
+          // por ahora usemos el penúltimo segmento o uno por defecto
+          subcat = segments[segments.length - 2] || 'gastronomia';
         } else {
-          const subcatUrl = segments[segments.length - 1] || 'gastronomia';
-          this.actualizarTitulo(subcatUrl);
-          return this.dataService
-            .getEntriesBySubcategory(subcatUrl)
-            .pipe(
-              map((entradas) => entradas.slice(0, 5)),
-              tap(() => this.cd.detectChanges()) // Fuerza la detección tras recibir datos
-            );
+          subcat = segments[segments.length - 1] || 'gastronomia';
         }
+
+        // Corregimos el título usando setTimeout para evitar el error NG0100
+        setTimeout(() => {
+          this.actualizarTitulo(subcat);
+          this.cd.detectChanges();
+        });
+
+        return this.firebaseService.getEntriesBySubcategory(subcat);
       }),
+      map(entradas => entradas.slice(0, 5))
     );
   }
 
@@ -64,9 +57,8 @@ export class SidebarComponent implements OnInit {
       'gastronomia': 'Fogón y Tradición',
       'festividades': 'Calendario Comunal',
       'historia': 'Raíces del Pueblo',
-      'mitos-y-leyendas': 'Relatos Ancestrales'
+      'leyendas': 'Relatos Ancestrales'
     };
     this.tituloSidebar = nombres[subcat] || 'Entradas Recientes';
-    this.cd.detectChanges(); // Asegura que el cambio de título se registre
   }
 }

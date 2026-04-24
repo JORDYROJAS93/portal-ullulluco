@@ -76,3 +76,7 @@
     <p>Cargando información...</p>
   </div>
 }
+
+<div *ngIf="entrada$ | async as entrada">
+  <app-comentarios [entradaId]="entrada.id"></app-comentarios>
+</div>

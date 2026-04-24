@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable, switchMap, tap } from 'rxjs';
 import { DataService, Entrada } from '../../core/services/data.service';
+import { FirebaseService } from '../../core/services/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-listado',
@@ -12,29 +14,35 @@ import { DataService, Entrada } from '../../core/services/data.service';
   styleUrl: './listado.scss',
 })
 export class ListadoComponent implements OnInit {
-  private dataService = inject(DataService);
+  private firebaseService = inject(FirebaseService);
   private route = inject(ActivatedRoute);
-  private cd = inject(ChangeDetectorRef); //
+  private cd = inject(ChangeDetectorRef);
+  public authService = inject(AuthService);
 
-  entradas$!: Observable<Entrada[]>;
+  entradas$!: Observable<any[]>;
   tituloCategoria: string = '';
   cargando: boolean = true;
 
   ngOnInit(): void {
     this.entradas$ = this.route.url.pipe(
       tap((url) => {
-        this.cargando = true;
-        const subcat = url[url.length - 1]?.path || 'gastronomia';
-        this.tituloCategoria = this.formatearTitulo(subcat);
-        this.cd.detectChanges(); // Actualiza el título de inmediato
+        // Usamos un pequeño delay técnico para evitar el error NG0100
+        setTimeout(() => {
+          this.cargando = true;
+          const subcat = url[url.length - 1]?.path || 'gastronomia';
+          this.tituloCategoria = this.formatearTitulo(subcat);
+          this.cd.detectChanges();
+        });
       }),
       switchMap((url) => {
         const subcat = url[url.length - 1]?.path || 'gastronomia';
-        return this.dataService.getEntriesBySubcategory(subcat);
+        return this.firebaseService.getEntriesBySubcategory(subcat);
       }),
       tap(() => {
-        this.cargando = false;
-        this.cd.detectChanges(); // Muestra las cards apenas lleguen los datos
+        setTimeout(() => {
+          this.cargando = false;
+          this.cd.detectChanges();
+        });
       }),
     );
   }

@@ -5,6 +5,12 @@
       <span class="decoracion-superior">DESCUBRE</span>
       <h2>{{ tituloCategoria }}</h2>
       <p>Explora la riqueza y tradición de nuestro distrito</p>
+      <div *ngIf="authService.user$ | async" class="admin-top-actions">
+    <button [routerLink]="['/publicar-ullulluco']" class="btn-nueva-entrada">
+      <span class="icon">➕</span> Crear Nueva Entrada en {{ tituloCategoria }}
+    </button>
+  </div>
+  <div class="linea-decorativa"></div>
       <div class="linea-decorativa"></div>
     </header>
 
@@ -23,8 +29,16 @@
           </div>
 
           <div class="card-content">
-            <div class="card-meta">
+            <div class="card-meta" style="display: flex; justify-content: space-between; align-items: center;">
               <span class="card-date">{{ entrada.fecha | date: 'dd/MM/yyyy' }}</span>
+              
+              <button 
+                *ngIf="authService.user$ | async" 
+                (click)="$event.stopPropagation()"
+                [routerLink]="['/editar-entrada', entrada.id]" 
+                class="btn-edit-inline">
+                📝 Editar
+              </button>
             </div>
             
             <h3 class="card-title">{{ entrada.titulo }}</h3>

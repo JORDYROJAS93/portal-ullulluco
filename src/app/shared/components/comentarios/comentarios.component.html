@@ -1,0 +1,33 @@
+<div class="comments-container">
+  <h4>Comentarios de la Comunidad</h4>
+
+  <div class="login-prompt" *ngIf="!(authService.user$ | async)">
+    <p>Para participar en la historia de Ullulluco, inicia sesión.</p>
+    <button (click)="login()" class="btn-google">Ingresar con Google para comentar</button>
+  </div>
+
+  <div class="add-comment" *ngIf="authService.user$ | async as user">
+    <div class="user-info">
+      <img [src]="user.photoURL" alt="avatar" />
+      <span
+        >Comentando como <b>{{ user.displayName }}</b></span
+      >
+    </div>
+    <textarea [(ngModel)]="nuevoTexto" placeholder="Escribe un comentario respetuoso..."></textarea>
+    <button (click)="enviarComentario(user)" [disabled]="!nuevoTexto">Publicar</button>
+  </div>
+
+  <div class="comments-list">
+    <div class="comment-item" *ngFor="let c of comentarios$ | async">
+      <img [src]="c.userPhoto || 'assets/default-avatar.png'" alt="Avatar" />
+
+      <div class="content">
+        <header>
+          <strong>{{ c.userName }}</strong>
+          <small>{{ c.fecha?.toDate() | date: 'short' }}</small>
+        </header>
+        <p>{{ c.texto }}</p>
+      </div>
+    </div>
+  </div>
+</div>

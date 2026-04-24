@@ -6,13 +6,14 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { AutoridadesComponent } from '../../pages/autoridades/autoridades';
 import { SafeHtmlPipe } from '../../core/pipes/safe-html-pipe';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
+import { ComentariosComponent } from '../../shared/components/comentarios/comentarios.component';
  
 
 @Component({
   selector: 'app-detalle',
   standalone: true,
   // Agregamos SidebarComponent a los imports
-  imports: [CommonModule, RouterLink, AutoridadesComponent, SafeHtmlPipe],
+  imports: [CommonModule, RouterLink, AutoridadesComponent, SafeHtmlPipe,ComentariosComponent],
   templateUrl: './detalle.component.html',
   styleUrl: './detalle.component.scss',
 })

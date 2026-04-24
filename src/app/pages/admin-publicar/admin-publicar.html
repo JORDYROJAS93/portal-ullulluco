@@ -1,0 +1,61 @@
+<div class="container" style="padding: 25px; max-width: 700px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 20px auto;">
+  
+  <h2 style="color: #d35400; border-bottom: 3px solid #e67e22; padding-bottom: 10px; margin-top: 0;">
+    📸 Nueva Entrada: Portal Ullulluco
+  </h2>
+
+  <p style="color: #7f8c8d; font-size: 0.9em;">La fecha y el ID se generarán automáticamente.</p>
+
+  <form (ngSubmit)="guardar()">
+    <div style="margin-bottom: 15px;">
+      <label style="font-weight: bold; color: #34495e;">Título de la Entrada:</label>
+      <input type="text" [(ngModel)]="nuevaEntrada.titulo" name="titulo" required 
+             style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 5px;">
+    </div>
+
+    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+      <div style="flex: 1;">
+        <label style="font-weight: bold; color: #34495e;">Categoría:</label>
+        <select [(ngModel)]="nuevaEntrada.categoria" name="categoria" (change)="onCategoriaChange()" required 
+                style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 5px;">
+          <option value="">Seleccione...</option>
+          <option value="identidad">Identidad</option>
+          <option value="sabores">Sabores</option>
+          <option value="tierra">Tierra</option>
+        </select>
+      </div>
+      <div style="flex: 1;">
+        <label style="font-weight: bold; color: #34495e;">Subcategoría:</label>
+        <select [(ngModel)]="nuevaEntrada.subcategoria" name="subcategoria" [disabled]="subcategoriasDisponibles.length === 0"
+                style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 5px;">
+          <option value="">-- Elija categoría --</option>
+          <option *ngFor="let sub of subcategoriasDisponibles" [value]="sub">{{ sub | titlecase }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="font-weight: bold; color: #34495e;">Resumen (Vista previa):</label>
+      <textarea [(ngModel)]="nuevaEntrada.resumen" name="resumen" 
+                style="width: 100%; height: 50px; padding: 10px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 5px;"></textarea>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="font-weight: bold; color: #34495e;">Contenido Completo:</label>
+      <textarea [(ngModel)]="nuevaEntrada.contenido" name="contenido" rows="6" 
+                style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 5px;"></textarea>
+    </div>
+
+    <div style="background: #fdf2e9; padding: 15px; border-radius: 8px; border: 1px solid #fad7a0; margin-bottom: 20px;">
+      <label style="font-weight: bold; color: #a04000; display: block; margin-bottom: 10px;">Galería de Imágenes (URLs):</label>
+      <input type="text" [(ngModel)]="nuevaEntrada.imagen" name="imagen" placeholder="URL Imagen Principal" style="width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      <input type="text" [(ngModel)]="nuevaEntrada.imagen2" name="imagen2" placeholder="URL Imagen 2 (Opcional)" style="width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      <input type="text" [(ngModel)]="nuevaEntrada.imagen3" name="imagen3" placeholder="URL Imagen 3 (Opcional)" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <button type="submit" 
+            style="background: #e67e22; color: white; padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1em; transition: 0.3s;">
+      🚀 PUBLICAR AHORA
+    </button>
+  </form>
+</div>

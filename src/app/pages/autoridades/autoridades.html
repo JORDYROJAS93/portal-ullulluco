@@ -1,57 +1,107 @@
 <nav class="top-nav">
   <div class="nav-wrapper">
-    <a routerLink="/" class="btn-back">
-      <span class="icon">←</span> Volver al Inicio
-    </a>
+    <a routerLink="/" class="btn-back">← Volver al Inicio</a>
+    <button *ngIf="isAdmin" (click)="abrirNuevo()" class="btn-admin-add">
+      + Agregar Autoridad
+    </button>
   </div>
 </nav>
 
 <header class="header-autoridades">
-    <div class="header-content">
+  <div class="header-content">
     <span class="subtitulo">Memoria Municipal</span>
-    <h1>Nuestras Autoridades</h1>
-    <div class="linea-decorativa"></div>
+    <h1 class="titulo-principal">Nuestras Autoridades</h1>
+    <div class="linea-decorativa-oro"></div>
   </div>
 </header>
 
 <div class="main-container">
-  <div class="main-container">
+  <div id="form-anchor"></div>
+
+  <section class="admin-form-container" *ngIf="mostrarFormulario && isAdmin">
+    <div class="form-card-premium">
+      <div class="form-header">
+        <span class="form-tag">{{ editando ? 'MODO EDICIÓN' : 'NUEVO REGISTRO' }}</span>
+        <h2>{{ editando ? '✏️ Actualizar Autoridad' : '➕ Registrar Autoridad' }}</h2>
+      </div>
+
+      <form (ngSubmit)="guardar()" class="modern-grid-form">
+        <div class="input-box full-width">
+          <label>Nombre Completo de la Autoridad</label>
+          <input type="text" [(ngModel)]="autoridad.nombre_autoridad" name="nombre" placeholder="Ej: JUAN PEREZ..." required>
+        </div>
+
+        <div class="input-box">
+          <label>Cargo</label>
+          <select [(ngModel)]="autoridad.cargo" name="cargo">
+            <option value="ALCALDE DISTRITAL">ALCALDE DISTRITAL</option>
+            <option value="REGIDOR DISTRITAL">REGIDOR DISTRITAL</option>
+          </select>
+        </div>
+
+        <div class="input-box">
+          <label>Periodo de Gestión</label>
+          <input type="text" [(ngModel)]="autoridad.periodo" name="periodo" placeholder="Ej: 2023-2026">
+        </div>
+
+        <div class="input-box">
+          <label>Año de Elección</label>
+          <input type="number" [(ngModel)]="autoridad.ano_eleccion" name="ano">
+        </div>
+
+        <div class="input-box">
+          <label>Organización Política</label>
+          <input type="text" [(ngModel)]="autoridad.organizacion_politica" name="partido" placeholder="Nombre del partido">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save-confirm">{{ editando ? 'Guardar Cambios' : 'Confirmar Registro' }}</button>
+          <button type="button" (click)="cancelar()" class="btn-cancel-flat">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
   <section class="reading-container">
     <p class="parrafo-contenido intro-primera">
-      En cada época, el destino de un pueblo encuentra guía en las manos de quienes asumen la responsabilidad de conducirlo. En <strong>Alfonso Ugarte</strong>, las autoridades representan el compromiso vivo con su gente y su porvenir.
+      En cada época, el destino de un pueblo encuentra guía en las manos de quienes asumen la responsabilidad de conducirlo...
     </p>
-    <div class="divider-sutil"></div>
     <p class="parrafo-contenido">
-        A lo largo de los años, alcaldes y representantes han ido dejando su huella en Ullulluco, enfrentando los desafíos propios de una tierra andina donde cada decisión dialoga con la tradición y las necesidades del presente.
+      A lo largo de los años, alcaldes y representantes han ido dejando su huella en Ullulluco enfrentando los desafíos propios de una tierra andina.
     </p>
   </section>
-  
-  </div>
 
   @if (gruposAutoridades$ | async; as grupos) {
     @for (periodo of getPeriodos(grupos); track periodo) {
       <div class="periodo-section">
-        <div class="periodo-header">
-          <h3>Gestión {{ periodo }}</h3>
+        <div class="periodo-header-container">
+          <h2 class="periodo-title">Gestión {{ periodo }}</h2>
+          <div class="periodo-underline"></div>
         </div>
 
         <div class="table-wrapper">
           <table class="auth-table">
             <thead>
               <tr>
-                <th>Cargo</th>
-                <th>Nombre de la Autoridad</th>
-                <th>Organización Política</th>
+                <th class="col-header">Cargo</th>
+                <th class="col-header">Nombre de la Autoridad</th>
+                <th class="col-header">Organización Política</th>
+                <th *ngIf="isAdmin" class="col-header text-right">Acciones</th>
               </tr>
             </thead>
             <tbody>
               @for (persona of grupos[periodo]; track persona.id) {
                 <tr [class.is-alcalde]="persona.cargo.toUpperCase().includes('ALCALDE')">
-                  <td data-label="Cargo" class="col-cargo">
+                  <td data-label="Cargo" class="td-cargo">
                     <span class="cargo-badge">{{ persona.cargo }}</span>
                   </td>
-                  <td data-label="Nombre" class="col-nombre">{{ persona.nombre_autoridad }}</td>
-                  <td data-label="Partido" class="col-partido">{{ persona.organizacion_politica }}</td>
+                  <td data-label="Nombre" class="td-nombre">{{ persona.nombre_autoridad }}</td>
+                  <td data-label="Organización" class="td-partido">{{ persona.organizacion_politica }}</td>
+                  
+                  <td *ngIf="isAdmin" data-label="Acciones" class="td-actions">
+                    <button (click)="editar(persona)" class="btn-action-mini edit">✏️</button>
+                    <button (click)="eliminar(persona.id!)" class="btn-action-mini delete">🗑️</button>
+                  </td>
                 </tr>
               }
             </tbody>
@@ -59,9 +109,5 @@
         </div>
       </div>
     }
-  } @else {
-    <div class="loading-state">
-      <p>Cargando cronología histórica...</p>
-    </div>
   }
 </div>

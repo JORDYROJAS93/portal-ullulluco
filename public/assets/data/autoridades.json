@@ -1,0 +1,674 @@
+[
+  {
+    "id": "1",
+    "ano_eleccion": "1963",
+    "periodo": "1964-1966",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "TEODOMIRO ROJAS RAZA",
+    "organizacion_politica": "COALICION APRA - UNO"
+  },
+  {
+    "id": "2",
+    "ano_eleccion": "1963",
+    "periodo": "1964-1966",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "PEDRO ACUÑA CASTILLO",
+    "organizacion_politica": "COALICION APRA - UNO"
+  },
+  {
+    "id": "3",
+    "ano_eleccion": "1963",
+    "periodo": "1964-1966",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "SERGIO ROJAS RAMIREZ",
+    "organizacion_politica": "COALICION APRA - UNO"
+  },
+  {
+    "id": "4",
+    "ano_eleccion": "1963",
+    "periodo": "1964-1966",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "CLAUDIO ACUÑA MATOS",
+    "organizacion_politica": "COALICION APRA - UNO"
+  },
+  {
+    "id": "5",
+    "ano_eleccion": "1963",
+    "periodo": "1964-1966",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "AUGUSTO RAMIREZ QUESADA",
+    "organizacion_politica": "ALIANZA ACCION POPULAR - DEMOCRACIA CRISTIANA"
+  },
+  {
+    "id": "6",
+    "ano_eleccion": "1963",
+    "periodo": "1964-1966",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "JUAN ACUÑA FRANCISCO",
+    "organizacion_politica": "ALIANZA ACCION POPULAR - DEMOCRACIA CRISTIANA"
+  },
+  {
+    "id": "7",
+    "ano_eleccion": "1966",
+    "periodo": "1967-1970",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "SANTIAGO ACUÑA CASTILLO",
+    "organizacion_politica": "ALIANZA ACCION POPULAR - DEMOCRACIA CRISTIANA"
+  },
+  {
+    "id": "8",
+    "ano_eleccion": "1966",
+    "periodo": "1967-1970",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "LAMBERTO CASTILLO ACUÑA",
+    "organizacion_politica": "ALIANZA ACCION POPULAR - DEMOCRACIA CRISTIANA"
+  },
+  {
+    "id": "9",
+    "ano_eleccion": "1966",
+    "periodo": "1967-1970",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "VIDAL MORILLO MATOS",
+    "organizacion_politica": "ALIANZA ACCION POPULAR - DEMOCRACIA CRISTIANA"
+  },
+  {
+    "id": "10",
+    "ano_eleccion": "1966",
+    "periodo": "1967-1970",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ROBERTO MORILLO HERRERA",
+    "organizacion_politica": "ALIANZA ACCION POPULAR - DEMOCRACIA CRISTIANA"
+  },
+  {
+    "id": "11",
+    "ano_eleccion": "1966",
+    "periodo": "1967-1970",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ENRIQUE MORILLO HERRERA",
+    "organizacion_politica": "COALICION APRA - UNO"
+  },
+  {
+    "id": "12",
+    "ano_eleccion": "1966",
+    "periodo": "1967-1970",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "TEODOMIRO ROJAS RAZA",
+    "organizacion_politica": "COALICION APRA - UNO"
+  },
+  {
+    "id": "13",
+    "ano_eleccion": "1981",
+    "periodo": "1981-1983",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "JORGE ADALBERTO ACUÑA ROJAS",
+    "organizacion_politica": "ACCION POPULAR"
+  },
+  {
+    "id": "14",
+    "ano_eleccion": "1981",
+    "periodo": "1981-1983",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "FELIPE AGUSTIN ROJAS MONTES",
+    "organizacion_politica": "ACCION POPULAR"
+  },
+  {
+    "id": "15",
+    "ano_eleccion": "1981",
+    "periodo": "1981-1983",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "TEODORO CRESPIN MORILLO REYES",
+    "organizacion_politica": "ACCION POPULAR"
+  },
+  {
+    "id": "16",
+    "ano_eleccion": "1981",
+    "periodo": "1981-1983",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "OSVALDO QUEZADA ARAMBURU",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "17",
+    "ano_eleccion": "1981",
+    "periodo": "1981-1983",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "MAURO MATOS VASQUEZ",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "18",
+    "ano_eleccion": "1981",
+    "periodo": "1981-1983",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ALFONSO VASQUEZ RAMIREZ",
+    "organizacion_politica": "PARTIDO APRISTA PERUANO"
+  },
+  {
+    "id": "19",
+    "ano_eleccion": "1983",
+    "periodo": "1984-1986",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "ERNESTO RAMIREZ CASTILLO",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "20",
+    "ano_eleccion": "1983",
+    "periodo": "1984-1986",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "PUBLIO AUGURIO MELGAREJO VIDAL",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "21",
+    "ano_eleccion": "1983",
+    "periodo": "1984-1986",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "NEL JUANITO ROJAS HERRERA",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "22",
+    "ano_eleccion": "1983",
+    "periodo": "1984-1986",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "MARCELINO QUEZADA VASQUEZ",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "23",
+    "ano_eleccion": "1983",
+    "periodo": "1984-1986",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "GREGORIO BERNABE LIÑAN PONTE",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "24",
+    "ano_eleccion": "1983",
+    "periodo": "1984-1986",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "LIZARDO ACUÑA ROJAS",
+    "organizacion_politica": "ACCION POPULAR"
+  },
+  {
+    "id": "25",
+    "ano_eleccion": "1986",
+    "periodo": "1987-1991",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "CONSTANTINO QUESADA TRUJILLO",
+    "organizacion_politica": "PARTIDO APRISTA PERUANO"
+  },
+  {
+    "id": "26",
+    "ano_eleccion": "1986",
+    "periodo": "1987-1991",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "VICTOR HERMOGENES ROJAS HERRERA",
+    "organizacion_politica": "PARTIDO APRISTA PERUANO"
+  },
+  {
+    "id": "27",
+    "ano_eleccion": "1986",
+    "periodo": "1987-1991",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "JUAN ADELFIO PEREZ RAMIREZ",
+    "organizacion_politica": "PARTIDO APRISTA PERUANO"
+  },
+  {
+    "id": "28",
+    "ano_eleccion": "1986",
+    "periodo": "1987-1991",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ERASMO CRUZ MATTA VASQUEZ",
+    "organizacion_politica": "PARTIDO APRISTA PERUANO"
+  },
+  {
+    "id": "29",
+    "ano_eleccion": "1986",
+    "periodo": "1987-1991",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "GERARDO ESPINOZA ENCARNACION",
+    "organizacion_politica": "PARTIDO APRISTA PERUANO"
+  },
+  {
+    "id": "30",
+    "ano_eleccion": "1986",
+    "periodo": "1987-1991",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "MARCELINO QUESADA VASQUEZ",
+    "organizacion_politica": "FRENTE ELECTORAL IZQUIERDA UNIDA"
+  },
+  {
+    "id": "31",
+    "ano_eleccion": "1991",
+    "periodo": "1992-1995",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "ROBERTO MURILLO HERRERA",
+    "organizacion_politica": "L.I 3 MOV INDEP CAMP ATUSPARIA - MICA"
+  },
+  {
+    "id": "32",
+    "ano_eleccion": "1991",
+    "periodo": "1992-1995",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "DARIO QUEZADA ACUÑA",
+    "organizacion_politica": "L.I 3 MOV INDEP CAMP ATUSPARIA - MICA"
+  },
+  {
+    "id": "33",
+    "ano_eleccion": "1991",
+    "periodo": "1992-1995",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "AURELIO HERRERA PAZ",
+    "organizacion_politica": "L.I 3 MOV INDEP CAMP ATUSPARIA - MICA"
+  },
+  {
+    "id": "34",
+    "ano_eleccion": "1991",
+    "periodo": "1992-1995",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "JAVIER LUIS QUEZADA",
+    "organizacion_politica": "L.I 3 MOV INDEP CAMP ATUSPARIA - MICA"
+  },
+  {
+    "id": "35",
+    "ano_eleccion": "1991",
+    "periodo": "1992-1995",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "GERARDO ESPINOZA ENCARNACION",
+    "organizacion_politica": "L.I 3 MOV INDEP CAMP ATUSPARIA - MICA"
+  },
+  {
+    "id": "36",
+    "ano_eleccion": "1991",
+    "periodo": "1992-1995",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "AMADOR ARIAS MORILLO SOTOMAYOR",
+    "organizacion_politica": "IZQUIERDA UNIDA"
+  },
+  {
+    "id": "37",
+    "ano_eleccion": "1995",
+    "periodo": "1996-1998",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "LIGORIO ROBERTO MORILLO FLORES",
+    "organizacion_politica": "L.I. NRO 3 MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA"
+  },
+  {
+    "id": "38",
+    "ano_eleccion": "1995",
+    "periodo": "1996-1998",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "TEOFILO TRUJILLO TRUJILLO",
+    "organizacion_politica": "L.I. NRO 3 MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA"
+  },
+  {
+    "id": "39",
+    "ano_eleccion": "1995",
+    "periodo": "1996-1998",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "SERGIO ESTANISLAO ROJAS TRUJILLO",
+    "organizacion_politica": "L.I. NRO 3 MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA"
+  },
+  {
+    "id": "40",
+    "ano_eleccion": "1995",
+    "periodo": "1996-1998",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ANACLETO LORENZO TORRES CAMPOMANES",
+    "organizacion_politica": "L.I. NRO 3 MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA"
+  },
+  {
+    "id": "41",
+    "ano_eleccion": "1995",
+    "periodo": "1996-1998",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "VICTOR HERMOGENES ROJAS HERRERA",
+    "organizacion_politica": "L.I. NRO 9 CONCERTACION PROVINCIAL"
+  },
+  {
+    "id": "42",
+    "ano_eleccion": "1995",
+    "periodo": "1996-1998",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "GUILLERMO LEONIDAS HERRERA ROJAS",
+    "organizacion_politica": "L.I. NRO 7 RECONSTRUCCION Y DESARROLLO LOCAL"
+  },
+  {
+    "id": "43",
+    "ano_eleccion": "1998",
+    "periodo": "1999-2002",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "CONSTANTINO QUEZADA TRUJILLO",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA MICA"
+  },
+  {
+    "id": "44",
+    "ano_eleccion": "1998",
+    "periodo": "1999-2002",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "MAXIMO ACUÑA QUEZADA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA MICA"
+  },
+  {
+    "id": "45",
+    "ano_eleccion": "1998",
+    "periodo": "1999-2002",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "NESTOR PORFIRIO MATOS PALACIOS",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA MICA"
+  },
+  {
+    "id": "46",
+    "ano_eleccion": "1998",
+    "periodo": "1999-2002",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "GLORIA QUIROGA DE HERRERA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA MICA"
+  },
+  {
+    "id": "47",
+    "ano_eleccion": "1998",
+    "periodo": "1999-2002",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "GERARDO ESPINOZA ENCARNACION",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA MICA"
+  },
+  {
+    "id": "48",
+    "ano_eleccion": "1998",
+    "periodo": "1999-2002",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ROMAN BELTRAN LIÑAN TRUJILLO",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE VAMOS VECINO"
+  },
+  {
+    "id": "49",
+    "ano_eleccion": "2002",
+    "periodo": "2003-2006",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "GREGORIO BERNABE LIÑAN PONTE",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE RONDERO (M.I.R.O.)"
+  },
+  {
+    "id": "50",
+    "ano_eleccion": "2002",
+    "periodo": "2003-2006",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "VICTOR HERMOGENES ROJAS HERRERA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE RONDERO (M.I.R.O.)"
+  },
+  {
+    "id": "51",
+    "ano_eleccion": "2002",
+    "periodo": "2003-2006",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "RAMIRO GILMER ACUÑA HERRERA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE RONDERO (M.I.R.O.)"
+  },
+  {
+    "id": "52",
+    "ano_eleccion": "2002",
+    "periodo": "2003-2006",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "LIVIA ENRIQUETA PAREJA HERRERA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE RONDERO (M.I.R.O.)"
+  },
+  {
+    "id": "53",
+    "ano_eleccion": "2002",
+    "periodo": "2003-2006",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "LENIN EDMAR ESPINOZA ARONI",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE RONDERO (M.I.R.O.)"
+  },
+  {
+    "id": "54",
+    "ano_eleccion": "2002",
+    "periodo": "2003-2006",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "TEOTIMO TRUJILLO TRUJILLO",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE CAMPESINO ATUSPARIA (M.I.C.A.)"
+  },
+  {
+    "id": "55",
+    "ano_eleccion": "2006",
+    "periodo": "2007-2010",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "ROMAN BELTRAN LIÑAN TRUJILLO",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "56",
+    "ano_eleccion": "2006",
+    "periodo": "2007-2010",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "JAMER LUIS QUEZADA MORILLO",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "57",
+    "ano_eleccion": "2006",
+    "periodo": "2007-2010",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "YONEL JUAN AMARU TRUJILLO",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "58",
+    "ano_eleccion": "2006",
+    "periodo": "2007-2010",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "SOFIA QUEZADA TRUJILLO",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "59",
+    "ano_eleccion": "2006",
+    "periodo": "2007-2010",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "PEDRO GONZALO FLORES QUEZADA",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "60",
+    "ano_eleccion": "2006",
+    "periodo": "2007-2010",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ROBER EPIFANIO RAMIREZ CASTILLO",
+    "organizacion_politica": "FRENTE AMPLIO DEMOCRATICO SIHUASINO"
+  },
+  {
+    "id": "61",
+    "ano_eleccion": "2010",
+    "periodo": "2011-2014",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "LIZARDO MANUEL ACUÑA ROJAS",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "62",
+    "ano_eleccion": "2010",
+    "periodo": "2011-2014",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ELMER TADEO VELASQUEZ MORILLO",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "63",
+    "ano_eleccion": "2010",
+    "periodo": "2011-2014",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "VICTOR CORTEZ FRANCISCO",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "64",
+    "ano_eleccion": "2010",
+    "periodo": "2011-2014",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "SANTIAGO ABRAHAM QUEZADA TRUJILLO",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "65",
+    "ano_eleccion": "2010",
+    "periodo": "2011-2014",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "MELINA ISABEL LOPEZ CRUZ",
+    "organizacion_politica": "MIRO"
+  },
+  {
+    "id": "66",
+    "ano_eleccion": "2010",
+    "periodo": "2011-2014",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "RICARDO JAVIER BORJA TORRES",
+    "organizacion_politica": "FRENTE AMPLIO DEMOCRATICO SIHUASINO"
+  },
+  {
+    "id": "67",
+    "ano_eleccion": "2014",
+    "periodo": "2015-2018",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "TEODOMIRO AMERICO ROJAS HERRERA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE REGIONAL RIO SANTA CAUDALOSO"
+  },
+  {
+    "id": "68",
+    "ano_eleccion": "2014",
+    "periodo": "2015-2018",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "RUFINO EPIFANIO QUEZADA HERRERA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE REGIONAL RIO SANTA CAUDALOSO"
+  },
+  {
+    "id": "69",
+    "ano_eleccion": "2014",
+    "periodo": "2015-2018",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "EDMAR NOE MATA QUEZADA",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE REGIONAL RIO SANTA CAUDALOSO"
+  },
+  {
+    "id": "70",
+    "ano_eleccion": "2014",
+    "periodo": "2015-2018",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ELY JESUS MORILLO AMARU",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE REGIONAL RIO SANTA CAUDALOSO"
+  },
+  {
+    "id": "71",
+    "ano_eleccion": "2014",
+    "periodo": "2015-2018",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "VIKY ELISABETH FRANCISCO REYES",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE REGIONAL RIO SANTA CAUDALOSO"
+  },
+  {
+    "id": "72",
+    "ano_eleccion": "2014",
+    "periodo": "2015-2018",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "CELAMIRES ROMAN HERRERA RAZA",
+    "organizacion_politica": "UNION NACIONALISTA ANCASHINA"
+  },
+  {
+    "id": "73",
+    "ano_eleccion": "2018",
+    "periodo": "2019-2022",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "JUAN ADELFIO PEREZ RAMIREZ",
+    "organizacion_politica": "PODEMOS POR EL PROGRESO DEL PERU"
+  },
+  {
+    "id": "74",
+    "ano_eleccion": "2018",
+    "periodo": "2019-2022",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "INES IRMA CASTILLO CRUZ",
+    "organizacion_politica": "PODEMOS POR EL PROGRESO DEL PERU"
+  },
+  {
+    "id": "75",
+    "ano_eleccion": "2018",
+    "periodo": "2019-2022",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "MIRIA MARIA QUEZADA HUAÑACARI",
+    "organizacion_politica": "PODEMOS POR EL PROGRESO DEL PERU"
+  },
+  {
+    "id": "76",
+    "ano_eleccion": "2018",
+    "periodo": "2019-2022",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "JHON EDGAR LOPEZ RODRIGUEZ",
+    "organizacion_politica": "PODEMOS POR EL PROGRESO DEL PERU"
+  },
+  {
+    "id": "77",
+    "ano_eleccion": "2018",
+    "periodo": "2019-2022",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ROBER EPIFANIO RAMIREZ CASTILLO",
+    "organizacion_politica": "MOVIMIENTO INDEPENDIENTE REGIONAL RIO SANTA CAUDALOSO"
+  },
+  {
+    "id": "78",
+    "ano_eleccion": "2018",
+    "periodo": "2019-2022",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "LEONARDO HONORIO CRUZ TORRES",
+    "organizacion_politica": "PODEMOS POR EL PROGRESO DEL PERU"
+  },
+  {
+    "id": "79",
+    "ano_eleccion": "2022",
+    "periodo": "2023-2026",
+    "cargo": "ALCALDE DISTRITAL",
+    "nombre_autoridad": "HAN MARCOS MORILLO TORRES",
+    "organizacion_politica": "MOVIMIENTO REGIONAL EL MAICITO"
+  },
+  {
+    "id": "80",
+    "ano_eleccion": "2022",
+    "periodo": "2023-2026",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "FIORELA MARISOL TORRES CASTILLO",
+    "organizacion_politica": "MOVIMIENTO REGIONAL EL MAICITO"
+  },
+  {
+    "id": "81",
+    "ano_eleccion": "2022",
+    "periodo": "2023-2026",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "EDERZON JESUS TRUJILLO RODRIGUEZ",
+    "organizacion_politica": "MOVIMIENTO REGIONAL EL MAICITO"
+  },
+  {
+    "id": "82",
+    "ano_eleccion": "2022",
+    "periodo": "2023-2026",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "ALBERTO TEODORO CRUZ CORTEZ",
+    "organizacion_politica": "MOVIMIENTO REGIONAL EL MAICITO"
+  },
+  {
+    "id": "83",
+    "ano_eleccion": "2022",
+    "periodo": "2023-2026",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "HERMELINDA SARITA MORILLO SALINAS",
+    "organizacion_politica": "MOVIMIENTO REGIONAL EL MAICITO"
+  },
+  {
+    "id": "84",
+    "ano_eleccion": "2022",
+    "periodo": "2023-2026",
+    "cargo": "REGIDOR DISTRITAL",
+    "nombre_autoridad": "MAIDI MIRSA TORRES AMARU",
+    "organizacion_politica": "JUNTOS POR EL PERU"
+  }
+]

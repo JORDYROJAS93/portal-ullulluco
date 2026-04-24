@@ -1,20 +1,24 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter, withHashLocation, withInMemoryScrolling } from '@angular/router';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'; // Cambiado aquí
+import { provideRouter, withHashLocation } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+// import { provideClientHydration } from '@angular/platform-browser'; // Coméntalo un momento
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+import { provideAuth } from '@angular/fire/auth';
+import { getAuth } from 'firebase/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
-    provideRouter(routes,withHashLocation(),withInMemoryScrolling({ 
-        scrollPositionRestoration: 'enabled',
-        anchorScrolling: 'enabled' 
-      })), provideClientHydration(withEventReplay()),
-    provideHttpClient()
-    
+    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideRouter(routes, withHashLocation()), 
+    provideHttpClient(),
+
+    // Inicialización limpia y única
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()), 
+    provideAuth(() => getAuth()),
   ]
-  
 };

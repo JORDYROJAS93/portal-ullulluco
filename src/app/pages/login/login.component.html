@@ -1,0 +1,16 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Panel de Control</h2>
+    <p>Portal Alfonso Ugarte - Ullulluco</p>
+
+    <div class="google-section">
+      <p>Haz clic abajo para identificarte como administrador:</p>
+      <button class="btn-google" (click)='ingresar()'>
+        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google">
+        Entrar con mi cuenta de Google
+      </button>
+    </div>
+
+    <p class="error-msg" *ngIf="error">{{ error }}</p>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* Evita que cualquier elemento "empuje" la pantalla hacia la derecha */
+@import "sweetalert2/src/sweetalert2.scss";
 html, body {
   width: 100%;
   margin: 0;

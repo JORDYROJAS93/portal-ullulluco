@@ -15,28 +15,30 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-  "outputPath": "dist/alfonso-ugarte-ullulluco",
-  "browser": "src/main.ts",
-  "tsConfig": "tsconfig.app.json",
-  "inlineStyleLanguage": "scss",
-  "assets": [
-    {
-      "glob": "**/*",
-      "input": "public"
-    },
-    "src/404.html"
-  ],
-  "styles": [
-    "src/styles.scss"
-  ],
-  "scripts": [],
-  "server": false,
-  "prerender": false,
-  "ssr": false,
-  "outputMode": "static"
-},
+            "outputPath": "dist/alfonso-ugarte-ullulluco",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public",
+                "output": "/"
+              },
+              "src/favicon.ico",
+              "src/404.html"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          },
           "configurations": {
             "production": {
               "budgets": [
@@ -54,15 +56,18 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "alfonso-ugarte-ullulluco:build:production"
@@ -74,22 +79,31 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "alfonso-ugarte-ullulluco:build"
+          }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "scripts": []
           }
         }
       }

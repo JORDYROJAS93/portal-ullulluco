@@ -4,10 +4,12 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { filter } from 'rxjs';
+import { AdminPublicarComponent } from './pages/admin-publicar/admin-publicar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, SidebarComponent, FooterComponent],
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent, SidebarComponent, FooterComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -24,7 +26,7 @@ export class AppComponent {
         const urlFinal = event.urlAfterRedirects;
 
         // Lista de páginas que ocupan TODO el ancho (sin sidebar)
-        const rutasFullWidth = ['/', '/home', '/autoridades', '/ubicacion'];
+        const rutasFullWidth = ['/', '/home', '/autoridades', '/ubicacion','/publicar-ullulluco'];
 
         // Si la ruta final está en la lista, ocultamos sidebar
         this.mostrarSidebar = !rutasFullWidth.includes(urlFinal);
