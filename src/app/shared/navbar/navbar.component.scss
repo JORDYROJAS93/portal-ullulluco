@@ -142,3 +142,48 @@
     }
   }
 }
+
+.auth-item {
+  margin-left: 1rem; // Separarlo un poco en PC
+  
+  .login-btn, .logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.5rem 1rem !important;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .login-btn {
+    border: 1px solid #b01a1a;
+    color: #b01a1a ;
+    &:hover { background: #b01a1a; color: #fff !important; }
+  }
+
+  .logout-btn {
+    background: #fdf2f2;
+    color: #b01a1a;
+    font-weight: bold;
+    &:hover { background: #b01a1a; color: white; }
+  }
+}
+
+// Ajuste para Móvil
+@media (max-width: 768px) {
+  .auth-item {
+    margin-left: 0;
+    background: #f9f9f9; // Fondo diferente para notar que es la cuenta
+    
+    .login-btn, .logout-btn {
+      padding: 1.5rem 2rem !important; // Mismo padding que los otros links
+      width: 100%;
+      border: none;
+      border-radius: 0;
+    }
+  }
+}

@@ -1,14 +1,30 @@
 <div class="login-container">
   <div class="login-card">
-    <h2>Panel de Control</h2>
-    <p>Portal Alfonso Ugarte - Ullulluco</p>
+    <div class="header-login">
+      <h2>Panel de Control</h2>
+      <p>Portal Alfonso Ugarte - Ullulluco</p>
+    </div>
 
-    <div class="google-section">
-      <p>Haz clic abajo para identificarte como administrador:</p>
-      <button class="btn-google" (click)='ingresar()'>
-        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google">
-        Entrar con mi cuenta de Google
+    <div class="social-section">
+      <p class="instruction">Identifícate para gestionar contenido o dejar comentarios:</p>
+      
+      <button class="btn-google" (click)="ingresarConGoogle()">
+        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="G">
+        Continuar con Google
       </button>
+
+      <button class="btn-facebook" (click)="ingresarConFacebook()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="F">
+        Continuar con Facebook
+      </button>
+    </div>
+
+    <div class="divider">
+      <span>Próximamente</span>
+    </div>
+
+    <div class="footer-note">
+      <p>Al ingresar podrás participar en las historias de nuestra comunidad.</p>
     </div>
 
     <p class="error-msg" *ngIf="error">{{ error }}</p>

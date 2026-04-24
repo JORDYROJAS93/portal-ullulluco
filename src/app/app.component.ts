@@ -26,7 +26,7 @@ export class AppComponent {
         const urlFinal = event.urlAfterRedirects;
 
         // Lista de páginas que ocupan TODO el ancho (sin sidebar)
-        const rutasFullWidth = ['/', '/home', '/autoridades', '/ubicacion','/publicar-ullulluco'];
+        const rutasFullWidth = ['/', '/home', '/autoridades', '/ubicacion','/publicar-ullulluco','/login-admin'];
 
         // Si la ruta final está en la lista, ocultamos sidebar
         this.mostrarSidebar = !rutasFullWidth.includes(urlFinal);

@@ -19,17 +19,38 @@ export class LoginComponent {
   pass: string = '';
   error: string = '';
 
-  async ingresar() {
-  try {
-    // Usamos la función de Google que ya creamos en el AuthService
-    await this.authService.loginWithGoogle();
-    
-    // Si el login es exitoso, Angular te mandará al creador de contenido
-    // Pero el Guard verificará si TU correo es el autorizado
-    this.router.navigate(['/publicar-ullulluco']);
-  } catch (err) {
-    this.error = 'No se pudo iniciar sesión con Google. Intenta de nuevo.';
-    console.error(err);
+  // Método para Google
+  async ingresarConGoogle() {
+    try {
+      await this.authService.loginWithGoogle();
+      this.router.navigate(['/publicar-ullulluco']);
+    } catch (err) {
+      this.error = 'Error al conectar con Google.';
+    }
   }
-}
+
+  // Método para Facebook
+  async ingresarConFacebook() {
+    try {
+      await this.authService.loginWithFacebook();
+      this.router.navigate(['/publicar-ullulluco']);
+    } catch (err) {
+      this.error = 'Error al conectar con Facebook.';
+      console.error(err);
+    }
+  }
+
+  // Método para Correo Tradicional
+  async ingresarConEmail() {
+    if(!this.email || !this.pass) {
+      this.error = 'Completa todos los campos.';
+      return;
+    }
+    try {
+      await this.authService.loginConEmail(this.email, this.pass);
+      this.router.navigate(['/publicar-ullulluco']);
+    } catch (err) {
+      this.error = 'Correo o contraseña incorrectos.';
+    }
+  }
 }

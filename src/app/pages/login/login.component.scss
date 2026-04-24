@@ -1,42 +1,116 @@
+@use "sass:color";
+
+// Variables de marca
+$color-guinda: #800000;
+$color-facebook: #1877f2;
+$color-google-hover: #f8f9fa;
+$sombra-suave: 0 10px 25px rgba(0,0,0,0.1);
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
-  background-color: #f4f4f4;
+  min-height: 90vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
 }
 
 .login-card {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: $sombra-suave;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   text-align: center;
+  transition: transform 0.3s ease;
 
-  h2 { color: #800000; margin-bottom: 0.5rem; }
-  p { color: #666; margin-bottom: 2rem; }
+  &:hover { transform: translateY(-5px); }
+
+  h2 { 
+    color: $color-guinda; 
+    margin-bottom: 0.5rem; 
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+  }
+  
+  p { color: #666; font-size: 0.95rem; }
 }
 
-.form-group {
-  text-align: left;
-  margin-bottom: 1rem;
-  label { display: block; font-weight: bold; margin-bottom: 0.5rem; }
-  input { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; }
+.social-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 2rem;
+
+  .instruction {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+    
+    img { width: 22px; }
+
+    // Estilo Google
+    &.btn-google {
+      background: white;
+      color: #3c4043;
+      &:hover {
+        background: $color-google-hover;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-color: #ccc;
+      }
+    }
+
+    // Estilo Facebook
+    &.btn-facebook {
+      background: $color-facebook;
+      color: white;
+      border: none;
+      &:hover {
+        background: darken($color-facebook, 8%);
+        box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+      }
+    }
+
+    &:active { transform: scale(0.98); }
+  }
 }
 
-button {
-  width: 100%;
-  padding: 1rem;
-  background-color: #800000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
+.divider {
+  margin: 2rem 0;
+  border-bottom: 1px solid #eee;
+  line-height: 0.1em;
+  span { background: #fff; padding: 0 15px; color: #bbb; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+}
+
+.footer-note {
   margin-top: 1rem;
-  &:hover { background-color: #a00000; }
+  padding: 15px;
+  background: #fdf2f2;
+  border-radius: 10px;
+  p { color: #888; font-size: 0.8rem; margin: 0; line-height: 1.4; }
 }
 
-.error-msg { color: red; font-size: 0.9rem; margin-top: 1rem; }
+.error-msg { 
+  color: #d32f2f; 
+  background: #ffebee; 
+  padding: 12px; 
+  border-radius: 8px; 
+  margin-top: 1.5rem; 
+  font-size: 0.85rem;
+  border-left: 4px solid #d32f2f;
+}

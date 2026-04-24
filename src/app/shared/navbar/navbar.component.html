@@ -39,6 +39,22 @@
           <li><a routerLink="/ubicacion" routerLinkActive="active-link" (click)="closeMenu()">Ubicación</a></li>
         </ul>
       </li>
+      <ul class="nav-links" [class.open]="isMenuOpen">
+      <li class="auth-item">
+        <a *ngIf="!(authService.user$ | async)" 
+           routerLink="/login-admin" 
+           class="login-btn" 
+           (click)="closeMenu()">
+           <span class="icon">👤</span> Ingresar
+        </a>
+
+        <div *ngIf="authService.user$ | async" class="user-logged">
+          <button (click)="logout()" class="logout-btn">
+            <span class="icon">🚪</span> Salir
+          </button>
+        </div>
+      </li>
+    </ul>
     </ul>
   </div>
 </nav>

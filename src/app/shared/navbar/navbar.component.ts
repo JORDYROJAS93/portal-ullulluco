@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  public authService = inject(AuthService);
   // Variable para controlar el estado del menú en móviles
   isMenuOpen = false;
   activeDropdown: string | null = null; // Controla qué submenú está abierto en móvil
@@ -30,5 +33,10 @@ export class NavbarComponent {
       event.stopPropagation();
       this.activeDropdown = this.activeDropdown === menu ? null : menu;
     }
+  }
+
+  logout() {
+    this.authService.logout();
+    this.closeMenu();
   }
 }
