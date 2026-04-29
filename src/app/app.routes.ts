@@ -24,6 +24,7 @@ export const routes: Routes = [
   { path: 'leyendas', component: ListadoComponent },
   { path: 'artesania', component: ListadoComponent },
   { path: 'turismo', component: ListadoComponent },
+  { path: 'anexos', component: ListadoComponent },
 
   // Detalle de entradas
   { path: 'detalle/:category/:id', component: DetalleComponent },

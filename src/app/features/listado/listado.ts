@@ -57,6 +57,7 @@ export class ListadoComponent implements OnInit {
       leyendas: 'Mitos y Leyendas',
       'plantas-nativas': 'Flora Nativa',
       autoridades: 'Nuestras Autoridades',
+      anexos: 'Anexos y Caseríos del Distrito',
     };
     return nombres[subcat] || 'Información';
   }

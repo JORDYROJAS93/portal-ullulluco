@@ -25,7 +25,7 @@ export class AdminPublicarComponent implements OnInit {
   hayCambios: boolean = false;
 
   categoriasMap: any = {
-    identidad: ['historia', 'leyendas'],
+    identidad: ['historia', 'leyendas','anexos'],
     sabores: ['gastronomia', 'festividades'],
     tierra: ['agricultura', 'plantas-nativas', 'turismo'],
   };
