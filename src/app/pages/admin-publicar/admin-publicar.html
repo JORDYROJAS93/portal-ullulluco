@@ -1,12 +1,12 @@
 <div class="container" style="padding: 25px; max-width: 700px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 20px auto;">
   
   <h2 style="color: #d35400; border-bottom: 3px solid #e67e22; padding-bottom: 10px; margin-top: 0;">
-    📸 Nueva Entrada: Portal Ullulluco
+    {{ idEdicion ? '✏️ Editar Entrada' : '📸 Nueva Entrada' }}: Portal Ullulluco
   </h2>
 
   <p style="color: #7f8c8d; font-size: 0.9em;">La fecha y el ID se generarán automáticamente.</p>
 
-  <form (ngSubmit)="guardar()">
+  <form (ngSubmit)="guardar()" (input)="onInput()" (change)="onInput()">
     <div style="margin-bottom: 15px;">
       <label style="font-weight: bold; color: #34495e;">Título de la Entrada:</label>
       <input type="text" [(ngModel)]="nuevaEntrada.titulo" name="titulo" required 
@@ -53,9 +53,24 @@
       <input type="text" [(ngModel)]="nuevaEntrada.imagen3" name="imagen3" placeholder="URL Imagen 3 (Opcional)" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
     </div>
 
-    <button type="submit" 
-            style="background: #e67e22; color: white; padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1em; transition: 0.3s;">
-      🚀 PUBLICAR AHORA
+    <div style="display: flex; gap: 10px; margin-top: 20px;">
+      
+      <button *ngIf="idEdicion" type="button" (click)="eliminar()"
+              style="background: #e74c3c; color: white; padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; font-size: 1.1em;">
+        🗑️ ELIMINAR
+      </button>
+
+      <button type="submit" [disabled]="guardando || (idEdicion && !hayCambios)"
+              [style.background]="(guardando || (idEdicion && !hayCambios)) ? '#bdc3c7' : '#e67e22'"
+              style="color: white; padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 2; font-size: 1.1em; transition: 0.3s;">
+        {{ guardando ? '⏳ PROCESANDO...' : (idEdicion ? '💾 ACTUALIZAR CAMBIOS' : '🚀 PUBLICAR AHORA') }}
+      </button>
+
+    </div>
+
+    <button type="button" (click)="regresar()"
+            style="background: transparent; color: #7f8c8d; padding: 10px; border: none; width: 100%; margin-top: 10px; cursor: pointer;">
+      ⬅️ Cancelar y volver
     </button>
   </form>
 </div>

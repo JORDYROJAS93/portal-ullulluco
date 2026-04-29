@@ -13,6 +13,7 @@ import {
   DocumentSnapshot,
   updateDoc,
   docData,
+  deleteDoc,
 } from '@angular/fire/firestore';
 
 export interface Entrada {
@@ -82,4 +83,9 @@ export class DataService {
     const docRef = doc(this.firestore, 'entradas', id); // 'entradas' es el nombre de tu colección
     return await updateDoc(docRef, data);
   }
+
+  async deleteEntrada(id: string) {
+  const docRef = doc(this.firestore, 'entradas', id);
+  return await deleteDoc(docRef);
+}
 }
