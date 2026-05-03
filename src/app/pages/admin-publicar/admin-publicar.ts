@@ -23,6 +23,7 @@ export class AdminPublicarComponent implements OnInit {
   idEdicion: string | null = null;
   guardando: boolean = false; // Bloqueador de botón
   hayCambios: boolean = false;
+  datosOriginales: string = '';
 
   categoriasMap: any = {
     identidad: ['historia', 'leyendas','anexos'],
@@ -42,6 +43,7 @@ export class AdminPublicarComponent implements OnInit {
     imagen2: '',
     imagen3: '',
     autor: 'Jordy Rojas',
+    publicado: false,
   };
 
   ngOnInit() {
@@ -52,16 +54,20 @@ export class AdminPublicarComponent implements OnInit {
   }
 
   onInput() {
-  this.hayCambios = true;
-}
+    if (this.idEdicion) {
+      this.hayCambios = JSON.stringify(this.nuevaEntrada) !== this.datosOriginales;
+    } else {
+      this.hayCambios = true;
+    }
+  }
 
   cargarDatosParaEditar(id: string) {
-    this.dataService.getEntradaById(id).subscribe((entrada) => {
+    this.dataService.getEntradaById(id).subscribe((entrada: any) => {
       if (entrada) {
-        this.nuevaEntrada = entrada;
-        // Actualizamos las subcategorías según la categoría cargada
+        this.nuevaEntrada = { ...entrada };
+        this.datosOriginales = JSON.stringify(entrada); // Guardamos copia
         this.onCategoriaChange();
-        this.hayCambios = false; // Resetear al cargar los datos originales
+        this.hayCambios = false;
       }
     });
   }
@@ -70,35 +76,57 @@ export class AdminPublicarComponent implements OnInit {
     this.subcategoriasDisponibles = this.categoriasMap[this.nuevaEntrada.categoria] || [];
   }
 
-  async guardar() {
-    if (this.guardando) return; // Evita el doble click si ya está procesando
+  // Función para guardar (tanto para crear como para actualizar)
+  async guardar(estadoPublicacion: boolean) {
+    // 1. Verificamos si ya se está procesando para evitar doble clic
+    if (this.guardando) return;
 
+    // 2. Validación de campos obligatorios
     if (!this.nuevaEntrada.titulo || !this.nuevaEntrada.categoria) {
       this.alertSvc.error('Campos incompletos', 'Por favor, completa el título y la categoría.');
       return;
     }
 
-    this.guardando = true; // Bloqueamos el botón
+    // 3. Verificamos si realmente hay algo que hacer.
+    // Si NO hay cambios en el texto Y el estado de publicación es el mismo que ya tiene...
+    if (this.idEdicion && !this.hayCambios && this.nuevaEntrada.publicado === estadoPublicacion) {
+      this.alertSvc.info('Sin cambios', 'La entrada ya se encuentra en ese estado y no tiene modificaciones.');
+      return;
+    }
+
+    this.guardando = true; // Bloqueamos los botones
 
     try {
+      const dataParaEnviar = {
+        ...this.nuevaEntrada,
+        publicado: estadoPublicacion, // <--- Aquí asignamos true o false
+        fecha: this.nuevaEntrada.fecha || new Date().toISOString().split('T')[0],
+        createdAt: this.nuevaEntrada.createdAt || new Date().getTime(),
+      };
+
       if (this.idEdicion) {
-        await this.dataService.updateEntrada(this.idEdicion, this.nuevaEntrada);
-        this.alertSvc.success('¡Actualizado!', 'La entrada se actualizó correctamente.');
+        // ACTUALIZAR
+        await this.dataService.updateEntrada(this.idEdicion, dataParaEnviar);
+        this.alertSvc.success(
+          '¡Actualizado!', 
+          estadoPublicacion ? 'Publicado correctamente.' : 'Guardado como borrador.'
+        );
       } else {
-        const dataParaEnviar = {
-          ...this.nuevaEntrada,
-          fecha: new Date().toISOString().split('T')[0],
-          createdAt: new Date().getTime(),
-        };
+        // CREAR NUEVO
         await this.firebaseSvc.publicarHistoria(dataParaEnviar);
-        this.alertSvc.success('¡Publicado!', 'La nueva historia ya está en el portal.');
+        this.alertSvc.success(
+          '¡Éxito!', 
+          estadoPublicacion ? 'La historia ya es pública.' : 'Guardada en borradores.'
+        );
       }
 
-      // Después de guardar, regresamos a la lista original
+      // Después de guardar con éxito, regresamos a la lista
       this.regresar();
+      
     } catch (error) {
-      this.guardando = false; // Re-activamos si hubo error
-      this.alertSvc.error('Error de conexión', 'No se pudo guardar la información.');
+      this.guardando = false; // Si hay error, liberamos el botón para reintentar
+      console.error('Error al guardar:', error);
+      this.alertSvc.error('Error', 'No se pudo conectar con la base de datos.');
     }
   }
 
@@ -146,4 +174,8 @@ export class AdminPublicarComponent implements OnInit {
     this.subcategoriasDisponibles = [];
     this.idEdicion = null;
   }
+
+
+
+
 }

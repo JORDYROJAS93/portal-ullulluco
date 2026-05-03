@@ -27,4 +27,9 @@ export class AuthService {
   logout() {
     return signOut(this.auth);
   }
+  
+  get currentUser() {
+  // Esto retorna el usuario de Firebase si existe
+  return this.auth.currentUser; 
+}
 }

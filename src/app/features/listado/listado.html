@@ -1,49 +1,66 @@
 <div class="pagina-contenedor">
   <main class="contenido-principal">
-    
     <header class="listado-header">
       <span class="decoracion-superior">DESCUBRE</span>
       <h2>{{ tituloCategoria }}</h2>
       <p>Explora la riqueza y tradición de nuestro distrito</p>
       <div *ngIf="authService.user$ | async" class="admin-top-actions">
-    <button [routerLink]="['/publicar-ullulluco']" class="btn-nueva-entrada">
-      <span class="icon">➕</span> Crear Nueva Entrada en {{ tituloCategoria }}
-    </button>
-  </div>
-  <div class="linea-decorativa"></div>
-     
+        <button [routerLink]="['/publicar-ullulluco']" class="btn-nueva-entrada">
+          <span class="icon">➕</span> Crear Nueva Entrada en {{ tituloCategoria }}
+        </button>
+      </div>
+      <div class="linea-decorativa"></div>
     </header>
 
     <div class="cards-grid">
       @for (entrada of entradas$ | async; track entrada.id) {
         <div class="card" [routerLink]="['/detalle', entrada.subcategoria, entrada.id]">
-          
           <div class="card-image">
-            <img 
+            <img
               #img
               [src]="entrada.imagen"
-              [alt]="entrada.titulo" 
+              [alt]="entrada.titulo"
               [class.img-cargada]="img.complete"
               loading="lazy"
             />
           </div>
 
           <div class="card-content">
-            <div class="card-meta" style="display: flex; justify-content: space-between; align-items: center;">
+            <div
+              class="card-meta"
+              style="display: flex; justify-content: space-between; align-items: center"
+            >
               <span class="card-date">{{ entrada.fecha | date: 'dd/MM/yyyy' }}</span>
-              
-              <button 
-                *ngIf="authService.user$ | async" 
+
+              <button
+                *ngIf="authService.user$ | async"
                 (click)="$event.stopPropagation()"
-                [routerLink]="['/editar-entrada', entrada.id]" 
-                class="btn-edit-inline">
+                [routerLink]="['/editar-entrada', entrada.id]"
+                class="btn-edit-inline"
+              >
                 📝 Editar
               </button>
             </div>
-            
-            <h3 class="card-title">{{ entrada.titulo }}</h3>
+
+            <h3 class="card-title">
+              <span
+                *ngIf="!entrada.publicado"
+                style="
+                  background: #f39c12;
+                  color: white;
+                  padding: 2px 6px;
+                  border-radius: 4px;
+                  font-size: 0.6em;
+                  vertical-align: middle;
+                  margin-right: 5px;
+                "
+              >
+                BORRADOR
+              </span>
+              {{ entrada.titulo }}
+            </h3>
             <p class="card-resumen">{{ entrada.resumen }}</p>
-            
+
             <div class="card-actions">
               <span class="link-falso">Leer historia completa →</span>
             </div>
@@ -60,7 +77,10 @@
             <div class="estado-vacio">
               <div class="icono-vacio">📖</div>
               <h3>Próximamente más historias</h3>
-              <p>Estamos recopilando las mejores memorias de <strong>{{ tituloCategoria }}</strong> para compartirlas contigo.</p>
+              <p>
+                Estamos recopilando las mejores memorias de
+                <strong>{{ tituloCategoria }}</strong> para compartirlas contigo.
+              </p>
               <button class="btn-regresar" [routerLink]="['/']">Explorar otras secciones</button>
             </div>
           }

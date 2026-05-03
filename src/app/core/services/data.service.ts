@@ -30,6 +30,7 @@ export interface Entrada {
   enlace_imagen?: string;
   enlace_imagen2?: string;
   enlace_imagen3?: string;
+  publicado?: boolean;
 }
 
 @Injectable({
@@ -52,6 +53,7 @@ export class DataService {
     const q = query(
       colRef,
       where('subcategoria', '==', subcategory),
+      where('publicado', '==', true), // Solo mostrar entradas publicadas
       orderBy('fecha', 'desc'), // Firebase necesita un índice para esto, te avisará en consola
     );
     return collectionData(q, { idField: 'id' }) as Observable<Entrada[]>;

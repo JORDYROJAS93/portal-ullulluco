@@ -42,4 +42,14 @@ export class AlertService {
     });
     return result.isConfirmed;
   }
+
+  info(titulo: string, mensaje: string) {
+  // Ajusta esto según la librería que uses (SweetAlert, Toastr, etc.)
+  return Swal.fire({
+    title: titulo,
+    text: mensaje,
+    icon: 'info',
+    confirmButtonColor: '#3498db'
+  });
+}
 }
