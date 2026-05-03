@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
 import { FirebaseService } from '../../core/services/firebase.service'; // Usamos FirebaseService
 import { Observable, filter, startWith, switchMap, map } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,6 +16,7 @@ export class SidebarComponent implements OnInit {
   private firebaseService = inject(FirebaseService);
   private router = inject(Router);
   private cd = inject(ChangeDetectorRef); // Inyectamos el detector de cambios
+  public authService = inject(AuthService);
 
   recientes$!: Observable<any[]>;
   tituloSidebar: string = 'Lo más reciente';
@@ -27,25 +29,33 @@ export class SidebarComponent implements OnInit {
         const url = this.router.url;
         const segments = url.split('/');
         
-        // Determinamos la subcategoría según la URL
         let subcat = 'gastronomia';
         if (url.includes('/detalle/')) {
-          // Si es detalle, podrías necesitar una lógica para sacar la subcat del registro,
-          // por ahora usemos el penúltimo segmento o uno por defecto
           subcat = segments[segments.length - 2] || 'gastronomia';
         } else {
           subcat = segments[segments.length - 1] || 'gastronomia';
         }
 
-        // Corregimos el título usando setTimeout para evitar el error NG0100
         setTimeout(() => {
           this.actualizarTitulo(subcat);
           this.cd.detectChanges();
         });
 
-        return this.firebaseService.getEntriesBySubcategory(subcat);
-      }),
-      map(entradas => entradas.slice(0, 5))
+        return this.firebaseService.getEntriesBySubcategory(subcat).pipe(
+          map(entradas => {
+            // 1. Verificamos si es admin (si existe sesión de usuario)
+            const esAdmin = !!this.authService.currentUser;
+
+            // 2. Filtramos: Si es admin ve todo, si no, solo lo publicado
+            const filtradas = esAdmin 
+              ? entradas 
+              : entradas.filter(e => e.publicado !== false);
+
+            // 3. Devolvemos solo las 5 más recientes del resultado filtrado
+            return filtradas.slice(0, 5);
+          })
+        );
+      })
     );
   }
 
