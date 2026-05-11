@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/alfonso-ugarte-ullulluco",
+            "outputPath": "dist/alfonso-ugarte-ullulluco/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -105,6 +105,61 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/alfonso-ugarte-ullulluco/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "alfonso-ugarte-ullulluco:build:development",
+              "serverTarget": "alfonso-ugarte-ullulluco:server:development"
+            },
+            "production": {
+              "browserTarget": "alfonso-ugarte-ullulluco:build:production",
+              "serverTarget": "alfonso-ugarte-ullulluco:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "alfonso-ugarte-ullulluco:build:production",
+              "serverTarget": "alfonso-ugarte-ullulluco:server:production"
+            },
+            "development": {
+              "browserTarget": "alfonso-ugarte-ullulluco:build:development",
+              "serverTarget": "alfonso-ugarte-ullulluco:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

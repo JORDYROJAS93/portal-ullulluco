@@ -9,18 +9,19 @@ import { environment } from '../environments/environment';
 import { provideAuth } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 // NUEVA IMPORTACIÓN
-import { getStorage, provideStorage } from '@angular/fire/storage'; 
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { provideClientHydration } from '@angular/platform-browser'; 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes, withHashLocation()), 
+    provideRouter(routes,), 
     provideHttpClient(),
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()), 
     provideAuth(() => getAuth()),
     // CONFIGURACIÓN DE STORAGE
-    provideStorage(() => getStorage()), 
+    provideStorage(() => getStorage()), provideClientHydration(), 
   ]
 };
