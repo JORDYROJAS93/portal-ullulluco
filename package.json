@@ -4,15 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:alfonso-ugarte-ullulluco": "node dist/alfonso-ugarte-ullulluco/server/server.mjs",
-    "deploy": "ng build --configuration production --base-href \"https://JORDYROJAS93.github.io/portal-ullulluco/\" && npx ngh --dir dist/alfonso-ugarte-ullulluco/browser",
-    "dev:ssr": "ng run alfonso-ugarte-ullulluco:serve-ssr",
-    "serve:ssr": "node dist/alfonso-ugarte-ullulluco/server/main.js",
-    "build:ssr": "ng build && ng run alfonso-ugarte-ullulluco:server",
-    "prerender": "ng run alfonso-ugarte-ullulluco:prerender"
+    "serve:ssr": "node dist/alfonso-ugarte-ullulluco/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
