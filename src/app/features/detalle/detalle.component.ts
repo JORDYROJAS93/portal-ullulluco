@@ -7,7 +7,8 @@ import { AutoridadesComponent } from '../../pages/autoridades/autoridades';
 import { SafeHtmlPipe } from '../../core/pipes/safe-html-pipe';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { ComentariosComponent } from '../../shared/components/comentarios/comentarios.component';
- 
+import { Meta, Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-detalle',
@@ -20,6 +21,7 @@ import { ComentariosComponent } from '../../shared/components/comentarios/coment
 export class DetalleComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private dataService = inject(DataService);
+  
 
   entrada$!: Observable<Entrada | undefined>;
   categoriaActual: string = '';
@@ -27,6 +29,7 @@ export class DetalleComponent implements OnInit {
 
   imagenMaximizada: string | null = null;
   isZoomed: boolean = false;
+  constructor(private meta: Meta, private title: Title) {}
 
   ngOnInit(): void {
     // CAMBIO CLAVE: Usamos paramMap (observable) en lugar de snapshot
@@ -92,6 +95,16 @@ ngAfterViewChecked() {
     modal.onclick = () => document.body.removeChild(modal);
     document.body.appendChild(modal);
   }
+
+  actualizarMetas(entrada: any) {
+  this.title.setTitle(entrada.titulo); // Cambia el título de la pestaña
+
+  // Etiquetas para Facebook
+  this.meta.updateTag({ property: 'og:title', content: entrada.titulo });
+  this.meta.updateTag({ property: 'og:description', content: entrada.resumen });
+  this.meta.updateTag({ property: 'og:image', content: entrada.imagen });
+  this.meta.updateTag({ property: 'og:url', content: window.location.href });
+}
 
 
 
