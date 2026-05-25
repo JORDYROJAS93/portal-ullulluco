@@ -67,13 +67,13 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     this.meta.updateTag({ property: 'og:title', content: entrada.titulo });
     this.meta.updateTag({ property: 'og:description', content: entrada.resumen || 'Detalle de la noticia' });
     this.meta.updateTag({ property: 'og:image', content: entrada.imagen });
-    
-    // ESTO ES LO QUE AÑADIMOS para corregir el error de imagen_39.png
     this.meta.updateTag({ property: 'og:image:width', content: '1200' });
     this.meta.updateTag({ property: 'og:image:height', content: '630' });
-    
-    this.meta.updateTag({ property: 'og:url', content: isPlatformBrowser(this.platformId) ? window.location.href : '' });
     this.meta.updateTag({ property: 'og:type', content: 'article' });
+
+    // CORRECCIÓN AQUÍ: Forzamos la URL completa de la noticia usando el ID
+    const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${this.categoriaActual}/${entrada.id || ''}`;
+    this.meta.updateTag({ property: 'og:url', content: urlNoticia });
   }
 
   // MANEJO DE IMÁGENES Y MODALES (Solo en Navegador)
