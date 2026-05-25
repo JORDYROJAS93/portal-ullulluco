@@ -42,8 +42,8 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
                   this.nombreSubcategoria = entrada.subcategoria || 'atrás';
                   this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
                   
-                  // Actualizamos metas para Facebook
-                  this.actualizarMetas(entrada);
+                  // Se envía el objeto entrada y el id verificado de la URL
+                  this.actualizarMetas(entrada, id);
 
                   // Scroll al inicio seguro
                   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -60,10 +60,10 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  actualizarMetas(entrada: any) {
+  actualizarMetas(entrada: any, id: string) {
     this.title.setTitle(entrada.titulo);
     
-    // Etiquetas Open Graph para Facebook
+    // Etiquetas Open Graph para Redes Sociales
     this.meta.updateTag({ property: 'og:title', content: entrada.titulo });
     this.meta.updateTag({ property: 'og:description', content: entrada.resumen || 'Detalle de la noticia' });
     this.meta.updateTag({ property: 'og:image', content: entrada.imagen });
@@ -71,8 +71,8 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     this.meta.updateTag({ property: 'og:image:height', content: '630' });
     this.meta.updateTag({ property: 'og:type', content: 'article' });
 
-    // CORRECCIÓN AQUÍ: Forzamos la URL completa de la noticia usando el ID
-    const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${this.categoriaActual}/${entrada.id || ''}`;
+    // URL dinámica exacta construida explícitamente para evitar caídas al home en FB/WhatsApp
+    const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${this.categoriaActual}/${id}`;
     this.meta.updateTag({ property: 'og:url', content: urlNoticia });
   }
 
