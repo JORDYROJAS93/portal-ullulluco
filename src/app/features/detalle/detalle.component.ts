@@ -60,18 +60,27 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
   actualizarMetas(entrada: any, id: string) {
     this.title.setTitle(entrada.titulo);
     
-    // Etiquetas Open Graph dinámicas con los datos reales de la noticia
-    this.meta.updateTag({ property: 'og:title', content: entrada.titulo });
-    this.meta.updateTag({ property: 'og:description', content: entrada.resumen || 'Detalle de la noticia' });
-    this.meta.updateTag({ property: 'og:image', content: entrada.imagen });
-    this.meta.updateTag({ property: 'og:image:width', content: '1200' });
-    this.meta.updateTag({ property: 'og:image:height', content: '630' });
-    this.meta.updateTag({ property: 'og:type', content: 'article' });
-
-    // Construimos la URL exacta de la noticia
+    // Construimos la URL exacta de la noticia primero
     const categoria = entrada.subcategoria ? entrada.subcategoria.toLowerCase().replace(/\s+/g, '-') : 'noticia';
     const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${categoria}/${id}`;
-    this.meta.updateTag({ property: 'og:url', content: urlNoticia });
+
+    // Forzamos la remoción de las etiquetas previas para evitar que el servidor las duplique
+    this.meta.removeTag("property='og:title'");
+    this.meta.removeTag("property='og:description'");
+    this.meta.removeTag("property='og:image'");
+    this.meta.removeTag("property='og:url'");
+    this.meta.removeTag("property='og:type'");
+
+    // Añadimos las etiquetas limpias y actualizadas de forma síncrona
+    this.meta.addTags([
+      { property: 'og:title', content: entrada.titulo },
+      { property: 'og:description', content: entrada.resumen || 'Detalle de la noticia' },
+      { property: 'og:image', content: entrada.imagen },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:url', content: urlNoticia }
+    ]);
   }
 
   // MANEJO DE IMÁGENES Y MODALES (Solo en Navegador)
