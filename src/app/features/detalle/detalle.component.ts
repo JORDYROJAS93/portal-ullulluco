@@ -30,21 +30,22 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
   isZoomed: boolean = false;
 
   ngOnInit(): void {
-    // Escuchamos los parámetros de la URL (Funciona en Servidor y Navegador)
     this.entrada$ = this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
         if (id) {
+          // Inicializamos con metas por defecto para que los robots nunca lean "vacío"
+          this.actualizarMetas(null, id);
+
           return this.dataService.getEntryById(id).pipe(
             tap((entrada) => {
               if (entrada) {
                 this.nombreSubcategoria = entrada.subcategoria || 'atrás';
                 this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
                 
-                // Se ejecuta SIEMPRE para que los robots lo lean
+                // Cuando Firebase responde con éxito, se actualizan con los datos reales
                 this.actualizarMetas(entrada, id);
 
-                // El scroll solo se ejecuta si estamos en el navegador real
                 if (isPlatformBrowser(this.platformId)) {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
@@ -58,30 +59,35 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
   }
 
   actualizarMetas(entrada: any, id: string) {
-    this.title.setTitle(entrada.titulo);
-    
-    // Construimos la URL exacta de la noticia primero
-    const categoria = entrada.subcategoria ? entrada.subcategoria.toLowerCase().replace(/\s+/g, '-') : 'noticia';
-    const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${categoria}/${id}`;
+    // Si por alguna razón el servidor procesa antes de recibir la entrada de Firebase, evitamos que rompa
+    const titulo = entrada?.titulo || 'Portal Ullulluco - Detalle';
+    const resumen = entrada?.resumen || 'Explora los detalles y novedades de nuestra tierra.';
+    const imagen = entrada?.imagen || 'https://i.ibb.co/hFTwQg5s/destacado2.jpg'; // Imagen de respaldo si no hay una
 
-    // Forzamos la remoción de las etiquetas previas para evitar que el servidor las duplique
+    this.title.setTitle(titulo);
+    
+    // Limpiamos de forma segura las etiquetas existentes
     this.meta.removeTag("property='og:title'");
     this.meta.removeTag("property='og:description'");
     this.meta.removeTag("property='og:image'");
     this.meta.removeTag("property='og:url'");
     this.meta.removeTag("property='og:type'");
 
-    // Añadimos las etiquetas limpias y actualizadas de forma síncrona
+    const categoria = entrada?.subcategoria ? entrada.subcategoria.toLowerCase().replace(/\s+/g, '-') : 'noticia';
+    const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${categoria}/${id}`;
+
+    // Insertamos las etiquetas limpias
     this.meta.addTags([
-      { property: 'og:title', content: entrada.titulo },
-      { property: 'og:description', content: entrada.resumen || 'Detalle de la noticia' },
-      { property: 'og:image', content: entrada.imagen },
+      { property: 'og:title', content: titulo },
+      { property: 'og:description', content: resumen },
+      { property: 'og:image', content: imagen },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
       { property: 'og:type', content: 'article' },
       { property: 'og:url', content: urlNoticia }
     ]);
   }
+
 
   // MANEJO DE IMÁGENES Y MODALES (Solo en Navegador)
   ngAfterViewChecked() {
