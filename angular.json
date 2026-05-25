@@ -107,7 +107,7 @@
           }
         },
         "server": {
-          "builder": "@angular-devkit/build-angular:server",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/alfonso-ugarte-ullulluco/server",
             "main": "server.ts",
