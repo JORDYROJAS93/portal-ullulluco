@@ -34,7 +34,7 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
       switchMap(params => {
         const id = params.get('id');
         if (id) {
-          // Inicializamos con metas por defecto para que los robots nunca lean "vacío"
+          // Meta por defecto inmediata para evitar valores nulos en el HTML inicial
           this.actualizarMetas(null, id);
 
           return this.dataService.getEntryById(id).pipe(
@@ -43,7 +43,7 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
                 this.nombreSubcategoria = entrada.subcategoria || 'atrás';
                 this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
                 
-                // Cuando Firebase responde con éxito, se actualizan con los datos reales
+                // Forzamos la actualización con los datos reales de Firebase
                 this.actualizarMetas(entrada, id);
 
                 if (isPlatformBrowser(this.platformId)) {
@@ -59,33 +59,25 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
   }
 
   actualizarMetas(entrada: any, id: string) {
-    // Si por alguna razón el servidor procesa antes de recibir la entrada de Firebase, evitamos que rompa
     const titulo = entrada?.titulo || 'Portal Ullulluco - Detalle';
     const resumen = entrada?.resumen || 'Explora los detalles y novedades de nuestra tierra.';
-    const imagen = entrada?.imagen || 'https://i.ibb.co/hFTwQg5s/destacado2.jpg'; // Imagen de respaldo si no hay una
+    const imagen = entrada?.imagen || 'https://i.ibb.co/hFTwQg5s/destacado2.jpg';
 
     this.title.setTitle(titulo);
     
-    // Limpiamos de forma segura las etiquetas existentes
-    this.meta.removeTag("property='og:title'");
-    this.meta.removeTag("property='og:description'");
-    this.meta.removeTag("property='og:image'");
-    this.meta.removeTag("property='og:url'");
-    this.meta.removeTag("property='og:type'");
-
     const categoria = entrada?.subcategoria ? entrada.subcategoria.toLowerCase().replace(/\s+/g, '-') : 'noticia';
     const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${categoria}/${id}`;
 
-    // Insertamos las etiquetas limpias
-    this.meta.addTags([
-      { property: 'og:title', content: titulo },
-      { property: 'og:description', content: resumen },
-      { property: 'og:image', content: imagen },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '630' },
-      { property: 'og:type', content: 'article' },
-      { property: 'og:url', content: urlNoticia }
-    ]);
+    // updateTag busca la propiedad exacta. Si no existe en el SSR, la crea; si existe, la sobrescribe de golpe.
+    this.meta.updateTag({ property: 'og:title', content: titulo }, "property='og:title'");
+    this.meta.updateTag({ property: 'og:description', content: resumen }, "property='og:description'");
+    this.meta.updateTag({ property: 'og:image', content: imagen }, "property='og:image'");
+    this.meta.updateTag({ property: 'og:url', content: urlNoticia }, "property='og:url'");
+    this.meta.updateTag({ property: 'og:type', content: 'article' }, "property='og:type'");
+    
+    // Dimensiones recomendadas para que WhatsApp y Facebook no ignoren la imagen
+    this.meta.updateTag({ property: 'og:image:width', content: '1200' }, "property='og:image:width'");
+    this.meta.updateTag({ property: 'og:image:height', content: '630' }, "property='og:image:height'");
   }
 
 
