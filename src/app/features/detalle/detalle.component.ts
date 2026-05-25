@@ -34,16 +34,14 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
       switchMap(params => {
         const id = params.get('id');
         if (id) {
-          // Meta por defecto inmediata para evitar valores nulos en el HTML inicial
-          this.actualizarMetas(null, id);
-
+          // Eliminamos el fallback nulo inicial para que no confunda al bot del servidor
           return this.dataService.getEntryById(id).pipe(
             tap((entrada) => {
               if (entrada) {
                 this.nombreSubcategoria = entrada.subcategoria || 'atrás';
                 this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
                 
-                // Forzamos la actualización con los datos reales de Firebase
+                // Forzamos la actualización de metas ÚNICAMENTE cuando la data real ya llegó
                 this.actualizarMetas(entrada, id);
 
                 if (isPlatformBrowser(this.platformId)) {
