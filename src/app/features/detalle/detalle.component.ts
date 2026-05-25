@@ -30,40 +30,37 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
   isZoomed: boolean = false;
 
   ngOnInit(): void {
-    // Solo ejecutamos la lógica de carga si estamos en el Navegador
-    if (isPlatformBrowser(this.platformId)) {
-      this.entrada$ = this.route.paramMap.pipe(
-        switchMap(params => {
-          const id = params.get('id');
-          if (id) {
-            return this.dataService.getEntryById(id).pipe(
-              tap((entrada) => {
-                if (entrada) {
-                  this.nombreSubcategoria = entrada.subcategoria || 'atrás';
-                  this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
-                  
-                  // Se envía el objeto entrada y el id verificado de la URL
-                  this.actualizarMetas(entrada, id);
+    // Escuchamos los parámetros de la URL (Funciona en Servidor y Navegador)
+    this.entrada$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        const id = params.get('id');
+        if (id) {
+          return this.dataService.getEntryById(id).pipe(
+            tap((entrada) => {
+              if (entrada) {
+                this.nombreSubcategoria = entrada.subcategoria || 'atrás';
+                this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
+                
+                // Se ejecuta SIEMPRE para que los robots lo lean
+                this.actualizarMetas(entrada, id);
 
-                  // Scroll al inicio seguro
+                // El scroll solo se ejecuta si estamos en el navegador real
+                if (isPlatformBrowser(this.platformId)) {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
-              })
-            );
-          }
-          return of(undefined);
-        })
-      );
-    } else {
-      // Si es el servidor, retornamos un observable vacío para que no se trabe
-      this.entrada$ = of(undefined);
-    }
+              }
+            })
+          );
+        }
+        return of(undefined);
+      })
+    );
   }
 
   actualizarMetas(entrada: any, id: string) {
     this.title.setTitle(entrada.titulo);
     
-    // Etiquetas Open Graph para Redes Sociales
+    // Etiquetas Open Graph dinámicas con los datos reales de la noticia
     this.meta.updateTag({ property: 'og:title', content: entrada.titulo });
     this.meta.updateTag({ property: 'og:description', content: entrada.resumen || 'Detalle de la noticia' });
     this.meta.updateTag({ property: 'og:image', content: entrada.imagen });
@@ -71,8 +68,9 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     this.meta.updateTag({ property: 'og:image:height', content: '630' });
     this.meta.updateTag({ property: 'og:type', content: 'article' });
 
-    // URL dinámica exacta construida explícitamente para evitar caídas al home en FB/WhatsApp
-    const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${this.categoriaActual}/${id}`;
+    // Construimos la URL exacta de la noticia
+    const categoria = entrada.subcategoria ? entrada.subcategoria.toLowerCase().replace(/\s+/g, '-') : 'noticia';
+    const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${categoria}/${id}`;
     this.meta.updateTag({ property: 'og:url', content: urlNoticia });
   }
 
