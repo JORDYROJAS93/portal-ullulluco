@@ -30,18 +30,31 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
   isZoomed: boolean = false;
 
   ngOnInit(): void {
+    // 1. Intentamos recuperar los parámetros de forma síncrona para ganarle al Bot 206
+    const idSnapshot = this.route.snapshot.paramMap.get('id');
+    const catSnapshot = this.route.snapshot.paramMap.get('categoria');
+    
+    if (idSnapshot) {
+      // Forzamos un render síncrono inmediato con datos limpios de la URL
+      this.actualizarMetas({
+        titulo: `Noticia: ${catSnapshot || 'Ullulluco'}`,
+        resumen: 'Entérate de los detalles y novedades en nuestro Portal Institucional.',
+        subcategoria: catSnapshot || 'noticia'
+      }, idSnapshot);
+    }
+
+    // 2. Mantenemos el flujo asíncrono normal para los usuarios reales en el navegador
     this.entrada$ = this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
         if (id) {
-          // Eliminamos el fallback nulo inicial para que no confunda al bot del servidor
           return this.dataService.getEntryById(id).pipe(
             tap((entrada) => {
               if (entrada) {
                 this.nombreSubcategoria = entrada.subcategoria || 'atrás';
                 this.categoriaActual = this.nombreSubcategoria.toLowerCase().replace(/\s+/g, '-');
                 
-                // Forzamos la actualización de metas ÚNICAMENTE cuando la data real ya llegó
+                // Actualización en tiempo real para el navegador físico
                 this.actualizarMetas(entrada, id);
 
                 if (isPlatformBrowser(this.platformId)) {
@@ -56,6 +69,8 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     );
   }
 
+
+
   actualizarMetas(entrada: any, id: string) {
     const titulo = entrada?.titulo || 'Portal Ullulluco - Detalle';
     const resumen = entrada?.resumen || 'Explora los detalles y novedades de nuestra tierra.';
@@ -66,14 +81,11 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     const categoria = entrada?.subcategoria ? entrada.subcategoria.toLowerCase().replace(/\s+/g, '-') : 'noticia';
     const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${categoria}/${id}`;
 
-    // updateTag busca la propiedad exacta. Si no existe en el SSR, la crea; si existe, la sobrescribe de golpe.
     this.meta.updateTag({ property: 'og:title', content: titulo }, "property='og:title'");
     this.meta.updateTag({ property: 'og:description', content: resumen }, "property='og:description'");
     this.meta.updateTag({ property: 'og:image', content: imagen }, "property='og:image'");
     this.meta.updateTag({ property: 'og:url', content: urlNoticia }, "property='og:url'");
     this.meta.updateTag({ property: 'og:type', content: 'article' }, "property='og:type'");
-    
-    // Dimensiones recomendadas para que WhatsApp y Facebook no ignoren la imagen
     this.meta.updateTag({ property: 'og:image:width', content: '1200' }, "property='og:image:width'");
     this.meta.updateTag({ property: 'og:image:height', content: '630' }, "property='og:image:height'");
   }
