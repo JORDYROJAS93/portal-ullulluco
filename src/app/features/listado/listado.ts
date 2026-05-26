@@ -67,7 +67,7 @@ export class ListadoComponent implements OnInit {
       historia: 'Historia de Alfonso Ugarte',
       festividades: 'Festividades y Costumbres',
       agricultura: 'Nuestra Agricultura',
-      turismo: 'Turismo en el Pueblo',
+      turismo: 'Paisajes en nuestro Pueblo',
       leyendas: 'Mitos y Leyendas',
       'plantas-nativas': 'Flora Nativa',
       autoridades: 'Nuestras Autoridades',
