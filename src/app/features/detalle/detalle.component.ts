@@ -35,9 +35,15 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     const catSnapshot = this.route.snapshot.paramMap.get('categoria');
     
     if (idSnapshot) {
-      // Forzamos un render síncrono inmediato con datos limpios de la URL
+      const categoriaFormateada = catSnapshot 
+        ? catSnapshot.charAt(0).toUpperCase() + catSnapshot.slice(1) 
+        : 'Cargando';
+      
+      // Forzamos un render síncrono inmediato con la categoría dinámica en la pestaña
+      this.title.setTitle(`${categoriaFormateada} - Portal Ullulluco`);
+
       this.actualizarMetas({
-        titulo: `Noticia: ${catSnapshot || 'Ullulluco'}`,
+        titulo: categoriaFormateada,
         resumen: 'Entérate de los detalles y novedades en nuestro Portal Institucional.',
         subcategoria: catSnapshot || 'noticia'
       }, idSnapshot);
@@ -69,19 +75,24 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     );
   }
 
-
-
   actualizarMetas(entrada: any, id: string) {
-    const titulo = entrada?.titulo || 'Portal Ullulluco - Detalle';
+    // Si viene el título real de Firebase lo usamos, si no, ponemos un genérico por defecto
+    const tituloBase = entrada?.titulo || 'Detalle';
+    
+    // Armamos el título final unificado para la pestaña del navegador
+    const tituloFinal = tituloBase.includes('Portal Ullulluco') ? tituloBase : `${tituloBase} - Portal Ullulluco`;
+    
     const resumen = entrada?.resumen || 'Explora los detalles y novedades de nuestra tierra.';
     const imagen = entrada?.imagen || 'https://i.ibb.co/hFTwQg5s/destacado2.jpg';
 
-    this.title.setTitle(titulo);
+    // Aplicamos el título dinámico completo a la pestaña
+    this.title.setTitle(tituloFinal);
     
     const categoria = entrada?.subcategoria ? entrada.subcategoria.toLowerCase().replace(/\s+/g, '-') : 'noticia';
     const urlNoticia = `https://portal-ullulluco.vercel.app/detalle/${categoria}/${id}`;
 
-    this.meta.updateTag({ property: 'og:title', content: titulo }, "property='og:title'");
+    // Para las redes sociales mandamos el título base (limpio de marcas, se ve mejor al compartir)
+    this.meta.updateTag({ property: 'og:title', content: tituloBase }, "property='og:title'");
     this.meta.updateTag({ property: 'og:description', content: resumen }, "property='og:description'");
     this.meta.updateTag({ property: 'og:image', content: imagen }, "property='og:image'");
     this.meta.updateTag({ property: 'og:url', content: urlNoticia }, "property='og:url'");
@@ -89,7 +100,6 @@ export class DetalleComponent implements OnInit, AfterViewChecked {
     this.meta.updateTag({ property: 'og:image:width', content: '1200' }, "property='og:image:width'");
     this.meta.updateTag({ property: 'og:image:height', content: '630' }, "property='og:image:height'");
   }
-
 
   // MANEJO DE IMÁGENES Y MODALES (Solo en Navegador)
   ngAfterViewChecked() {
