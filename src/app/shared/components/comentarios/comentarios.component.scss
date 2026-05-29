@@ -87,3 +87,78 @@
   .comments-container { padding: 1rem; margin: 1rem; }
   .comment-item { img { width: 32px; height: 32px; } }
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #888;
+  padding: 2px 4px;
+  transition: 0.2s;
+
+  &.edit:hover { color: #20b2aa; } // Azul/Verde sutil para editar
+  &.delete:hover { color: #d9534f; font-size: 1.2rem; } // Rojo para borrar
+}
+
+// Estilos del mini editor dentro de la burbuja
+.edit-mode-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
+  .edit-textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 0.95rem;
+    &:focus { outline: none; border-color: #800000; }
+  }
+
+  .edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+
+    button {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.85rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .btn-save {
+      background: #800000;
+      color: white;
+      &:disabled { background: #ccc; }
+    }
+    .btn-cancel {
+      background: #e0e0e0;
+      color: #333;
+      &:hover { background: #d0d0d0; }
+    }
+  }
+}

@@ -9,25 +9,55 @@
   <div class="add-comment" *ngIf="authService.user$ | async as user">
     <div class="user-info">
       <img [src]="user.photoURL" alt="avatar" />
-      <span
-        >Comentando como <b>{{ user.displayName }}</b></span
-      >
+      <span>Comentando como <b>{{ user.displayName }}</b></span>
     </div>
     <textarea [(ngModel)]="nuevoTexto" placeholder="Escribe un comentario respetuoso..."></textarea>
     <button (click)="enviarComentario(user)" [disabled]="!nuevoTexto">Publicar</button>
   </div>
 
   <div class="comments-list">
-    <div class="comment-item" *ngFor="let c of comentarios$ | async">
-      <img [src]="c.userPhoto || 'assets/default-avatar.png'" alt="Avatar" />
+    <ng-container *ngIf="authService.user$ | async as currentUser">
+      <div class="comment-item" *ngFor="let c of comentarios$ | async">
+        <img [src]="c.userPhoto || 'assets/default-avatar.png'" alt="Avatar" />
 
-      <div class="content">
-        <header>
-          <strong>{{ c.userName }}</strong>
-          <small>{{ c.fecha?.toDate() | date: 'short' }}</small>
-        </header>
-        <p>{{ c.texto }}</p>
+        <div class="content">
+          <header>
+            <strong>{{ c.userName }}</strong>
+            
+            <div class="header-right">
+              <small>{{ c.fecha?.toDate() | date: 'short' }}</small>
+              
+              <div class="actions" *ngIf="c.userId === currentUser.uid && comentarioEditandoId !== c.id">
+                <button (click)="activarEdicion(c)" class="btn-action edit" title="Editar">✏️</button>
+                <button (click)="eliminarComentario(c.id)" class="btn-action delete" title="Eliminar">&times;</button>
+              </div>
+            </div>
+          </header>
+
+          <div class="edit-mode-container" *ngIf="comentarioEditandoId === c.id">
+            <textarea [(ngModel)]="textoEditado" class="edit-textarea"></textarea>
+            <div class="edit-actions">
+              <button (click)="guardarEdicion(c.id)" [disabled]="!textoEditado.trim()" class="btn-save">Guardar</button>
+              <button (click)="cancelarEdicion()" class="btn-cancel">Cancelar</button>
+            </div>
+          </div>
+
+          <p *ngIf="comentarioEditandoId !== c.id">{{ c.texto }}</p>
+        </div>
       </div>
-    </div>
+    </ng-container>
+    
+    <ng-container *ngIf="!(authService.user$ | async)">
+      <div class="comment-item" *ngFor="let c of comentarios$ | async">
+        <img [src]="c.userPhoto || 'assets/default-avatar.png'" alt="Avatar" />
+        <div class="content">
+          <header>
+            <strong>{{ c.userName }}</strong>
+            <small>{{ c.fecha?.toDate() | date: 'short' }}</small>
+          </header>
+          <p>{{ c.texto }}</p>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

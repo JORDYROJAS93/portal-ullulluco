@@ -23,6 +23,14 @@ export class CommentsService {
     return addDoc(col, { ...comentario, fecha: Timestamp.now() });
   }
 
+  updateComment(id: string, nuevoTexto: string) {
+  // Modifica solo el campo texto del documento específico en la colección de comentarios
+  return this.firestore.doc(`comentarios/${id}`).update({
+    texto: nuevoTexto,
+    editadoEn: new Date() // Opcional, por si en el futuro quieres poner un aviso de "(Editado)"
+  });
+}
+
   // Obtener comentarios de una noticia específica
   getCommentsByEntrada(entradaId: string): Observable<Comentario[]> {
     const col = collection(this.firestore, 'comentarios');
