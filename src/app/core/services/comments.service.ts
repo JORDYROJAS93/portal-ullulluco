@@ -1,13 +1,15 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, query, where, orderBy, collectionData, Timestamp } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, query, where, orderBy, collectionData, Timestamp, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
+// 1. CORREGIDO: Agregamos 'userId' a la interfaz para que TypeScript lo reconozca
 export interface Comentario {
   id?: string;
   entradaId: string;
   texto: string;
   userName: string;
   userPhoto: string;
+  userId: string; // <-- Línea agregada
   fecha: any;
 }
 
@@ -23,13 +25,20 @@ export class CommentsService {
     return addDoc(col, { ...comentario, fecha: Timestamp.now() });
   }
 
+  // 2. CORREGIDO: Adaptado a la sintaxis modular moderna de @angular/fire/firestore
   updateComment(id: string, nuevoTexto: string) {
-  // Modifica solo el campo texto del documento específico en la colección de comentarios
-  return this.firestore.doc(`comentarios/${id}`).update({
-    texto: nuevoTexto,
-    editadoEn: new Date() // Opcional, por si en el futuro quieres poner un aviso de "(Editado)"
-  });
-}
+    const docRef = doc(this.firestore, 'comentarios', id);
+    return updateDoc(docRef, {
+      texto: nuevoTexto,
+      editadoEn: Timestamp.now()
+    });
+  }
+
+  // 3. AGREGADO: Método definitivo para eliminar el documento por su ID físico
+  deleteComment(id: string) {
+    const docRef = doc(this.firestore, 'comentarios', id);
+    return deleteDoc(docRef);
+  }
 
   // Obtener comentarios de una noticia específica
   getCommentsByEntrada(entradaId: string): Observable<Comentario[]> {
