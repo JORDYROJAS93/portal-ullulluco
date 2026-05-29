@@ -33,7 +33,7 @@ export const routes: Routes = [
 
 
   {path: 'publicar-ullulluco', component: AdminPublicarComponent, canActivate: [authGuard]},
-  {   path: 'editar-entrada/:id', component: AdminPublicarComponent, canActivate: [authGuard] },
+  {path: 'editar-entrada/:id', component: AdminPublicarComponent, canActivate: [authGuard] },
 
   // Redirección por si escriben algo mal
   { path: '**', redirectTo: '' }

@@ -1,18 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/video/1.1">
+  // Esta es una plantilla básica de sitemap.xml. Asegúrate de actualizar las URLs, las fechas de última modificación, la frecuencia de cambio y la prioridad según las necesidades de tu sitio web.
   
+  // Ejemplo de URL para la página principal
   <url>
     <loc>https://portal-ullulluco.vercel.app/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
+  // Ejemplo de URL para la página de autoridades
+  <url>
+    <loc>https://portal-ullulluco.vercel.app/autoridades</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  // Ejemplo de URL para las entradas de turismo
   <url>
     <loc>https://portal-ullulluco.vercel.app/detalle/turismo</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  // Ejemplo de URL para las entradas de gastronomía
+  <url>
+    <loc>https://portal-ullulluco.vercel.app/detalle/gastronomia</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  // Ejemplo de URL para las entradas de festividades
+  <url>
+    <loc>https://portal-ullulluco.vercel.app/detalle/festividades</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+
+  // Ejemplo de URL para las entradas de agricultura
+  <url>
+    <loc>https://portal-ullulluco.vercel.app/detalle/agricultura</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  // Ejemplo de URL para las entradas de plantas nativas
+  <url>
+    <loc>https://portal-ullulluco.vercel.app/detalle/plantas-nativas</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  // Ejemplo de URL para las entradas de historia
+  <url>
+    <loc>https://portal-ullulluco.vercel.app/detalle/historia</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>  
+
+  //Ejemplo de URL para las entradas de anexos
+  <url>
+    <loc>https://portal-ullulluco.vercel.app/detalle/anexos</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>  
+
+
 
 </urlset>

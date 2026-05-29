@@ -1,31 +1,57 @@
 export default async function handler(req, res) {
+  const userAgent = req.headers['user-agent'] || '';
+  
+  // Lista de robots que necesitan el HTML pre-renderizado (incluyendo Googlebot)
+  const isBot = /facebookexternalhit|WhatsApp|twitterbot|pinterest|Googlebot|Bingbot/i.test(userAgent);
+  
+  const isAutoridades = req.url.includes('/autoridades');
   const { id } = req.query;
 
-  if (!id) {
-    return res.status(400).send('Falta el ID de la noticia');
+  // 1. SI ES UN USUARIO REAL (No es un bot), lo dejamos pasar exactamente a la URL que pidió
+  if (!isBot) {
+    // req.url contiene la ruta limpia que escribió el usuario (ej: /detalle/gastronomia/ID)
+    return res.redirect(req.url);
   }
 
+  // 2. --- LÓGICA EXCLUSIVA PARA ROBOTS (Google, WhatsApp, Facebook) ---
   try {
-    // ID de tu proyecto Firebase extraído de tus dominios autorizados
     const firebaseProjectId = 'portal-ullulluco'; 
-    
-    // Consulta directa y ultrarrápida a la API de Firestore
-    const response = await fetch(
-      `https://firestore.googleapis.com/v1/projects/${firebaseProjectId}/databases/(default)/documents/entradas/${id}`
-    );
+    let titulo = 'Portal Ullulluco';
+    let resumen = 'Entérate de más detalles en nuestro portal.';
+    let imagen = 'https://i.ibb.co/hFTwQg5s/destacado2.jpg';
 
-    if (!response.ok) {
-      throw new Error('No se encontró el documento');
+    if (isAutoridades) {
+      // Si Googlebot pide las autoridades, jalamos la información base
+      try {
+        const authResponse = await fetch(
+          `https://firestore.googleapis.com/v1/projects/${firebaseProjectId}/databases/(default)/documents/autoridades/general`
+        );
+        if (authResponse.ok) {
+          const authData = await authResponse.json();
+          titulo = authData.fields?.titulo?.stringValue || 'Autoridades - Portal Ullulluco';
+          resumen = authData.fields?.resumen?.stringValue || 'Conoce a las autoridades y representantes de nuestra tierra.';
+          imagen = authData.fields?.imagen?.stringValue || imagen;
+        } else {
+          titulo = 'Autoridades Actuales - Portal Ullulluco';
+          resumen = 'Conoce el cuerpo de autoridades de nuestro pueblo.';
+        }
+      } catch (e) {
+        titulo = 'Autoridades - Portal Ullulluco';
+      }
+    } else if (id) {
+      // Si es una noticia normal, buscamos en la colección entradas con su ID
+      const response = await fetch(
+        `https://firestore.googleapis.com/v1/projects/${firebaseProjectId}/databases/(default)/documents/entradas/${id}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        titulo = data.fields?.titulo?.stringValue || titulo;
+        resumen = data.fields?.resumen?.stringValue || resumen;
+        imagen = data.fields?.imagen?.stringValue || imagen;
+      }
     }
 
-    const data = await response.json();
-    
-    // Extraemos los textos e imágenes reales que subiste a Firebase
-    const titulo = data.fields?.titulo?.stringValue || 'Portal Ullulluco';
-    const resumen = data.fields?.resumen?.stringValue || 'Entérate de más detalles en nuestro portal.';
-    const imagen = data.fields?.imagen?.stringValue || 'https://i.ibb.co/hFTwQg5s/destacado2.jpg';
-
-    // Enviamos el HTML físico al instante para ganarle al código 206 de Facebook/WhatsApp
+    // Le devolvemos el HTML estático nativo al robot
     res.setHeader('Content-Type', 'text/html');
     return res.status(200).send(`
       <!DOCTYPE html>
@@ -33,32 +59,27 @@ export default async function handler(req, res) {
       <head>
         <meta charset="UTF-8">
         <title>${titulo}</title>
+        <meta name="description" content="${resumen}">
         <meta property="og:type" content="article">
         <meta property="og:title" content="${titulo}">
         <meta property="og:description" content="${resumen}">
         <meta property="og:image" content="${imagen}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
         <meta property="og:url" content="https://portal-ullulluco.vercel.app/${req.url}">
       </head>
       <body>
         <h1>${titulo}</h1>
-        <p>Redireccionando al portal...</p>
-        <script>window.location.href = "/detalle/noticia/${id}";</script>
+        <p>${resumen}</p>
       </body>
       </html>
     `);
+
   } catch (error) {
-    // Respuesta de respaldo si falla Firebase
     res.setHeader('Content-Type', 'text/html');
     return res.status(200).send(`
       <!DOCTYPE html>
       <html>
-      <head>
-        <meta property="og:title" content="Portal Ullulluco">
-        <meta property="og:image" content="https://i.ibb.co/hFTwQg5s/destacado2.jpg">
-      </head>
-      <body><script>window.location.href = "/";</script></body>
+      <head><title>Portal Ullulluco</title></head>
+      <body></body>
       </html>
     `);
   }
