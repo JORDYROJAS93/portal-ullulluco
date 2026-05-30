@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommentsService, Comentario } from '../../../core/services/comments.service';
+import { AlertService } from '../../../core/services/alert.service'; // <-- Importamos tu servicio
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,11 +18,11 @@ export class ComentariosComponent implements OnInit {
   
   public authService = inject(AuthService);
   private commentsService = inject(CommentsService);
+  private alertService = inject(AlertService); // <-- Inyectamos tus alertas guindas
 
   comentarios$!: Observable<Comentario[]>;
   nuevoTexto: string = '';
 
-  // Variables de control para la edición
   comentarioEditandoId: string | null = null;
   textoEditado: string = '';
 
@@ -37,42 +38,47 @@ export class ComentariosComponent implements OnInit {
       texto: this.nuevoTexto,
       userName: user.displayName,
       userPhoto: user.photoURL,
-      userId: user.uid, // Guardamos el ID único del usuario
+      userId: user.uid,
       fecha: new Date()
     };
 
     await this.commentsService.addComment(comentario);
     this.nuevoTexto = ''; 
+    this.alertService.success('¡Comentario publicado!', 'Tu aporte se ha sumado a la historia de Ullulluco.');
   }
 
-  // Activa el modo edición cargando el texto actual en la caja
   activarEdicion(comentario: Comentario) {
     if (!comentario.id) return;
     this.comentarioEditandoId = comentario.id;
     this.textoEditado = comentario.texto;
   }
 
-  // Cancela la edición limpiando los estados
   cancelarEdicion() {
     this.comentarioEditandoId = null;
     this.textoEditado = '';
   }
 
-  // Guarda los cambios directamente en Firebase
   async guardarEdicion(comentarioId: string | undefined) {
     if (!comentarioId || !this.textoEditado.trim()) return;
     
     await this.commentsService.updateComment(comentarioId, this.textoEditado);
     this.comentarioEditandoId = null;
     this.textoEditado = '';
+    this.alertService.success('¡Comentario actualizado!', 'Los cambios se guardaron correctamente.');
   }
 
   async eliminarComentario(comentarioId: string | undefined) {
     if (!comentarioId) return;
     
-    const confirmar = confirm('¿Estás seguro de que deseas eliminar este comentario?');
+    // 👇 Usamos tu confirmación personalizada de SweetAlert2
+    const confirmar = await this.alertService.confirm(
+      '¿Eliminar comentario?',
+      'Esta acción no se puede deshacer. El comentario desaparecerá del portal.'
+    );
+
     if (confirmar) {
       await this.commentsService.deleteComment(comentarioId);
+      this.alertService.success('Eliminado', 'El comentario fue removido con éxito.');
     }
   }
 
