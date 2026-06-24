@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
+Disallow: /publicar-ullulluco
+Disallow: /editar-entrada/
+Disallow: /login-admin
 
 Sitemap: https://portal-ullulluco.vercel.app/sitemap.xml
