@@ -1,9 +1,11 @@
 import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
-import { FirebaseService } from '../../core/services/firebase.service'; // Usamos FirebaseService
+// Usamos FirebaseService
 import { Observable, filter, startWith, switchMap, map } from 'rxjs';
-import { AuthService } from '../../core/services/auth.service';
+
+import { FirebaseService } from '../../../core/services/firebase.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',

@@ -50,7 +50,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "browser-sync": "^3.0.0",
-    "typescript": "^5.5.2"
+    "typescript": "5.5.4"
   },
   "overrides": {
     "@angular/platform-server": "18.2.0"

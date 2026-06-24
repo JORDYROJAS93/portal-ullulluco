@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { ListadoComponent } from './features/listado/listado';
-import { DetalleComponent } from './features/detalle/detalle.component';
+import { ListadoComponent } from './features/portal/listado/listado';
+import { DetalleComponent } from './features/portal/detalle/detalle.component';
 import { HomeComponent } from './features/home/home';
-import { UbicacionComponent } from './pages/ubicacion/ubicacion';
-import { AutoridadesComponent } from './pages/autoridades/autoridades';
-import { AdminPublicarComponent } from './pages/admin-publicar/admin-publicar';
+import { AdminPublicarComponent } from './features/admin/pages/admin-publicar/admin-publicar';
 import { authGuard } from './core/guards/auth.guard';
-import { LoginComponent } from './pages/login/login.component';
+import { AutoridadesComponent } from './features/portal/autoridades/autoridades';
+import { UbicacionComponent } from './features/portal/ubicacion/ubicacion';
+import { LoginComponent } from './features/admin/pages/login/login.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },

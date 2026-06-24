@@ -1,17 +1,17 @@
 import { Component, inject, OnInit, PLATFORM_ID, Inject, AfterViewChecked } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DataService, Entrada } from '../../core/services/data.service';
-import { Observable, switchMap, tap, of } from 'rxjs';
-import { AutoridadesComponent } from '../../pages/autoridades/autoridades';
-import { SafeHtmlPipe } from '../../core/pipes/safe-html-pipe';
-import { ComentariosComponent } from '../../shared/components/comentarios/comentarios.component';
+import { DataService, Entrada } from '../services/data.service';
+import { ComentariosComponent } from '../../../shared/components/comentarios/comentarios.component';
 import { Meta, Title } from '@angular/platform-browser';
+import { AutoridadesComponent } from '../autoridades/autoridades';
+import { Observable, of, switchMap, tap } from 'rxjs';
+import { SafeHtmlPipe } from '../../../shared/pipes/safe-html-pipe';
 
 @Component({
   selector: 'app-detalle',
   standalone: true,
-  imports: [CommonModule, RouterLink, AutoridadesComponent, SafeHtmlPipe, ComentariosComponent],
+  imports: [CommonModule, RouterLink, AutoridadesComponent, SafeHtmlPipe,  ComentariosComponent],
   templateUrl: './detalle.component.html',
   styleUrl: './detalle.component.scss',
 })

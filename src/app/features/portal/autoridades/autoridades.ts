@@ -7,8 +7,9 @@ import { map, Observable } from 'rxjs';
 // Firebase
 import { Firestore, collection, addDoc, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
-import { Autoridad, AutoridadesService } from '../../core/services/autoridades.service';
-import { AlertService } from '../../core/services/alert.service';
+import { Autoridad, AutoridadesService } from '../services/autoridades.service';
+import { AlertService } from '../../../core/services/alert.service';
+
 
 @Component({
   selector: 'app-autoridades',

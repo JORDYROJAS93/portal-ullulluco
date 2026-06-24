@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FirebaseService } from '../../core/services/firebase.service';
+import { FirebaseService } from '../../../../core/services/firebase.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../../core/services/data.service';
-import { AlertService } from '../../core/services/alert.service';
+import { DataService } from '../../../portal/services/data.service';
+import { AlertService } from '../../../../core/services/alert.service';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
 @Component({

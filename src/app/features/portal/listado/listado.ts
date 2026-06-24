@@ -2,9 +2,9 @@ import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core'; //
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable, switchMap, tap, map } from 'rxjs';
-import { DataService, Entrada } from '../../core/services/data.service';
-import { FirebaseService } from '../../core/services/firebase.service';
-import { AuthService } from '../../core/services/auth.service';
+import { DataService, Entrada } from '../services/data.service';
+import { FirebaseService } from '../../../core/services/firebase.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-listado',

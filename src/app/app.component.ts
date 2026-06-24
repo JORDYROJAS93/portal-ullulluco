@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { FooterComponent } from './shared/footer/footer.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+
+import { FooterComponent } from './shared/components/footer/footer.component';
 import { filter } from 'rxjs';
-import { AdminPublicarComponent } from './pages/admin-publicar/admin-publicar';
+import { AdminPublicarComponent } from './features/admin/pages/admin-publicar/admin-publicar';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
