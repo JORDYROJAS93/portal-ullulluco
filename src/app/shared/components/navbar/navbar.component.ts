@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router'; 
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 
@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent {
   public authService = inject(AuthService);
+  public router = inject(Router); // 👈 Inyectamos el Router de forma pública para usarlo en el HTML
+
   // Variable para controlar el estado del menú en móviles
   isMenuOpen = false;
   activeDropdown: string | null = null; // Controla qué submenú está abierto en móvil

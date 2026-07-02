@@ -1,0 +1,104 @@
+<div class="container-publicar">
+  <h2 class="titulo-modulo">
+    {{ idEdicion ? '✏️ Editar Noticia Institucional' : '📰 Publicar Nueva Noticia' }}
+  </h2>
+
+  <p class="subtitle">
+    Las noticias se ordenarán automáticamente poniendo las más recientes primero.
+  </p>
+
+  <form (ngSubmit)="guardar()">
+    
+    <div class="form-group">
+      <label>Título de la Noticia:</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevaNoticia.titulo"
+        name="titulo"
+        required
+        (input)="onInput()"
+        placeholder="Ej. Gran inauguración del año académico..."
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Autor / Quién publica:</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevaNoticia.autor"
+        name="autor"
+        (input)="onInput()"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Resumen Corto (Aparece en la tarjeta principal):</label>
+      <textarea
+        [(ngModel)]="nuevaNoticia.resumen"
+        name="resumen"
+        rows="2"
+        maxlength="200"
+        (input)="onInput()"
+        placeholder="Una breve descripción de dos líneas..."
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Cuerpo Completo de la Noticia (Soporta HTML):</label>
+      <textarea
+        class="editor-html-nativo"
+        [(ngModel)]="nuevaNoticia.contenido"
+        name="contenido"
+        rows="12"
+        (input)="onInput()"
+        placeholder="Redacta la noticia aquí. Puedes usar etiquetas HTML como <h3></h3>, <b></b>, o pegar códigos <iframe> de YouTube.">
+      </textarea>
+    </div>
+
+    <div class="preview-container" *ngIf="nuevaNoticia.contenido">
+      <span class="preview-badge">Visualización previa en vivo en el portal:</span>
+      <div class="cuerpo-noticia" [innerHTML]="nuevaNoticia.contenido"></div>
+    </div>
+
+    <div class="upload-box">
+      <label>Imagen Destacada de la Noticia:</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevaNoticia.imagenUrl"
+        name="imagenUrl"
+        (input)="onInput()"
+        placeholder="URL externa de la foto (opcional)..."
+      />
+      <input
+        type="file"
+        (change)="subirFoto($event)"
+        accept="image/*"
+      />
+      <p *ngIf="subiendoArchivo" class="text-loading">
+        Subiendo archivo a Storage...
+      </p>
+    </div>
+
+    <div class="action-buttons">
+      <div class="row-buttons">
+        <button
+          *ngIf="idEdicion"
+          type="button"
+          class="btn-delete"
+          (click)="eliminar()"
+        >
+          🗑️ ELIMINAR NOTICIA
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="guardando"
+        >
+          🚀 {{ idEdicion ? 'ACTUALIZAR NOTICIA' : 'PUBLICAR NOTICIA AHORA' }}
+        </button>
+      </div>
+      <a routerLink="/noticias" class="btn-cancel">⬅️ Cancelar y regresar</a>
+    </div>
+
+  </form>
+</div>

@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withHashLocation } from '@angular/router';
+import { provideRouter, withHashLocation, withInMemoryScrolling } from '@angular/router'; // 👈 Añadimos 'withInMemoryScrolling' aquí
 import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
@@ -15,13 +15,22 @@ import { provideClientHydration } from '@angular/platform-browser';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes,), 
+    
+    // 🚀 Configuración del Enrutador optimizada con la restauración de Scroll activa
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled'
+      })
+    ), 
+    
     provideHttpClient(),
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()), 
     provideAuth(() => getAuth()),
     // CONFIGURACIÓN DE STORAGE
-    provideStorage(() => getStorage()), provideClientHydration(), 
+    provideStorage(() => getStorage()), 
+    provideClientHydration(), 
   ]
 };

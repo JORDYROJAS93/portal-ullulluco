@@ -1,40 +1,105 @@
 import { Routes } from '@angular/router';
-import { ListadoComponent } from './features/portal/listado/listado';
-import { DetalleComponent } from './features/portal/detalle/detalle.component';
-import { HomeComponent } from './features/home/home';
-import { AdminPublicarComponent } from './features/admin/pages/admin-publicar/admin-publicar';
 import { authGuard } from './core/guards/auth.guard';
-import { AutoridadesComponent } from './features/portal/autoridades/autoridades';
-import { UbicacionComponent } from './features/portal/ubicacion/ubicacion';
-import { LoginComponent } from './features/admin/pages/login/login.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  // Pantalla de Inicio
+  { 
+    path: '', 
+    loadComponent: () => import('./features/home/home').then(m => m.HomeComponent) 
+  },
   
-  // Páginas con Diseño Único (Sin Sidebar probablemente)
-  { path: 'autoridades', component: AutoridadesComponent },
-  { path: 'ubicacion', component: UbicacionComponent },
+  // Páginas con Diseño Único
+  { 
+    path: 'autoridades', 
+    loadComponent: () => import('./features/portal/autoridades/autoridades').then(m => m.AutoridadesComponent) 
+  },
+  { 
+    path: 'ubicacion', 
+    loadComponent: () => import('./features/portal/ubicacion/ubicacion').then(m => m.UbicacionComponent) 
+  },
   
-  // Listados Dinámicos (Usan el mismo componente)
-  { path: 'gastronomia', component: ListadoComponent },
-  { path: 'festividades', component: ListadoComponent },
-  { path: 'historia', component: ListadoComponent },
-  { path: 'agricultura', component: ListadoComponent },
-  { path: 'plantas-nativas', component: ListadoComponent },
-  { path: 'leyendas', component: ListadoComponent },
-  { path: 'artesania', component: ListadoComponent },
-  { path: 'turismo', component: ListadoComponent },
-  { path: 'anexos', component: ListadoComponent },
+  // Listados Dinámicos (Todos apuntan al mismo componente reutilizable)
+  { 
+    path: 'gastronomia', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'festividades', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'historia', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'agricultura', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'plantas-nativas', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'leyendas', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'artesania', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'turismo', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
+  { 
+    path: 'anexos', 
+    loadComponent: () => import('./features/portal/listado/listado').then(m => m.ListadoComponent) 
+  },
 
-  // Detalle de entradas
-  { path: 'detalle/:category/:id', component: DetalleComponent },
+  // Detalle de entradas (Gastronomía, Turismo, etc.)
+  { 
+    path: 'detalle/:category/:id', 
+    loadComponent: () => import('./features/portal/detalle/detalle.component').then(m => m.DetalleComponent) 
+  },
 
-  { path: 'login-admin', component: LoginComponent },
+  // Administración y Autenticación
+  { 
+    path: 'login-admin', 
+    loadComponent: () => import('./features/admin/pages/login/login.component').then(m => m.LoginComponent) 
+  },
+  { 
+    path: 'publicar-ullulluco', 
+    loadComponent: () => import('./features/admin/pages/admin-publicar/admin-publicar').then(m => m.AdminPublicarComponent), 
+    canActivate: [authGuard] 
+  },
+  { 
+    path: 'editar-entrada/:id', 
+    loadComponent: () => import('./features/admin/pages/admin-publicar/admin-publicar').then(m => m.AdminPublicarComponent), 
+    canActivate: [authGuard] 
+  },
 
+  // 🔥 NUEVAS RUTAS DE ADMINISTRACIÓN PARA NOTICIAS
+  { 
+    path: 'publicar-noticia', 
+    loadComponent: () => import('./features/admin/pages/noticia-publicar/noticia-publicar.component').then(m => m.NoticiaPublicarComponent), 
+    canActivate: [authGuard] 
+  },
+  { 
+    path: 'editar-noticia/:id', 
+    loadComponent: () => import('./features/admin/pages/noticia-publicar/noticia-publicar.component').then(m => m.NoticiaPublicarComponent), 
+    canActivate: [authGuard] 
+  },
 
-  {path: 'publicar-ullulluco', component: AdminPublicarComponent, canActivate: [authGuard]},
-  {path: 'editar-entrada/:id', component: AdminPublicarComponent, canActivate: [authGuard] },
+  // 🔥 NUEVA SECCIÓN DE NOTICIAS MODULAR
+  {
+    path: 'noticias',
+    loadComponent: () => import('./features/noticias/pages/noticias-list/noticias-list.component').then(m => m.NoticiasListComponent)
+  },
+  {
+    path: 'noticias/:id',
+    loadComponent: () => import('./features/noticias/pages/noticia-detalle/noticia-detalle.component').then(m => m.NoticiaDetalleComponent)
+  },
 
-  // Redirección por si escriben algo mal
+  // Redirección por si escriben algo mal (SIEMPRE AL FINAL)
   { path: '**', redirectTo: '' }
 ];

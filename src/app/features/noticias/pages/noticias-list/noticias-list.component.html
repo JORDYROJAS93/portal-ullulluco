@@ -1,0 +1,84 @@
+<div class="pagina-contenedor">
+  <main class="contenido-principal">
+    
+    <header class="listado-header">
+      <span class="decoracion-superior">ACTUALIDAD</span>
+      <h2>Noticias del Portal</h2>
+      <p>Entérate de las últimas novedades, eventos y logros de la comunidad</p>
+      
+      @if (authService.esAdmin$ | async) {
+        <div class="admin-top-actions">
+          <button [routerLink]="['/publicar-noticia']" class="btn-nueva-entrada">
+            <span class="icon">➕</span> Redactar Nueva Noticia
+          </button>
+        </div>
+      }
+      <div class="linea-decorativa"></div>
+    </header>
+
+    @if (noticias$ | async; as noticias) {
+      
+      @if (noticias.length === 0) {
+        <div class="estado-contenedor">
+          <div class="estado-vacio">
+            <div class="icono-vacio">📰</div>
+            <h3>Próximamente más noticias</h3>
+            <p>Estamos redactando los últimos sucesos institucionales del distrito para compartirlos contigo.</p>
+            <button class="btn-regresar" [routerLink]="['/']">Volver al Inicio</button>
+          </div>
+        </div>
+      } @else {
+        <div class="cards-grid">
+          @for (noticia of noticias; track noticia.id) {
+            <article class="card" [routerLink]="['/noticias', noticia.id]">
+              
+              <div class="card-image">
+                <img 
+                  [src]="noticia.imagenUrl || 'assets/images/placeholder-news.jpg'" 
+                  [alt]="noticia.titulo" 
+                  loading="lazy"
+                />
+                <span class="card-author">👤 {{ noticia.autor || 'Prensa' }}</span>
+              </div>
+              
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-date">
+                    📅 {{ noticia.fechaPublicacion?.seconds * 1000 | date:'dd/MM/yyyy' }}
+                  </span>
+                  
+                  @if (authService.esAdmin$ | async) {
+                    <button
+                      (click)="$event.stopPropagation()"
+                      [routerLink]="['/editar-noticia', noticia.id]"
+                      class="btn-edit-inline"
+                    >
+                      📝 Editar
+                    </button>
+                  }
+                </div>
+
+                <h3 class="card-title">{{ noticia.titulo }}</h3>
+                <p class="card-resumen">{{ noticia.resumen }}</p>
+                
+                <div class="card-actions">
+                  <span class="link-falso">Leer noticia completa →</span>
+                </div>
+              </div>
+
+            </article>
+          }
+        </div>
+      }
+
+    } @else {
+      <div class="estado-contenedor">
+        <div class="estado-cargando">
+          <div class="spinner"></div>
+          <p>Conectando con el servidor de noticias...</p>
+        </div>
+      </div>
+    }
+
+  </main>
+</div>

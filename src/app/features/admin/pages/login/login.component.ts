@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'; // 👈 Añadimos ActivatedRoute
 import { AuthService } from '../../../../core/services/auth.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -10,20 +11,40 @@ import { AuthService } from '../../../../core/services/auth.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
-})
-export class LoginComponent {
+  })
+export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute); // 👈 Inyectamos la ruta activa para leer los parámetros
 
   email: string = '';
   pass: string = '';
   error: string = '';
+  returnUrl: string = '/noticias'; // 👈 Ruta por defecto si no se encuentra un origen previo
+
+  ngOnInit() {
+    // Capturamos el parámetro 'returnUrl' que viene en la URL si el usuario dio clic en Ingresar
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/noticias';
+  }
+
+  // 🛡️ Método centralizado para manejar la redirección inteligente según el rol del usuario
+  private redirigirUsuario() {
+    this.authService.esAdmin$.pipe(take(1)).subscribe(esAdmin => {
+      if (esAdmin) {
+        // Si es el Administrador de Ullulluco, va directo a su panel de gestión
+        this.router.navigate(['/publicar-noticia']);
+      } else {
+        // Si es un vecino o usuario común, regresa exactamente a la noticia o sección donde estaba
+        this.router.navigateByUrl(this.returnUrl);
+      }
+    });
+  }
 
   // Método para Google
   async ingresarConGoogle() {
     try {
       await this.authService.loginWithGoogle();
-      this.router.navigate(['/publicar-ullulluco']);
+      this.redirigirUsuario(); // 👈 Ejecuta la redirección dinámica
     } catch (err) {
       this.error = 'Error al conectar con Google.';
     }
@@ -33,7 +54,7 @@ export class LoginComponent {
   async ingresarConFacebook() {
     try {
       await this.authService.loginWithFacebook();
-      this.router.navigate(['/publicar-ullulluco']);
+      this.redirigirUsuario(); // 👈 Ejecuta la redirección dinámica
     } catch (err) {
       this.error = 'Error al conectar con Facebook.';
       console.error(err);
@@ -48,7 +69,7 @@ export class LoginComponent {
     }
     try {
       await this.authService.loginConEmail(this.email, this.pass);
-      this.router.navigate(['/publicar-ullulluco']);
+      this.redirigirUsuario(); // 👈 Ejecuta la redirección dinámica
     } catch (err) {
       this.error = 'Correo o contraseña incorrectos.';
     }

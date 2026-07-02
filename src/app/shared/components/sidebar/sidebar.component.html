@@ -4,7 +4,8 @@
 
   <div class="recent-list">
     @for (item of recientes$ | async; track item.id) {
-      <div class="recent-item" [routerLink]="['/detalle', item.categoria || 'gastronomia', item.id]">
+      <div class="recent-item" 
+           [routerLink]="item.categoria === 'noticias' ? ['/noticias', item.id] : ['/detalle', item.categoria || 'gastronomia', item.id]">
         <div class="mini-img">
           <img [src]="item.imagen" [alt]="item.titulo">
         </div>
@@ -19,6 +20,7 @@
   </div>
 
   <div class="sidebar-banner">
-  <h4>Orgullo de nuestra Tierra</h4>
-  <p>Ullulluco destaca por su gran producción de <strong>trigo y maíz</strong>, frutos de una tierra fértil trabajada con sabiduría en cada campaña agrícola.</p>
+    <h4>Orgullo de nuestra Tierra</h4>
+    <p>Ullulluco destaca por su gran producción de <strong>trigo y maíz</strong>, frutos de una tierra fértil trabajada con sabiduría en cada campaña agrícola.</p>
+  </div>
 </div>

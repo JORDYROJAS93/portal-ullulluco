@@ -72,6 +72,7 @@ export class ListadoComponent implements OnInit {
       'plantas-nativas': 'Flora Nativa',
       autoridades: 'Nuestras Autoridades',
       anexos: 'Anexos y Caseríos del Distrito',
+      
     };
     return nombres[subcat] || 'Información';
   }

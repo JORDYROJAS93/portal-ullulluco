@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* Evita que cualquier elemento "empuje" la pantalla hacia la derecha */
 @import "sweetalert2/src/sweetalert2.scss";
+
 html, body {
   width: 100%;
   margin: 0;
@@ -11,4 +12,14 @@ html, body {
 
 * {
   box-sizing: border-box; /* Asegura que el padding no aumente el tamaño de las cajas */
+}
+
+/* Asegura que los videos incrustados de Quill ocupen el ancho correcto */
+.ql-editor .ql-video {
+  width: 100%;
+  max-width: 640px;
+  height: 360px;
+  display: block;
+  margin: 20px auto;
+  border-radius: 8px;
 }

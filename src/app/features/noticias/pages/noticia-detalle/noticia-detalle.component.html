@@ -1,0 +1,38 @@
+<div class="detalle-container">
+  <div class="back-nav">
+    <a routerLink="/noticias" class="btn-back">← Volver a Noticias</a>
+  </div>
+
+  <main *ngIf="noticia$ | async as noticia; else loadingOrError">
+    <article class="noticia-full">
+      <header class="noticia-header">
+        <span class="meta-date">
+          📅 {{ noticia.fechaPublicacion?.seconds * 1000 | date:'longDate' }}
+        </span>
+        <h1>{{ noticia.titulo }}</h1>
+        
+        <div class="meta-author">
+          <span class="avatar">👤</span>
+          <p>Publicado por: <strong>{{ noticia.autor}}</strong></p>
+        </div>
+      </header>
+
+      <div class="noticia-image" *ngIf="noticia.imagenUrl">
+        <img [src]="noticia.imagenUrl" [alt]="noticia.titulo">
+      </div>
+
+      <div class="noticia-body">
+        <p class="lead-text">{{ noticia.resumen }}</p>
+        <hr class="divider">
+        <div class="cuerpo-noticia" [innerHTML]="noticia.contenido | safeHtml"></div>
+      </div>
+    </article>
+  </main>
+
+  <ng-template #loadingOrError>
+    <div class="loading-detail">
+      <div class="spinner"></div>
+      <p>Buscando la información en el servidor...</p>
+    </div>
+  </ng-template>
+</div>

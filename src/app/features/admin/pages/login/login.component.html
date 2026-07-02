@@ -27,6 +27,8 @@
       <p>Al ingresar podrás participar en las historias de nuestra comunidad.</p>
     </div>
 
-    <p class="error-msg" *ngIf="error">{{ error }}</p>
+    @if (error) {
+      <p class="error-msg">{{ error }}</p>
+    }
   </div>
 </div>

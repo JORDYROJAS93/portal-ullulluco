@@ -12,6 +12,10 @@
       <li>
         <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Inicio</a>
       </li>
+
+      <li>
+        <a routerLink="/noticias" routerLinkActive="active-link" (click)="closeMenu()">Noticias</a>
+      </li>
       
       <li class="dropdown" [class.active]="activeDropdown === 'identidad'">
         <a class="drop-trigger" (click)="toggleDropdown('identidad', $event)">Identidad</a>
@@ -40,22 +44,23 @@
           <li><a routerLink="/ubicacion" routerLinkActive="active-link" (click)="closeMenu()">Ubicación</a></li>
         </ul>
       </li>
-      <ul class="nav-links" [class.open]="isMenuOpen">
-      <li class="auth-item">
-        <a *ngIf="!(authService.user$ | async)" 
-           routerLink="/login-admin" 
-           class="login-btn" 
-           (click)="closeMenu()">
-           <span class="icon">👤</span> Ingresar
-        </a>
 
-        <div *ngIf="authService.user$ | async" class="user-logged">
-          <button (click)="logout()" class="logout-btn">
-            <span class="icon">🚪</span> Salir
-          </button>
-        </div>
+      <li class="auth-item">
+        @if (!(authService.user$ | async)) {
+          <a routerLink="/login-admin" 
+             [queryParams]="{ returnUrl: router.url }"
+             class="login-btn" 
+             (click)="closeMenu()">
+             <span class="icon">👤</span> Ingresar
+          </a>
+        } @else {
+          <div class="user-logged">
+            <button (click)="logout()" class="logout-btn">
+              <span class="icon">🚪</span> Salir
+            </button>
+          </div>
+        }
       </li>
-    </ul>
     </ul>
   </div>
 </nav>

@@ -4,11 +4,14 @@
       <span class="decoracion-superior">DESCUBRE</span>
       <h2>{{ tituloCategoria }}</h2>
       <p>Explora la riqueza y tradición de nuestro distrito</p>
-      <div *ngIf="authService.user$ | async" class="admin-top-actions">
-        <button [routerLink]="['/publicar-ullulluco']" class="btn-nueva-entrada">
-          <span class="icon">➕</span> Crear Nueva Entrada en {{ tituloCategoria }}
-        </button>
-      </div>
+      
+      @if (authService.esAdmin$ | async) {
+        <div class="admin-top-actions">
+          <button [routerLink]="['/publicar-ullulluco']" class="btn-nueva-entrada">
+            <span class="icon">➕</span> Crear Nueva Entrada en {{ tituloCategoria }}
+          </button>
+        </div>
+      }
       <div class="linea-decorativa"></div>
     </header>
 
@@ -32,31 +35,33 @@
             >
               <span class="card-date">{{ entrada.fecha | date: 'dd/MM/yyyy' }}</span>
 
-              <button
-                *ngIf="authService.user$ | async"
-                (click)="$event.stopPropagation()"
-                [routerLink]="['/editar-entrada', entrada.id]"
-                class="btn-edit-inline"
-              >
-                📝 Editar
-              </button>
+              @if (authService.esAdmin$ | async) {
+                <button
+                  (click)="$event.stopPropagation()"
+                  [routerLink]="['/editar-entrada', entrada.id]"
+                  class="btn-edit-inline"
+                >
+                  📝 Editar
+                </button>
+              }
             </div>
 
             <h3 class="card-title">
-              <span
-                *ngIf="!entrada.publicado"
-                style="
-                  background: #f39c12;
-                  color: white;
-                  padding: 2px 6px;
-                  border-radius: 4px;
-                  font-size: 0.6em;
-                  vertical-align: middle;
-                  margin-right: 5px;
-                "
-              >
-                BORRADOR
-              </span>
+              @if (!entrada.publicado) {
+                <span
+                  style="
+                    background: #f39c12;
+                    color: white;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    font-size: 0.6em;
+                    vertical-align: middle;
+                    margin-right: 5px;
+                  "
+                >
+                  BORRADOR
+                </span>
+              }
               {{ entrada.titulo }}
             </h3>
             <p class="card-resumen">{{ entrada.resumen }}</p>
