@@ -1,34 +1,45 @@
 <div class="login-container">
   <div class="login-card">
     <div class="header-login">
-      <h2>Panel de Control</h2>
-      <p>Portal Alfonso Ugarte - Ullulluco</p>
+      <h2>{{ esRegistro ? 'Crear cuenta' : 'Panel de Control' }}</h2>
+      <p>Bienvenido al Portal Alfonso Ugarte</p>
     </div>
 
-    <div class="social-section">
-      <p class="instruction">Identifícate para gestionar contenido o dejar comentarios:</p>
+    <div class="email-section">
+      <input type="email" [(ngModel)]="email" placeholder="Correo electrónico" class="input-field" />
       
-      <button class="btn-google" (click)="ingresarConGoogle()">
-        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="G">
-        Continuar con Google
-      </button>
-
-      <button class="btn-facebook" (click)="ingresarConFacebook()">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="F">
-        Continuar con Facebook
-      </button>
+      @if (!esRecuperacion) {
+        <input type="password" [(ngModel)]="pass" placeholder="Contraseña" class="input-field" />
+        
+        <button class="btn-email" (click)="esRegistro ? registrarUsuario() : ingresarConEmail()" [disabled]="isLoading">
+          {{ isLoading ? 'Procesando...' : (esRegistro ? 'Registrarse' : 'Iniciar Sesión') }}
+        </button>
+      } @else {
+        <button class="btn-email" (click)="solicitarRestablecimiento()" [disabled]="isLoading">
+          Enviar enlace de recuperación
+        </button>
+      }
     </div>
 
-    <div class="divider">
-      <span>Próximamente</span>
+    <div class="register-link">
+      @if (!esRecuperacion) {
+        <p><a (click)="esRegistro = !esRegistro">{{ esRegistro ? '¿Ya tienes cuenta? Iniciar sesión' : '¿No tienes cuenta? Regístrate' }}</a></p>
+        <p><a (click)="esRecuperacion = true">¿Olvidaste tu contraseña?</a></p>
+      } @else {
+        <p><a (click)="esRecuperacion = false">Volver atrás</a></p>
+      }
     </div>
 
-    <div class="footer-note">
-      <p>Al ingresar podrás participar en las historias de nuestra comunidad.</p>
-    </div>
-
-    @if (error) {
-      <p class="error-msg">{{ error }}</p>
+    @if (!esRegistro && !esRecuperacion) {
+      <div class="divider"><span>o</span></div>
+      <div class="social-section">
+        <button class="btn-google" (click)="ingresarConGoogle()">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" />
+          Continuar con Google
+        </button>
+      </div>
     }
+
+    @if (error) { <div class="error-msg">{{ error }}</div> }
   </div>
 </div>

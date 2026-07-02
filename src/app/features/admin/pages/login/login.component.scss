@@ -114,3 +114,33 @@ $sombra-suave: 0 10px 25px rgba(0,0,0,0.1);
   font-size: 0.85rem;
   border-left: 4px solid #d32f2f;
 }
+
+.email-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1.5rem;
+
+  .input-field {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.9rem;
+  }
+
+  .btn-email {
+    background: $color-guinda;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+.register-link {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  a { color: $color-guinda; cursor: pointer; text-decoration: underline; }
+}
