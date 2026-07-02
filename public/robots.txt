@@ -3,5 +3,7 @@ Allow: /
 Disallow: /publicar-ullulluco
 Disallow: /editar-entrada/
 Disallow: /login-admin
+Disallow: /publicar-noticia
+Disallow: /editar-noticia/
 
 Sitemap: https://portal-ullulluco.vercel.app/sitemap.xml
