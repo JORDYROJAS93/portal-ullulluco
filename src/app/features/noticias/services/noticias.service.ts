@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData, query, orderBy } from '@angular/fire/firestore';
+import { where } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 
 // Definimos la estructura exacta de una noticia para que TypeScript nos ayude
@@ -9,6 +10,7 @@ export interface Noticia {
   resumen: string;
   contenido: string;
   imagenUrl: string;
+  publicado: boolean;
   fechaPublicacion: any; // Timestamp de Firebase
   autor: string;
 }
@@ -26,9 +28,14 @@ export class NoticiasService {
    * Obtiene todas las noticias ordenadas por fecha de publicación (de la más reciente a la más antigua)
    */
   getNoticias(): Observable<Noticia[]> {
-    const q = query(this.noticiasCollection, orderBy('fechaPublicacion', 'desc'));
-    return collectionData(q, { idField: 'id' }) as Observable<Noticia[]>;
-  }
+  // Ahora filtramos por publicado == true
+  const q = query(
+    this.noticiasCollection, 
+    where('publicado', '==', true), 
+    orderBy('fechaPublicacion', 'desc')
+  );
+  return collectionData(q, { idField: 'id' }) as Observable<Noticia[]>;
+}
 
   /**
    * Obtiene los detalles de una sola noticia mediante su ID

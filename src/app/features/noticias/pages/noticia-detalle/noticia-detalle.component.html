@@ -7,26 +7,39 @@
     <article class="noticia-full">
       <header class="noticia-header">
         <span class="meta-date">
-          📅 {{ noticia.fechaPublicacion?.seconds * 1000 | date:'longDate' }}
+          📅 {{ noticia.fechaPublicacion?.seconds * 1000 | date: 'longDate' }}
         </span>
         <h1>{{ noticia.titulo }}</h1>
-        
+
         <div class="meta-author">
           <span class="avatar">👤</span>
-          <p>Publicado por: <strong>{{ noticia.autor}}</strong></p>
+          <p>
+            Publicado por: <strong>{{ noticia.autor }}</strong>
+          </p>
         </div>
       </header>
 
       <div class="noticia-image" *ngIf="noticia.imagenUrl">
-        <img [src]="noticia.imagenUrl" [alt]="noticia.titulo">
+        <img [src]="noticia.imagenUrl" [alt]="noticia.titulo" />
       </div>
 
       <div class="noticia-body">
         <p class="lead-text">{{ noticia.resumen }}</p>
-        <hr class="divider">
+        <hr class="divider" />
         <div class="cuerpo-noticia" [innerHTML]="noticia.contenido | safeHtml"></div>
       </div>
     </article>
+
+    <!-- AQUÍ SE COLOCAN LOS COMENTARIOS -->
+    <section
+      class="comentarios-wrapper"
+      style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee"
+    >
+      <!-- Cambia tu etiqueta de comentarios por esta: -->
+      @if (noticia.id) {
+        <app-comentarios [entradaId]="noticia.id"></app-comentarios>
+      }
+    </section>
   </main>
 
   <ng-template #loadingOrError>

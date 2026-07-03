@@ -34,6 +34,7 @@ export class NoticiaPublicarComponent implements OnInit {
     contenido: '',
     imagenUrl: '',
     autor: 'Prensa Institucional',
+    publicado: false,
     fechaPublicacion: null
   };
 

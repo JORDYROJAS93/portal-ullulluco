@@ -4,11 +4,15 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NoticiasService, Noticia } from '../../services/noticias.service';
 import { Observable, switchMap } from 'rxjs';
 import { SafeHtmlPipe } from '../../../../shared/pipes/safe-html-pipe';
+import { ComentariosComponent } from '../../../../shared/components/comentarios/comentarios.component';
+// Importa el componente
+
 
 @Component({
   selector: 'app-noticia-detalle',
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe],
+  // Agrégalo aquí
+  imports: [CommonModule, RouterModule, SafeHtmlPipe, ComentariosComponent],
   templateUrl: './noticia-detalle.component.html',
   styleUrls: ['./noticia-detalle.component.scss']
 })
@@ -18,10 +22,7 @@ export class NoticiaDetalleComponent implements OnInit {
 
   noticia$!: Observable<Noticia | undefined>;
 
-  noticiasRecientes$: Observable<Noticia[]> = this.noticiasService.getNoticias();
-
   ngOnInit(): void {
-    // Escuchamos los cambios en la URL para capturar el ID de la noticia
     this.noticia$ = this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id') || '';
